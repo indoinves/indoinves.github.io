@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Halaman Tidak Ditemukan | Indoinves</title>
+    
+    <!-- Meta Redirect otomatis ke beranda setelah 3 detik -->
+    <meta http-equiv="refresh" content="3;url=https://indoinves.github.io/">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Logo (Mencoba indoinves.png terlebih dahulu, fallback ke indoinves.jpg jika png tidak ada) -->
+        <img src="https://indoinves.github.io/indoinves.png" 
+             onerror="this.onerror=null;this.src='https://indoinves.github.io/indoinves.jpg';" 
+             alt="Indoinves Logo" 
+             class="logo">
+
+        <h1>Oops! Halaman Tidak Ditemukan</h1>
+        <p>Halaman yang Anda tuju tidak ada atau telah dipindahkan.<br>Anda akan dialihkan ke halaman utama dalam beberapa detik...</p>
+        
+        <!-- Tombol manual jika redirect otomatis tidak berjalan -->
+        <a href="https://indoinves.github.io/" class="btn">Kembali ke Beranda Sekarang</a>
+    </div>
+
+    <script>
+        // Script tambahan untuk memastikan redirect JavaScript berfungsi dengan mulus
+        setTimeout(function() {
+            window.location.href = "https://indoinves.github.io/";
+        }, 1000); // Waktu tunda 1 detik (3000 milidetik)
+    </script>
+
+</body>
+</html>
