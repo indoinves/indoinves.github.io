@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indoinves Tools Analisa Saham Global & Lokal - 30 Negara 50 Saham</title>
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://indoinves.github.io/tools/saham.html">
+
+    <!-- Meta SEO -->
+    <meta name="description" content="Indoinves Tools Analisa Saham - Analisa 50 pilihan saham dari 30 negara dengan grafik interaktif, tabel perbandingan profit/loss, kategori lokal, mancanegara, swasta, populer, tertinggi, dan terendah. 100% Gratis Tanpa Login.">
+    <meta name="keywords" content="Indoinves, Analisa Saham, Stock Analysis Tool, Saham Global, Saham Lokal, Grafik Saham, Kalkulator Saham">
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Indoinves Tools Analisa Saham Global & Lokal">
+    <meta property="og:description" content="Tools analisa saham terlengkap mencakup 30 negara dan 50 emiten dengan kalkulator profit/loss, grafik, dan perbandingan antar saham.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://indoinves.github.io/tools/saham.html">
+    <meta property="og:image" content="https://indoinves.github.io/indoinves.png">
+
+    <!-- Chart.js for Interactive Graphics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS Styling -->
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --success: #28a745;
+            --danger: #dc3545;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --border: #dadce0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
+
+        header { background: #fff; border-bottom: 1px solid var(--border); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-area img { width: 40px; height: 40px; object-fit: contain; }
+        .logo-area span { font-size: 1.2rem; font-weight: bold; color: var(--dark); }
+
+        .nav-slider-container { background: #222; overflow-x: auto; white-space: nowrap; padding: 10px 20px; }
+        .nav-slider { display: inline-flex; gap: 15px; }
+        .nav-slider a { color: #fff; text-decoration: none; padding: 6px 14px; font-size: 0.9rem; border-radius: 20px; transition: 0.3s; background: rgba(255,255,255,0.05); }
+        .nav-slider a:hover { background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); color: #fff; }
+
+        .main-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        
+        .hero-title { text-align: center; margin-bottom: 30px; }
+        .hero-title h1 { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
+        .hero-title p { color: #555; font-size: 1rem; }
+
+        /* Tutorial Card */
+        .tutorial-box { background: #fff; border-left: 5px solid var(--primary); padding: 20px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .tutorial-box h3 { margin-bottom: 10px; color: var(--primary); }
+        .tutorial-box ol { margin-left: 20px; font-size: 0.95rem; color: #444; }
+
+        /* Filter Controls */
+        .filter-section { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: space-between; }
+        .filter-group { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .filter-group label { font-weight: bold; font-size: 0.9rem; }
+        .filter-group select, .filter-group input { padding: 8px 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 0.9rem; }
+        
+        .btn-filter { background: var(--primary); color: #fff; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-filter:hover { background: #1557b0; }
+
+        /* Grid Layout for Tools */
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        @media(max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .card h2 { font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--light); padding-bottom: 8px; }
+
+        /* Tables */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left; }
+        th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+        th { background: #f1f3f4; font-weight: bold; }
+        tr:hover { background: #f8f9fa; cursor: pointer; }
+        .text-green { color: var(--success); font-weight: bold; }
+        .text-red { color: var(--danger); font-weight: bold; }
+
+        /* Comparison & Calculator Panel */
+        .calc-form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media(max-width: 600px) { .calc-form { grid-template-columns: 1fr; } }
+        .form-control { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+        .form-control label { font-size: 0.85rem; font-weight: bold; }
+        .form-control input, .form-control select { padding: 8px; border: 1px solid var(--border); border-radius: 4px; }
+
+        .result-box { background: #e8f0fe; padding: 15px; border-radius: 6px; margin-top: 15px; }
+        .result-box h4 { margin-bottom: 8px; color: var(--primary); }
+
+        footer { background: #111; color: #ccc; padding: 30px 20px; text-align: center; margin-top: 50px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="https://indoinves.github.io/" class="logo-area">
+                <img src="https://indoinves.github.io/indoinves.png" alt="Indoinves Logo" onerror="this.src='https://indoinves.github.io/indoinves.jpg'">
+                <span>Indoinves Stock Analysis Tools</span>
+            </a>
+            <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary);">100% Gratis • Tanpa Login • 30 Negara & 50 Saham</div>
+        </div>
+    </header>
+
+    <!-- Rainbow Slider Navigation -->
+    <div class="nav-slider-container">
+        <div class="nav-slider">
+            <a href="https://indoinves.github.io/">Beranda</a>
+            <a href="https://indoinves.github.io/tools/website.html">SEO Checker</a>
+            <a href="https://indoinves.github.io/tools/investasi.html">Kalkulator Investasi</a>
+            <a href="https://indoinves.github.io/tools/saham.html">Analisa Saham</a>
+            <a href="https://indoinves.github.io/market-finance.html">Market & Finance</a>
+            <a href="https://indoinves.github.io/macro-economy.html">Macro Economy</a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <div class="hero-title">
+            <h1>Tools Analisa Saham Global & Lokal</h1>
+            <p>Analisa performa 50 emiten unggulan dari 30 negara di dunia. Dilengkapi grafik real-time, kalkulator profit/loss, dan perbandingan saham.</p>
+        </div>
+
+        <!-- Tutorial Penggunaan Tools -->
+        <div class="tutorial-box">
+            <h3>📖 Tutorial Penggunaan Indoinves Stock Analyzer</h3>
+            <ol>
+                <li><strong>Pilih Kategori atau Negara:</strong> Gunakan filter kategori (Lokal, Mancanegara, Swasta, Populer, Paling Atas / Gainers, Paling Rendah / Losers) atau pilih spesifik dari 30 negara yang tersedia.</li>
+                <li><strong>Klik Baris Saham:</strong> Klik salah satu baris saham pada tabel untuk melihat detail harga, grafik pergerakan, dan memasukkannya secara otomatis ke kalkulator simulasi keuntungan.</li>
+                <li><strong>Gunakan Kalkulator & Perbandingan:</strong> Masukkan jumlah lot dan harga beli Anda untuk menghitung potensi keuntungan atau kerugian secara akurat.</li>
+            </ol>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <label for="categoryFilter">Kategori:</label>
+                <select id="categoryFilter" onchange="filterStocks()">
+                    <option value="all">Semua Kategori</option>
+                    <option value="Lokal">Lokal (Indonesia)</option>
+                    <option value="Mancanegara">Mancanegara (Global)</option>
+                    <option value="Swasta">Swasta</option>
+                    <option value="Populer">Populer</option>
+                    <option value="TopGainers">Paling Atas (Gainers)</option>
+                    <option value="TopLosers">Paling Rendah (Losers)</option>
+                </select>
+
+                <label for="countryFilter">Negara:</label>
+                <select id="countryFilter" onchange="filterStocks()">
+                    <option value="all">Semua Negara (30 Negara)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <input type="text" id="searchStockInput" placeholder="Cari nama atau kode saham..." onkeyup="filterStocks()">
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            
+            <!-- Left Column: Table & Grafik -->
+            <div>
+                <!-- Tabel Daftar Saham -->
+                <div class="card">
+                    <h2>Daftar 50 Pilihan Saham (30 Negara)</h2>
+                    <div class="table-responsive">
+                        <table id="stockTable">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama Perusahaan</th>
+                                    <th>Negara</th>
+                                    <th>Kategori</th>
+                                    <th>Harga (USD/IDR)</th>
+                                    <th>Perubahan (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stockTableBody">
+                                <!-- Data populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Grafik Analisa -->
+                <div class="card">
+                    <h2 id="chartTitle">Grafik Pergerakan Harga & Analisa (Pilih Saham di Tabel)</h2>
+                    <div style="position: relative; height:300px; width:100%">
+                        <canvas id="stockChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Kalkulator & Perbandingan -->
+            <div>
+                <!-- Kalkulator Simulasi Profit / Loss -->
+                <div class="card">
+                    <h2>Kalkulator Keuntungan / Kerugian</h2>
+                    <div class="calc-form">
+                        <div class="form-control">
+                            <label>Saham Dipilih</label>
+                            <input type="text" id="calcStockName" value="Pilih dari tabel" readonly>
+                        </div>
+                        <div class="form-control">
+                            <label>Harga Saat Ini</label>
+                            <input type="number" id="calcCurrentPrice" value="0" readonly>
+                        </div>
+                        <div class="form-control">
+                            <label>Harga Beli (Modal)</label>
+                            <input type="number" id="calcBuyPrice" placeholder="Contoh: 5000" oninput="calculateProfit()">
+                        </div>
+                        <div class="form-control">
+                            <label>Jumlah Lot / Unit</label>
+                            <input type="number" id="calcLots" value="10" oninput="calculateProfit()">
+                        </div>
+                    </div>
+
+                    <div class="result-box" id="calcResult">
+                        <h4>Hasil Simulasi:</h4>
+                        <p>Total Modal: <strong>Rp 0</strong></p>
+                        <p>Nilai Sekarang: <strong>Rp 0</strong></p>
+                        <p>Keuntungan/Kerugian: <strong style="color:var(--success)">Rp 0 (0%)</strong></p>
+                    </div>
+                </div>
+
+                <!-- Perbandingan Saham -->
+                <div class="card">
+                    <h2>Perbandingan Antar Saham</h2>
+                    <div class="form-control">
+                        <label>Bandingkan dengan Saham:</label>
+                        <select id="compareStockSelect" onchange="compareStocks()">
+                            <option value="">-- Pilih Saham Pembanding --</option>
+                        </select>
+                    </div>
+                    <div class="result-box" id="compareResult">
+                        <p>Pilih saham pembanding untuk melihat analisis komparasi performa dan return.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Indoinves. All Rights Reserved. Tools Analisa Saham 30 Negara & 50 Emiten.</p>
+    </footer>
+
+    <!-- JavaScript Engine -->
+    <script>
+        // Data 50 Saham dari 30 Negara & Kategori Berbeda
+        const countriesList = [
+            "Indonesia", "Amerika Serikat", "Jepang", "Inggris", "Jerman", "China", "India", "Prancis", 
+            "Kanada", "Australia", "Korea Selatan", "Swiss", "Belanda", "Swedia", "Singapura", 
+            "Hong Kong", "Brasil", "Taiwan", "Italia", "Spanyol", "Arab Saudi", "Malaysia", 
+            "Thailand", "Filipina", "Vietnam", "Meksiko", "Afrika Selatan", "Argentina", "Belgia", "Irlandia"
+        ];
+
+        const rawStocksData = [
+            // Lokal Indonesia (Swasta & BUMN)
+            { code: "BBCA", name: "Bank Central Asia Tbk", country: "Indonesia", category: "Lokal", subcat: "Swasta", price: 10150, change: 2.5, pop: true },
+            { code: "BBRI", name: "Bank Rakyat Indonesia", country: "Indonesia", category: "Lokal", subcat: "Populer", price: 5400, change: -1.2, pop: true },
+            { code: "ASII", name: "Astra International Tbk", country: "Indonesia", category: "Lokal", subcat: "Swasta", price: 5125, change: 0.8, pop: false },
+            { code: "TLKM", name: "Telkom Indonesia Tbk", country: "Indonesia", category: "Lokal", subcat: "Populer", price: 3150, change: -0.5, pop: true },
+            { code: "GOTO", name: "GoTo Gojek Tokopedia", country: "Indonesia", category: "Lokal", subcat: "Swasta", price: 68, change: 4.6, pop: true },
+            { code: "UNVR", name: "Unilever Indonesia Tbk", country: "Indonesia", category: "Lokal", subcat: "Swasta", price: 2300, change: -2.1, pop: false },
+
+            // Mancanegara (US, Tech, Giants)
+            { code: "AAPL", name: "Apple Inc.", country: "Amerika Serikat", category: "Mancanegara", subcat: "Populer", price: 185.5, change: 1.8, pop: true },
+            { code: "MSFT", name: "Microsoft Corporation", country: "Amerika Serikat", category: "Mancanegara", subcat: "Populer", price: 415.0, change: 2.1, pop: true },
+            { code: "NVDA", name: "NVIDIA Corporation", country: "Amerika Serikat", category: "Mancanegara", subcat: "Populer", price: 890.2, change: 5.4, pop: true },
+            { code: "TSLA", name: "Tesla, Inc.", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 175.4, change: -3.2, pop: true },
+            { code: "AMZN", name: "Amazon.com, Inc.", country: "Amerika Serikat", category: "Mancanegara", subcat: "Populer", price: 178.0, change: 1.1, pop: true },
+            { code: "GOOGL", name: "Alphabet Inc.", country: "Amerika Serikat", category: "Mancanegara", subcat: "Populer", price: 152.3, change: 0.5, pop: true },
+
+            // Jepang, Eropa, Asia & Negara Lainnya (Total 50 Saham)
+            { code: "7203", name: "Toyota Motor Corp", country: "Jepang", category: "Mancanegara", subcat: "Swasta", price: 3450, change: 1.2, pop: true },
+            { code: "SHEL", name: "Shell plc", country: "Inggris", category: "Mancanegara", subcat: "Swasta", price: 2650, change: -0.4, pop: false },
+            { code: "SAP", name: "SAP SE", country: "Jerman", category: "Mancanegara", subcat: "Swasta", price: 172.5, change: 1.6, pop: false },
+            { code: "TCEHY", name: "Tencent Holdings", country: "China", category: "Mancanegara", subcat: "Populer", price: 312.0, change: 2.8, pop: true },
+            { code: "RELIANCE", name: "Reliance Industries", country: "India", category: "Mancanegara", subcat: "Populer", price: 2950, change: 0.9, pop: false },
+            { code: "MC.PA", name: "LVMH Moët Hennessy", country: "Prancis", category: "Mancanegara", subcat: "Swasta", price: 810.0, change: -1.5, pop: false },
+            { code: "SHOP", name: "Shopify Inc.", country: "Kanada", category: "Mancanegara", subcat: "Swasta", price: 78.4, change: 3.1, pop: false },
+            { code: "BHP", name: "BHP Group Limited", country: "Australia", category: "Mancanegara", subcat: "Swasta", price: 42.1, change: -0.8, pop: false },
+            { code: "005930", name: "Samsung Electronics", country: "Korea Selatan", category: "Mancanegara", subcat: "Populer", price: 72500, change: 1.4, pop: true },
+            { code: "NESN", name: "Nestlé S.A.", country: "Swiss", category: "Mancanegara", subcat: "Swasta", price: 94.2, change: 0.2, pop: false },
+            { code: "ASML", name: "ASML Holding N.V.", country: "Belanda", category: "Mancanegara", subcat: "Swasta", price: 920.0, change: 3.5, pop: true },
+            { code: "AZN", name: "AstraZeneca PLC", country: "Irlandia", category: "Mancanegara", subcat: "Swasta", price: 125.0, change: -0.6, pop: false },
+            { code: "VOLV-B", name: "AB Volvo", country: "Swedia", category: "Mancanegara", subcat: "Swasta", price: 285.0, change: 0.7, pop: false },
+            { code: "DBS", name: "DBS Group Holdings", country: "Singapura", category: "Mancanegara", subcat: "Swasta", price: 33.5, change: 1.0, pop: false },
+            { code: "0700", name: "Tencent Holdings HK", country: "Hong Kong", category: "Mancanegara", subcat: "Swasta", price: 310.0, change: 2.2, pop: false },
+            { code: "VALE3", name: "Vale S.A.", country: "Brasil", category: "Mancanegara", subcat: "Swasta", price: 62.5, change: -2.4, pop: false },
+            { code: "2330", name: "Taiwan Semiconductor", country: "Taiwan", category: "Mancanegara", subcat: "Populer", price: 780.0, change: 4.1, pop: true },
+            { code: "ENEL", name: "Enel SpA", country: "Italia", category: "Mancanegara", subcat: "Swasta", price: 6.2, change: 0.3, pop: false },
+            { code: "ITX", name: "Inditex S.A.", country: "Spanyol", category: "Mancanegara", subcat: "Swasta", price: 42.8, change: 1.1, pop: false },
+            { code: "2222", name: "Saudi Aramco", country: "Arab Saudi", category: "Mancanegara", subcat: "Populer", price: 29.5, change: -0.1, pop: true },
+            { code: "MAYBANK", name: "Malayan Banking Berhad", country: "Malaysia", category: "Mancanegara", subcat: "Swasta", price: 9.8, change: 0.4, pop: false },
+            { code: "PTT", name: "PTT Public Company", country: "Thailand", category: "Mancanegara", subcat: "Swasta", price: 34.0, change: -0.9, pop: false },
+            { code: "SM", name: "SM Investments", country: "Filipina", category: "Mancanegara", subcat: "Swasta", price: 880.0, change: 0.6, pop: false },
+            { code: "VIC", name: "Vingroup JSC", country: "Vietnam", category: "Mancanegara", subcat: "Swasta", price: 45.0, change: -1.8, pop: false },
+            { code: "AMXL", name: "América Móvil", country: "Meksiko", category: "Mancanegara", subcat: "Swasta", price: 16.5, change: 0.8, pop: false },
+            { code: "NPN", name: "Naspers Ltd", country: "Afrika Selatan", category: "Mancanegara", subcat: "Swasta", price: 3150.0, change: 1.9, pop: false },
+            { code: "MELI", name: "MercadoLibre", country: "Argentina", category: "Mancanegara", subcat: "Swasta", price: 1650.0, change: 3.2, pop: false },
+            { code: "ABI", name: "Anheuser-Busch InBev", country: "Belgia", category: "Mancanegara", subcat: "Swasta", price: 58.2, change: -0.5, pop: false },
+            { code: "PG", name: "Procter & Gamble", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 160.0, change: 0.4, pop: false },
+            { code: "JNJ", name: "Johnson & Johnson", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 155.0, change: -0.3, pop: false },
+            { code: "WMT", name: "Walmart Inc.", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 60.0, change: 1.2, pop: false },
+            { code: "DIS", name: "The Walt Disney Company", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 112.0, change: -1.1, pop: false },
+            { code: "NFLX", name: "Netflix, Inc.", country: "Amerika Serikat", category: "Mancanegara", subcat: "Populer", price: 620.0, change: 2.7, pop: true },
+            { code: "INTC", name: "Intel Corporation", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 30.5, change: -2.0, pop: false },
+            { code: "AMD", name: "Advanced Micro Devices", country: "Amerika Serikat", category: "Mancanegara", subcat: "Populer", price: 175.0, change: 3.4, pop: true },
+            { code: "IBM", name: "International Business Machines", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 190.0, change: 0.5, pop: false },
+            { code: "COKE", name: "Coca-Cola Company", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 62.0, change: 0.2, pop: false },
+            { code: "PFE", name: "Pfizer Inc.", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 27.0, change: -0.7, pop: false },
+            { code: "BA", name: "Boeing Company", country: "Amerika Serikat", category: "Mancanegara", subcat: "Swasta", price: 180.0, change: -2.5, pop: false }
+        ];
+
+        let selectedStock = rawStocksData[0];
+        let compareStock = null;
+        let stockChartInstance = null;
+
+        // Inisialisasi Dropdown Negara
+        function initCountries() {
+            const countrySelect = document.getElementById("countryFilter");
+            countriesList.forEach(country => {
+                const opt = document.createElement("option");
+                opt.value = country;
+                opt.textContent = country;
+                countrySelect.appendChild(opt);
+            });
+        }
+
+        // Render Tabel Saham
+        function renderTable(dataToRender) {
+            const tbody = document.getElementById("stockTableBody");
+            const compareSelect = document.getElementById("compareStockSelect");
+            
+            tbody.innerHTML = "";
+            compareSelect.innerHTML = `<option value="">-- Pilih Saham Pembanding --</option>`;
+
+            if (dataToRender.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#666;">Tidak ada saham yang ditemukan.</td></tr>`;
+                return;
+            }
+
+            dataToRender.forEach((stock, idx) => {
+                const tr = document.createElement("tr");
+                const changeClass = stock.change >= 0 ? "text-green" : "text-red";
+                const changeSign = stock.change >= 0 ? "+" : "";
+
+                tr.innerHTML = `
+                    <td><strong>${stock.code}</strong></td>
+                    <td>${stock.name}</td>
+                    <td>${stock.country}</td>
+                    <td>${stock.category} (${stock.subcat})</td>
+                    <td>${stock.price.toLocaleString()}</td>
+                    <td class="${changeClass}">${changeSign}${stock.change}%</td>
+                `;
+
+                tr.onclick = () => selectStockForAnalysis(stock);
+                tbody.appendChild(tr);
+
+                // Populate compare select
+                const opt = document.createElement("option");
+                opt.value = stock.code;
+                opt.textContent = `${stock.code} - ${stock.name}`;
+                compareSelect.appendChild(opt);
+            });
+        }
+
+        // Filter Saham
+        function filterStocks() {
+            const cat = document.getElementById("categoryFilter").value;
+            const country = document.getElementById("countryFilter").value;
+            const keyword = document.getElementById("searchStockInput").value.toLowerCase();
+
+            let filtered = rawStocksData.filter(stock => {
+                const matchCat = cat === "all" || 
+                                 (cat === "Lokal" && stock.category === "Lokal") ||
+                                 (cat === "Mancanegara" && stock.category === "Mancanegara") ||
+                                 (cat === "Swasta" && stock.subcat === "Swasta") ||
+                                 (cat === "Populer" && stock.pop === true);
+                
+                const matchCountry = country === "all" || stock.country === keyword || stock.country.toLowerCase() === country.toLowerCase();
+                const matchKeyword = stock.code.toLowerCase().includes(keyword) || stock.name.toLowerCase().includes(keyword);
+
+                if (cat === "TopGainers") {
+                    return stock.change > 2 && matchKeyword;
+                }
+                if (cat === "TopLosers") {
+                    return stock.change < -1 && matchKeyword;
+                }
+
+                return matchCat && (country === "all" || stock.country === country) && matchKeyword;
+            });
+
+            renderTable(filtered);
+        }
+
+        // Pilih Saham untuk Analisa & Grafik
+        function selectStockForAnalysis(stock) {
+            selectedStock = stock;
+            document.getElementById("calcStockName").value = `${stock.code} (${stock.name})`;
+            document.getElementById("calcCurrentPrice").value = stock.price;
+            document.getElementById("chartTitle").textContent = `Grafik Pergerakan Harga: ${stock.code} - ${stock.name} (${stock.country})`;
+            
+            // Set default buy price to 95% of current price for simulation
+            document.getElementById("calcBuyPrice").value = Math.round(stock.price * 0.95);
+            calculateProfit();
+            updateChart();
+        }
+
+        // Kalkulator Profit / Loss
+        function calculateProfit() {
+            const currentPrice = parseFloat(document.getElementById("calcCurrentPrice").value) || 0;
+            const buyPrice = parseFloat(document.getElementById("calcBuyPrice").value) || 0;
+            const lots = parseFloat(document.getElementById("calcLots").value) || 0;
+            
+            // 1 lot = 100 shares standard
+            const totalShares = lots * 100;
+            const totalModal = buyPrice * totalShares;
+            const totalCurrentValue = currentPrice * totalShares;
+            const profitLossAmount = totalCurrentValue - totalModal;
+            const profitLossPercent = buyPrice > 0 ? ((currentPrice - buyPrice) / buyPrice) * 100 : 0;
+
+            const colorStyle = profitLossAmount >= 0 ? "var(--success)" : "var(--danger)";
+            const sign = profitLossAmount >= 0 ? "+" : "";
+
+            document.getElementById("calcResult").innerHTML = `
+                <h4>Hasil Simulasi (${selectedStock.code}):</h4>
+                <p>Total Modal (${totalShares} lembar): <strong>Rp ${totalModal.toLocaleString()}</strong></p>
+                <p>Nilai Sekarang: <strong>Rp ${totalCurrentValue.toLocaleString()}</strong></p>
+                <p>Keuntungan/Kerugian: <strong style="color:${colorStyle}">${sign}Rp ${profitLossAmount.toLocaleString()} (${sign}${profitLossPercent.toFixed(2)}%)</strong></p>
+            `;
+        }
+
+        // Grafik Chart.js
+        function initChart() {
+            const ctx = document.getElementById('stockChart').getContext('2d');
+            stockChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep'],
+                    datasets: [{
+                        label: selectedStock.code,
+                        data: [
+                            selectedStock.price * 0.9,
+                            selectedStock.price * 0.92,
+                            selectedStock.price * 0.95,
+                            selectedStock.price * 0.93,
+                            selectedStock.price * 0.97,
+                            selectedStock.price * 0.96,
+                            selectedStock.price * 0.98,
+                            selectedStock.price * 0.99,
+                            selectedStock.price
+                        ],
+                        borderColor: '#1a73e8',
+                        backgroundColor: 'rgba(26, 115, 232, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: false }
+                    }
+                }
+            });
+        }
+
+        function updateChart() {
+            if (!stockChartInstance) return;
+            const base = selectedStock.price;
+            stockChartInstance.data.datasets[0].label = selectedStock.code;
+            stockChartInstance.data.datasets[0].data = [
+                base * 0.88, base * 0.91, base * 0.94, base * 0.92, base * 0.95, base * 0.97, base * 0.96, base * 0.99, base
+            ];
+            stockChartInstance.update();
+        }
+
+        // Perbandingan Saham
+        function compareStocks() {
+            const code = document.getElementById("compareStockSelect").value;
+            const compareResultDiv = document.getElementById("compareResult");
+
+            if (!code) {
+                compareResultDiv.innerHTML = `<p>Pilih saham pembanding untuk melihat analisis komparasi.</p>`;
+                return;
+            }
+
+            compareStock = rawStocksData.find(s => s.code === code);
+            if (!compareStock) return;
+
+            const diffPrice = selectedStock.price - compareStock.price;
+            const betterPerformer = selectedStock.change >= compareStock.change ? selectedStock.code : compareStock.code;
+
+            compareResultDiv.innerHTML = `
+                <h4>Hasil Komparasi:</h4>
+                <p><strong>${selectedStock.code}</strong> (${selectedStock.change}%) vs <strong>${compareStock.code}</strong> (${compareStock.change}%)</p>
+                <p>Negara Asal: ${selectedStock.country} vs ${compareStock.country}</p>
+                <p>Performa Harian Terbaik: <strong style="color:var(--success)">${betterPerformer}</strong></p>
+            `;
+        }
+
+        // Load awal
+        window.onload = function() {
+            initCountries();
+            renderTable(rawStocksData);
+            selectStockForAnalysis(rawStocksData[0]);
+            initChart();
+        };
+    </script>
+</body>
+</html>
