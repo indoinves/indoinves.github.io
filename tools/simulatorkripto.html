@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Simulator Trading Kripto Lengkap - Indoinves</title>
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://indoinves.github.io/tools/simulatorkripto.html">
+
+    <!-- Meta SEO -->
+    <meta name="description" content="Gunakan Tools Simulator Trading Kripto Indoinves 100% Gratis Tanpa Login. Latih strategi crypto trading Anda dengan simulasi order, order book real-time, kalkulasi fee, dan artikel tutorial lengkap.">
+    <meta name="keywords" content="Simulator Kripto, Indoinves, Tools Crypto, Belajar Bitcoin, Trading Simulator, Market Order, Limit Order">
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Tools Simulator Trading Kripto Lengkap - Indoinves">
+    <meta property="og:description" content="Simulasi pembelian dan penjualan aset kripto virtual dengan fitur order book, limit/market order, fee transaksi, dan portofolio real-time.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://indoinves.github.io/tools/simulatorkripto.html">
+    <meta property="og:image" content="https://indoinves.github.io/indoinves.png">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS Styling -->
+    <style>
+        :root {
+            --primary: #f7931a; /* Bitcoin Orange */
+            --success: #28a745;
+            --danger: #dc3545;
+            --dark: #121619;
+            --light: #f8f9fa;
+            --border: #dadce0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
+
+        header { background: #fff; border-bottom: 1px solid var(--border); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-area img { width: 40px; height: 40px; object-fit: contain; }
+        .logo-area span { font-size: 1.2rem; font-weight: bold; color: var(--dark); }
+
+        .nav-slider-container { background: #1a1a1a; overflow-x: auto; white-space: nowrap; padding: 10px 20px; }
+        .nav-slider { display: inline-flex; gap: 15px; }
+        .nav-slider a { color: #fff; text-decoration: none; padding: 6px 14px; font-size: 0.9rem; border-radius: 20px; transition: 0.3s; background: rgba(255,255,255,0.05); }
+        .nav-slider a:hover { background: var(--primary); color: #fff; }
+
+        .main-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        
+        .hero-title { text-align: center; margin-bottom: 30px; }
+        .hero-title h1 { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
+        .hero-title p { color: #555; font-size: 1rem; }
+
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        @media(max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .card h2 { font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--light); padding-bottom: 8px; color: var(--primary); }
+
+        /* Wallet & Summary */
+        .wallet-bar { display: flex; justify-content: space-between; background: #fff8e1; padding: 15px; border-radius: 6px; margin-bottom: 15px; font-weight: bold; border-left: 4px solid var(--primary); }
+
+        /* Form Trading */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+        .form-group label { font-size: 0.85rem; font-weight: bold; }
+        .form-group input, .form-group select { padding: 9px; border: 1px solid var(--border); border-radius: 5px; font-size: 0.95rem; }
+
+        .btn-buy { background: var(--success); color: white; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; }
+        .btn-buy:hover { background: #218838; }
+        .btn-sell { background: var(--danger); color: white; border: none; padding: 10px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 0.85rem; }
+
+        /* Order Book Table */
+        .orderbook-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media(max-width: 600px) { .orderbook-container { grid-template-columns: 1fr; } }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: center; }
+        th, td { padding: 6px; border-bottom: 1px solid var(--border); }
+        th { background: #f1f3f4; }
+        .bid-row { color: var(--success); }
+        .ask-row { color: var(--danger); }
+
+        /* Article / Tutorial Section */
+        .article-section { background: #fff; padding: 30px; border-radius: 8px; margin-top: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .article-section h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 15px; }
+        .article-section h3 { font-size: 1.2rem; margin: 20px 0 10px; color: var(--dark); }
+        .article-section p { margin-bottom: 15px; color: #444; text-align: justify; }
+        .article-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 6px; margin: 15px 0; }
+
+        footer { background: #111; color: #ccc; padding: 40px 20px; text-align: center; margin-top: 50px; font-size: 0.9rem; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 15px 0; }
+        .footer-links a { color: #aaa; text-decoration: none; }
+        .footer-links a:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="https://indoinves.github.io/" class="logo-area">
+                <img src="https://indoinves.github.io/indoinves.png" alt="Indoinves Logo" onerror="this.src='https://indoinves.github.io/indoinves.jpg'">
+                <span>Indoinves Crypto Simulator</span>
+            </a>
+            <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary);">100% Gratis • Real-time Crypto Simulation</div>
+        </div>
+    </header>
+
+    <!-- Navigation Slider -->
+    <div class="nav-slider-container">
+        <div class="nav-slider">
+            <a href="https://indoinves.github.io/">Beranda</a>
+            <a href="https://indoinves.github.io/tools/simulatorsaham.html">Simulator Saham</a>
+            <a href="https://indoinves.github.io/tools/simulatorkripto.html">Simulator Kripto</a>
+            <a href="https://indoinves.github.io/tools/investasi.html">Kalkulator Investasi</a>
+            <a href="https://indoinves.github.io/tools/website.html">SEO Checker</a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <div class="hero-title">
+            <h1>Tools Simulator Trading Kripto Lengkap</h1>
+            <p>Uji strategi trading aset digital Anda menggunakan modal virtual USD/IDR. Dilengkapi fitur Order Book, Market/Limit Order, kalkulasi fee exchange, dan portofolio real-time.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <!-- Left Column: Chart & Order Form -->
+            <div>
+                <!-- Saldo & Wallet Bar -->
+                <div class="wallet-bar">
+                    <span>Kas USD: <span id="cashBalance" style="color:var(--success);">$10,000.00</span></span>
+                    <span>Total Portofolio: <span id="portfolioValue" style="color:var(--primary);">$10,000.00</span></span>
+                </div>
+
+                <!-- Grafik Pergerakan Kripto -->
+                <div class="card">
+                    <h2>Grafik Harga Kripto (USD)</h2>
+                    <div class="form-group" style="max-width: 250px; margin-bottom: 10px;">
+                        <label>Pilih Aset Kripto:</label>
+                        <select id="cryptoSelect" onchange="changeCrypto()">
+                            <option value="BTC">BTC - Bitcoin ($85,950)</option>
+                            <option value="ETH">ETH - Ethereum ($2,650)</option>
+                            <option value="BNB">BNB - Binance Coin ($750)</option>
+                            <option value="SOL">SOL - Solana ($101)</option>
+                            <option value="USDT">USDT - Tether ($1.00)</option>
+                        </select>
+                    </div>
+                    <div style="position: relative; height:250px; width:100%">
+                        <canvas id="cryptoChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Form Eksekusi Beli Kripto -->
+                <div class="card">
+                    <h2>Form Eksekusi Beli Kripto (Buy Order)</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tipe Order</label>
+                            <select id="orderType">
+                                <option value="market">Market Order (Harga Sekarang)</option>
+                                <option value="limit">Limit Order (Harga Target)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga Eksekusi (USD)</label>
+                            <input type="number" id="execPrice" value="85950" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Koin (Unit)</label>
+                            <input type="number" id="orderAmount" value="0.05" step="0.001" min="0.001" oninput="calculateOrderTotal()">
+                        </div>
+                        <div class="form-group">
+                            <label>Estimasi Total Biaya (+ Fee 0.1%)</label>
+                            <input type="text" id="estimatedTotal" value="$4,303.80" readonly style="font-weight:bold; color:var(--primary);">
+                        </div>
+                    </div>
+                    <button class="btn-buy" onclick="executeBuyOrder()">BELI KRIPTO (BUY)</button>
+                </div>
+            </div>
+
+            <!-- Right Column: Order Book & Portfolio -->
+            <div>
+                <!-- Order Book Simulator -->
+                <div class="card">
+                    <h2>Order Book Kripto (Simulasi Pasar)</h2>
+                    <div class="orderbook-container">
+                        <div>
+                            <h4 style="font-size:0.8rem; text-align:center; margin-bottom:5px; color:var(--success);">BID (Beli)</h4>
+                            <table>
+                                <thead><tr><th>Jumlah</th><th>Harga ($)</th></tr></thead>
+                                <tbody id="bidBook">
+                                    <tr class="bid-row"><td>1.25</td><td>85,940</td></tr>
+                                    <tr class="bid-row"><td>0.85</td><td>85,920</td></tr>
+                                    <tr class="bid-row"><td>2.10</td><td>85,900</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <h4 style="font-size:0.8rem; text-align:center; margin-bottom:5px; color:var(--danger);">ASK (Jual)</h4>
+                            <table>
+                                <thead><tr><th>Harga ($)</th><th>Jumlah</th></tr></thead>
+                                <tbody id="askBook">
+                                    <tr class="ask-row"><td>85,950</td><td>0.50</td></tr>
+                                    <tr class="ask-row"><td>85,970</td><td>1.40</td></tr>
+                                    <tr class="ask-row"><td>86,000</td><td>3.25</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portofolio Kripto Saya -->
+                <div class="card">
+                    <h2>Portofolio Kripto Saya</h2>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Aset</th>
+                                    <th>Jumlah</th>
+                                    <th>Avg Price</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="portfolioTableBody">
+                                <tr><td colspan="4" style="text-align:center; color:#666;">Belum ada kripto yang dibeli.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Artikel / Tutorial Panjang SEO Lengkap dengan Gambar -->
+        <article class="article-section">
+            <h2>Panduan & Tutorial Lengkap Menggunakan Simulator Trading Kripto Indoinves</h2>
+            
+            <img src="https://picsum.photos/1200/400?random=crypto1" alt="Ilustrasi Pasar Kripto dan Blockchain" class="article-img">
+            
+            <p>Pasar aset kripto dikenal sebagai salah satu pasar keuangan paling volatil dan dinamis di dunia. Dengan pergerakan harga 24/7 tanpa henti, trader pemula sering kali terjebak dalam keputusan emosional akibat fluktuasi yang ekstrem. <strong>Tools Simulator Trading Kripto Indoinves</strong> hadir untuk memberikan sarana latihan bebas risiko menggunakan modal virtual, sehingga Anda dapat memahami mekanisme pasar bursa kripto global sebelum menggunakan dana riil.</p>
+
+            <h3>1. Memahami Fitur Utama dalam Simulator Kripto</h3>
+            <p>Untuk menjadi trader kripto yang mahir, Anda perlu menguasai elemen-elemen fundamental yang tersedia di dalam simulator ini:</p>
+            <ul>
+                <li><strong>Kas USD Virtual:</strong> Modal awal berbentuk mata uang digital dolar ($10,000) yang digunakan untuk melakukan transaksi pembelian berbagai koin utama.</li>
+                <li><strong>Order Book Dinamis:</strong> Menampilkan daftar penawaran harga beli tertinggi (Bid) dan harga jual terendah (Ask) secara real-time dari partisipan pasar.</li>
+                <li><strong>Market Order vs Limit Order:</strong> Market order langsung mengeksekusi pada harga pasar saat ini, sedangkan limit order memungkinkan Anda memesan harga beli di bawah harga pasar saat ini.</li>
+                <li><strong>Exchange Fee (Biaya Transaksi):</strong> Potongan biaya standar bursa (simulasi sebesar 0.1%) yang dikenakan pada setiap eksekusi order beli maupun jual.</li>
+            </ul>
+
+            <img src="https://picsum.photos/1200/400?random=crypto2" alt="Analisis Grafik Tren Harga Kripto" class="article-img">
+
+            <h3>2. Langkah-Langkah Melakukan Simulasi Trading Kripto</h3>
+            <p>Ikuti langkah-langkah praktis berikut untuk mulai melatih strategi trading Anda:</p>
+            <ol>
+                <li><strong>Pilih Koin Pilihan:</strong> Tentukan aset kripto yang ingin ditradingkan dari menu dropdown (seperti Bitcoin/BTC, Ethereum/ETH, Solana/SOL, dll.).</li>
+                <li><strong>Tentukan Jumlah Unit:</strong> Masukkan jumlah koin atau pecahan unit yang ingin dibeli sesuai dengan alokasi kas virtual Anda.</li>
+                <li><strong>Eksekusi Transaksi:</strong> Klik tombol <em>Beli Kripto</em>. Saldo kas Anda akan terpotong dan aset akan masuk secara otomatis ke dalam tabel portofolio.</li>
+                <li><strong>Pantau & Realisasikan Keuntungan:</strong> Amati pergerakan grafik tren harga. Anda dapat menjual aset kapan saja untuk menguji strategi *Take Profit* atau *Stop Loss*.</li>
+            </ol>
+
+            <h3>3. Strategi Manajemen Risiko di Pasar Kripto</h3>
+            <p>Volatilitas tinggi menuntut kedisiplinan tingkat tinggi. Selalu gunakan porsi modal yang wajar, terapkan diversifikasi antar koin berkualitas tinggi, dan hindari penggunaan leverage berlebihan saat Anda mulai beralih ke bursa perdagangan nyata.</p>
+        </article>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://indoinves.github.io/">Home</a>
+            <a href="https://indoinves.github.io/about.html">About Us</a>
+            <a href="https://indoinves.github.io/contact.html">Contact Us</a>
+            <a href="https://indoinves.github.io/privacy.html">Privacy Policy</a>
+            <a href="https://indoinves.github.io/sitemap.html">Sitemap</a>
+            <a href="https://indoinves.github.io/disclaimer.html">Disclaimer</a>
+            <a href="https://indoinves.github.io/terms.html">Terms on Conditional License</a>
+        </div>
+        <p>&copy; 2026 Indoinves. All Rights Reserved. Tools Simulator Trading Kripto Professional.</p>
+    </footer>
+
+    <!-- JavaScript Simulator Engine -->
+    <script>
+        const cryptoData = {
+            "BTC": { name: "Bitcoin", price: 85950 },
+            "ETH": { name: "Ethereum", price: 2650 },
+            "BNB": { name: "Binance Coin", price: 750 },
+            "SOL": { name: "Solana", price: 101 },
+            "USDT": { name: "Tether", price: 1.00 }
+        };
+
+        let userCashUSD = 10000; // Modal awal $10,000
+        let cryptoPortfolio = {}; // Menyimpan aset kripto
+        let cryptoChartInstance = null;
+
+        function changeCrypto() {
+            const code = document.getElementById("cryptoSelect").value;
+            const crypto = cryptoData[code];
+            document.getElementById("execPrice").value = crypto.price;
+            calculateOrderTotal();
+            updateCryptoChart(crypto.price);
+        }
+
+        function calculateOrderTotal() {
+            const price = parseFloat(document.getElementById("execPrice").value) || 0;
+            const amount = parseFloat(document.getElementById("orderAmount").value) || 0;
+            const subtotal = price * amount;
+            const fee = subtotal * 0.001; // Fee exchange 0.1%
+            const grandTotal = subtotal + fee;
+
+            document.getElementById("estimatedTotal").value = "$" + grandTotal.toFixed(2);
+        }
+
+        function executeBuyOrder() {
+            const code = document.getElementById("cryptoSelect").value;
+            const price = parseFloat(document.getElementById("execPrice").value) || 0;
+            const amount = parseFloat(document.getElementById("orderAmount").value) || 0;
+            const subtotal = price * amount;
+            const fee = subtotal * 0.001;
+            const grandTotal = subtotal + fee;
+
+            if (grandTotal > userCashUSD) {
+                alert("Saldo kas USD tidak mencukupi untuk melakukan pembelian ini!");
+                return;
+            }
+
+            userCashUSD -= grandTotal;
+
+            if (cryptoPortfolio[code]) {
+                const existing = cryptoPortfolio[code];
+                const totalAmount = existing.amount + amount;
+                const avgPrice = ((existing.amount * existing.avgPrice) + (amount * price)) / totalAmount;
+                cryptoPortfolio[code] = { amount: totalAmount, avgPrice: avgPrice };
+            } else {
+                cryptoPortfolio[code] = { amount: amount, avgPrice: price };
+            }
+
+            updateWalletAndPortfolioCrypto();
+            alert(`Berhasil membeli ${amount} ${code}!`);
+        }
+
+        function sellCrypto(code) {
+            const asset = cryptoPortfolio[code];
+            if (!asset) return;
+
+            const currentPrice = cryptoData[code].price;
+            const totalValue = asset.amount * currentPrice;
+            const fee = totalValue * 0.001;
+            const netProceeds = totalValue - fee;
+
+            userCashUSD += netProceeds;
+            delete cryptoPortfolio[code];
+
+            updateWalletAndPortfolioCrypto();
+            alert(`Berhasil menjual seluruh kepemilikan ${code}. Dana masuk ke kas USD.`);
+        }
+
+        function updateWalletAndPortfolioCrypto() {
+            document.getElementById("cashBalance").textContent = "$" + userCashUSD.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            let portfolioAssetValue = 0;
+            let tbody = document.getElementById("portfolioTableBody");
+            tbody.innerHTML = "";
+
+            const codes = Object.keys(cryptoPortfolio);
+            if (codes.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#666;">Belum ada kripto yang dibeli.</td></tr>`;
+            } else {
+                codes.forEach(code => {
+                    const item = cryptoPortfolio[code];
+                    const currentVal = item.amount * cryptoData[code].price;
+                    portfolioAssetValue += currentVal;
+
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td><strong>${code}</strong></td>
+                        <td>${item.amount.toFixed(4)}</td>
+                        <td>$${item.avgPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                        <td><button class="btn-sell" onclick="sellCrypto('${code}')">Jual</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            const totalNetWorth = userCashUSD + portfolioAssetValue;
+            document.getElementById("portfolioValue").textContent = "$" + totalNetWorth.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        // Grafik Inisialisasi
+        function initCryptoChart() {
+            const ctx = document.getElementById('cryptoChart').getContext('2d');
+            cryptoChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+                    datasets: [{
+                        label: 'BTC',
+                        data: [84500, 85000, 84800, 85200, 85500, 85300, 85700, 85950],
+                        borderColor: '#f7931a',
+                        backgroundColor: 'rgba(247, 147, 26, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: false } }
+                }
+            });
+        }
+
+        function updateCryptoChart(currentPrice) {
+            if (!cryptoChartInstance) return;
+            cryptoChartInstance.data.datasets[0].label = document.getElementById("cryptoSelect").value;
+            cryptoChartInstance.data.datasets[0].data = [
+                currentPrice * 0.98, currentPrice * 0.985, currentPrice * 0.988, currentPrice * 0.99, 
+                currentPrice * 0.993, currentPrice * 0.995, currentPrice * 0.997, currentPrice
+            ];
+            cryptoChartInstance.update();
+        }
+
+        window.onload = function() {
+            initCryptoChart();
+            calculateOrderTotal();
+        };
+    </script>
+</body>
+</html>
