@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Simulator Beli Saham Lengkap - Indoinves Trading Simulator</title>
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://indoinves.github.io/tools/simulatorsaham.html">
+
+    <!-- Meta SEO -->
+    <meta name="description" content="Gunakan Tools Simulator Beli Saham Indoinves 100% Gratis Tanpa Login. Latih strategi trading Anda dengan simulasi order market/limit, order book real-time, kalkulasi fee broker, dan artikel tutorial trading lengkap.">
+    <meta name="keywords" content="Simulator Saham, Indoinves, Tools Trading Saham, Belajar Saham, Market Order, Limit Order, Kalkulator Saham">
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Tools Simulator Beli Saham Lengkap - Indoinves">
+    <meta property="og:description" content="Simulasi pembelian saham virtual dengan fitur order book, limit/market order, fee transaksi, dan portofolio real-time.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://indoinves.github.io/tools/simulatorsaham.html">
+    <meta property="og:image" content="https://indoinves.github.io/indoinves.png">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS Styling -->
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --success: #28a745;
+            --danger: #dc3545;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --border: #dadce0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
+
+        header { background: #fff; border-bottom: 1px solid var(--border); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-area img { width: 40px; height: 40px; object-fit: contain; }
+        .logo-area span { font-size: 1.2rem; font-weight: bold; color: var(--dark); }
+
+        .nav-slider-container { background: #222; overflow-x: auto; white-space: nowrap; padding: 10px 20px; }
+        .nav-slider { display: inline-flex; gap: 15px; }
+        .nav-slider a { color: #fff; text-decoration: none; padding: 6px 14px; font-size: 0.9rem; border-radius: 20px; transition: 0.3s; background: rgba(255,255,255,0.05); }
+        .nav-slider a:hover { background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); color: #fff; }
+
+        .main-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        
+        .hero-title { text-align: center; margin-bottom: 30px; }
+        .hero-title h1 { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
+        .hero-title p { color: #555; font-size: 1rem; }
+
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        @media(max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .card h2 { font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--light); padding-bottom: 8px; color: var(--primary); }
+
+        /* Wallet & Summary */
+        .wallet-bar { display: flex; justify-content: space-between; background: #e8f0fe; padding: 15px; border-radius: 6px; margin-bottom: 15px; font-weight: bold; }
+
+        /* Form Trading */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+        .form-group label { font-size: 0.85rem; font-weight: bold; }
+        .form-group input, .form-group select { padding: 9px; border: 1px solid var(--border); border-radius: 5px; font-size: 0.95rem; }
+
+        .btn-buy { background: var(--success); color: white; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; }
+        .btn-buy:hover { background: #218838; }
+        .btn-sell { background: var(--danger); color: white; border: none; padding: 10px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 0.85rem; }
+
+        /* Order Book Table */
+        .orderbook-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media(max-width: 600px) { .orderbook-container { grid-template-columns: 1fr; } }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: center; }
+        th, td { padding: 6px; border-bottom: 1px solid var(--border); }
+        th { background: #f1f3f4; }
+        .bid-row { color: var(--success); }
+        .ask-row { color: var(--danger); }
+
+        /* Article / Tutorial Section */
+        .article-section { background: #fff; padding: 30px; border-radius: 8px; margin-top: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .article-section h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 15px; }
+        .article-section h3 { font-size: 1.2rem; margin: 20px 0 10px; color: var(--dark); }
+        .article-section p { margin-bottom: 15px; color: #444; text-align: justify; }
+        .article-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 6px; margin: 15px 0; }
+
+        footer { background: #111; color: #ccc; padding: 40px 20px; text-align: center; margin-top: 50px; font-size: 0.9rem; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 15px 0; }
+        .footer-links a { color: #aaa; text-decoration: none; }
+        .footer-links a:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="https://indoinves.github.io/" class="logo-area">
+                <img src="https://indoinves.github.io/indoinves.png" alt="Indoinves Logo" onerror="this.src='https://indoinves.github.io/indoinves.jpg'">
+                <span>Indoinves Simulator Saham</span>
+            </a>
+            <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary);">100% Gratis • Real-time Order Simulation</div>
+        </div>
+    </header>
+
+    <!-- Rainbow Slider Navigation -->
+    <div class="nav-slider-container">
+        <div class="nav-slider">
+            <a href="https://indoinves.github.io/">Beranda</a>
+            <a href="https://indoinves.github.io/tools/simulatorsaham.html">Simulator Saham</a>
+            <a href="https://indoinves.github.io/tools/saham.html">Analisa Saham</a>
+            <a href="https://indoinves.github.io/tools/investasi.html">Kalkulator Investasi</a>
+            <a href="https://indoinves.github.io/tools/website.html">SEO Checker</a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <div class="hero-title">
+            <h1>Tools Simulator Beli & Jual Saham Lengkap</h1>
+            <p>Uji kemampuan trading dan investasi Anda menggunakan uang virtual. Dilengkapi fitur Order Book, Market/Limit Order, kalkulasi fee broker, dan portofolio real-time.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <!-- Left Column: Chart & Order Form -->
+            <div>
+                <!-- Saldo & Wallet Bar -->
+                <div class="wallet-bar">
+                    <span>Kas Tersedia: <span id="cashBalance" style="color:var(--success);">Rp 100,000,000</span></span>
+                    <span>Total Portofolio: <span id="portfolioValue" style="color:var(--primary);">Rp 100,000,000</span></span>
+                </div>
+
+                <!-- Grafik Pergerakan Saham -->
+                <div class="card">
+                    <h2>Grafik Harga Real-Time</h2>
+                    <div class="form-group" style="max-width: 250px; margin-bottom: 10px;">
+                        <label>Pilih Emiten:</label>
+                        <select id="stockSelect" onchange="changeStock()">
+                            <option value="BBCA">BBCA - Bank Central Asia (Rp 10,150)</option>
+                            <option value="BBRI">BBRI - Bank Rakyat Indonesia (Rp 5,400)</option>
+                            <option value="TLKM">TLKM - Telkom Indonesia (Rp 3,150)</option>
+                            <option value="ASII">ASII - Astra International (Rp 5,125)</option>
+                            <option value="GOTO">GOTO - GoTo Gojek Tokopedia (Rp 68)</option>
+                        </select>
+                    </div>
+                    <div style="position: relative; height:250px; width:100%">
+                        <canvas id="simulatorChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Form Eksekusi Beli Saham -->
+                <div class="card">
+                    <h2>Form Eksekusi Beli (Buy Order)</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tipe Order</label>
+                            <select id="orderType">
+                                <option value="market">Market Order (Harga Sekarang)</option>
+                                <option value="limit">Limit Order (Harga Target)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga Eksekusi (Rp)</label>
+                            <input type="number" id="execPrice" value="10150" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Lot (1 Lot = 100 Lembar)</label>
+                            <input type="number" id="orderLots" value="10" min="1" oninput="calculateOrderTotal()">
+                        </div>
+                        <div class="form-group">
+                            <label>Estimasi Total Biaya (+ Fee 0.15%)</label>
+                            <input type="text" id="estimatedTotal" value="Rp 10,165,225" readonly style="font-weight:bold; color:var(--primary);">
+                        </div>
+                    </div>
+                    <button class="btn-buy" onclick="executeBuyOrder()">BELI SAHAM (BUY)</button>
+                </div>
+            </div>
+
+            <!-- Right Column: Order Book & Portfolio -->
+            <div>
+                <!-- Order Book Simulator -->
+                <div class="card">
+                    <h2>Order Book (Simulasi Pasar)</h2>
+                    <div class="orderbook-container">
+                        <div>
+                            <h4 style="font-size:0.8rem; text-align:center; margin-bottom:5px; color:var(--success);">BID (Antrian Beli)</h4>
+                            <table>
+                                <thead><tr><th>Lot</th><th>Harga</th></tr></thead>
+                                <tbody id="bidBook">
+                                    <tr class="bid-row"><td>450</td><td>10,125</td></tr>
+                                    <tr class="bid-row"><td>1,200</td><td>10,100</td></tr>
+                                    <tr class="bid-row"><td>850</td><td>10,075</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <h4 style="font-size:0.8rem; text-align:center; margin-bottom:5px; color:var(--danger);">ASK (Antrian Jual)</h4>
+                            <table>
+                                <thead><tr><th>Harga</th><th>Lot</th></tr></thead>
+                                <tbody id="askBook">
+                                    <tr class="ask-row"><td>10,150</td><td>320</td></tr>
+                                    <tr class="ask-row"><td>10,175</td><td>950</td></tr>
+                                    <tr class="ask-row"><td>10,200</td><td>1,500</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portofolio Saya -->
+                <div class="card">
+                    <h2>Portofolio & Kepemilikan Saham</h2>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Emiten</th>
+                                    <th>Lot</th>
+                                    <th>Avg Price</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="portfolioTableBody">
+                                <tr><td colspan="4" style="text-align:center; color:#666;">Belum ada saham yang dibeli.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Artikel / Tutorial Panjang SEO Lengkap dengan Gambar -->
+        <article class="article-section">
+            <h2>Panduan & Tutorial Lengkap Menggunakan Simulator Beli Saham Indoinves</h2>
+            
+            <img src="https://picsum.photos/1200/400?random=trading1" alt="Ilustrasi Trading Saham dan Analisis Grafik" class="article-img">
+            
+            <p>Trading dan investasi saham adalah salah satu instrumen pertumbuhan kekayaan jangka panjang yang paling diminati di dunia. Namun, bagi pemula, terjun langsung menggunakan uang sungguhan (*real money*) tanpa pengalaman sering kali berujung pada kerugian finansial akibat emosi pasar (*fear and greed*). Di sinilah pentingnya menggunakan <strong>Tools Simulator Beli Saham Indoinves</strong>, sebuah sarana simulasi bursa berbasis web yang dirancang 100% mirip dengan kondisi bursa efek nyata tanpa risiko kehilangan uang sepeser pun.</p>
+
+            <h3>1. Memahami Komponen Utama dalam Simulator Saham</h3>
+            <p>Simulator ini dilengkapi dengan berbagai komponen penting yang wajib dipahami oleh seorang trader profesional sebelum melakukan eksekusi di pasar sekunder:</p>
+            <ul>
+                <li><strong>Cash Balance (Kas Virtual):</strong> Modal awal yang diberikan kepada Anda untuk membeli berbagai emiten pilihan di bursa.</li>
+                <li><strong>Order Book (Bid & Ask):</strong> Tabel antrian order beli (bid) dan order jual (ask) dari pelaku pasar lain yang bergerak secara dinamis.</li>
+                <li><strong>Market Order vs Limit Order:</strong> Market order mengeksekusi transaksi secara instan pada harga pasar saat ini, sementara limit order memungkinkan Anda menentukan batas harga spesifik pembelian.</li>
+                <li><strong>Fee Broker & Transaksi:</strong> Setiap transaksi pembelian dan penjualan dikenakan biaya komisi broker (simulasi sebesar 0.15%) untuk mencerminkan perhitungan riil di dunia nyata.</li>
+            </ul>
+
+            <img src="https://picsum.photos/1200/400?random=trading2" alt="Analisis Grafik dan Portofolio Keuangan" class="article-img">
+
+            <h3>2. Langkah-Langkah Memulai Simulasi Trading</h3>
+            <p>Untuk memaksimalkan pembelajaran melalui tools ini, ikuti langkah-langkah praktis berikut:</p>
+            <ol>
+                <li><strong>Pilih Emiten:</strong> Pilih saham dari daftar dropdown (seperti BBCA, BBRI, TLKM, ASII, atau GOTO) yang ingin Anda analisa pergerakan harganya pada grafik interaktif.</li>
+                <li><strong>Tentukan Jumlah Lot:</strong> Masukkan jumlah lot yang diinginkan. Ingat bahwa 1 lot di bursa saham umumnya setara dengan 100 lembar saham.</li>
+                <li><strong>Eksekusi Pembelian:</strong> Klik tombol <em>Beli Saham</em>. Sal kas Anda akan terpotong secara otomatis dan emiten tersebut akan masuk ke dalam tabel portofolio Anda.</li>
+                <li><strong>Pantau dan Jual:</strong> Pantau fluktuasi harga secara berkala. Anda dapat menjual kembali saham di portofolio Anda kapan saja untuk merealisasikan keuntungan (*capital gain*) atau memotong kerugian (*stop loss*).</li>
+            </ol>
+
+            <h3>3. Tips Psikologi Trading untuk Pemula</h3>
+            <p>Selain memahami analisis teknikal dan fundamental, kunci kesuksesan seorang investor terletak pada kedisiplinan emosional. Gunakan simulator ini untuk menguji manajemen risiko (*risk management*), membatasi alokasi dana maksimal pada satu emiten, dan menghindari keputusan impulsif saat pasar mengalami koreksi.</p>
+        </article>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://indoinves.github.io/">Home</a>
+            <a href="https://indoinves.github.io/about.html">About Us</a>
+            <a href="https://indoinves.github.io/contact.html">Contact Us</a>
+            <a href="https://indoinves.github.io/privacy.html">Privacy Policy</a>
+            <a href="https://indoinves.github.io/sitemap.html">Sitemap</a>
+            <a href="https://indoinves.github.io/disclaimer.html">Disclaimer</a>
+            <a href="https://indoinves.github.io/terms.html">Terms on Conditional License</a>
+        </div>
+        <p>&copy; 2026 Indoinves. All Rights Reserved. Tools Simulator Beli Saham Professional.</p>
+    </footer>
+
+    <!-- JavaScript Simulator Engine -->
+    <script>
+        const stocksData = {
+            "BBCA": { name: "Bank Central Asia Tbk", price: 10150 },
+            "BBRI": { name: "Bank Rakyat Indonesia", price: 5400 },
+            "TLKM": { name: "Telkom Indonesia Tbk", price: 3150 },
+            "ASII": { name: "Astra International Tbk", price: 5125 },
+            "GOTO": { name: "GoTo Gojek Tokopedia", price: 68 }
+        };
+
+        let userCash = 100000000; // Rp 100 Juta modal awal
+        let portfolio = {}; // Menyimpan kepemilikan saham
+        let chartInstance = null;
+
+        function changeStock() {
+            const code = document.getElementById("stockSelect").value;
+            const stock = stocksData[code];
+            document.getElementById("execPrice").value = stock.price;
+            calculateOrderTotal();
+            updateChart(stock.price);
+        }
+
+        function calculateOrderTotal() {
+            const price = parseFloat(document.getElementById("execPrice").value) || 0;
+            const lots = parseFloat(document.getElementById("orderLots").value) || 0;
+            const totalShares = lots * 100;
+            const subtotal = price * totalShares;
+            const fee = subtotal * 0.0015; // Fee broker 0.15%
+            const grandTotal = subtotal + fee;
+
+            document.getElementById("estimatedTotal").value = "Rp " + Math.round(grandTotal).toLocaleString();
+        }
+
+        function executeBuyOrder() {
+            const code = document.getElementById("stockSelect").value;
+            const price = parseFloat(document.getElementById("execPrice").value) || 0;
+            const lots = parseFloat(document.getElementById("orderLots").value) || 0;
+            const totalShares = lots * 100;
+            const subtotal = price * totalShares;
+            const fee = subtotal * 0.0015;
+            const grandTotal = subtotal + fee;
+
+            if (grandTotal > userCash) {
+                alert("Saldo kas tidak mencukupi untuk melakukan pembelian ini!");
+                return;
+            }
+
+            userCash -= grandTotal;
+
+            if (portfolio[code]) {
+                const existing = portfolio[code];
+                const totalLots = existing.lots + lots;
+                const avgPrice = ((existing.lots * existing.avgPrice) + (lots * price)) / totalLots;
+                portfolio[code] = { lots: totalLots, avgPrice: avgPrice };
+            } else {
+                portfolio[code] = { lots: lots, avgPrice: price };
+            }
+
+            updateWalletAndPortfolio();
+            alert(`Berhasil membeli ${lots} lot (${totalShares} lembar) saham ${code}!`);
+        }
+
+        function sellStock(code) {
+            const stock = portfolio[code];
+            if (!stock) return;
+
+            const currentPrice = stocksData[code].price;
+            const totalValue = stock.lots * 100 * currentPrice;
+            const fee = totalValue * 0.0015;
+            const netProceeds = totalValue - fee;
+
+            userCash += netProceeds;
+            delete portfolio[code];
+
+            updateWalletAndPortfolio();
+            alert(`Berhasil menjual seluruh kepemilikan saham ${code}. Dana masuk ke kas.`);
+        }
+
+        function updateWalletAndPortfolio() {
+            document.getElementById("cashBalance").textContent = "Rp " + Math.round(userCash).toLocaleString();
+
+            let portfolioStockValue = 0;
+            let tbody = document.getElementById("portfolioTableBody");
+            tbody.innerHTML = "";
+
+            const codes = Object.keys(portfolio);
+            if (codes.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#666;">Belum ada saham yang dibeli.</td></tr>`;
+            } else {
+                codes.forEach(code => {
+                    const item = portfolio[code];
+                    const currentVal = item.lots * 100 * stocksData[code].price;
+                    portfolioStockValue += currentVal;
+
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td><strong>${code}</strong></td>
+                        <td>${item.lots} Lot</td>
+                        <td>Rp ${Math.round(item.avgPrice).toLocaleString()}</td>
+                        <td><button class="btn-sell" onclick="sellStock('${code}')">Jual</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            const totalNetWorth = userCash + portfolioStockValue;
+            document.getElementById("portfolioValue").textContent = "Rp " + Math.round(totalNetWorth).toLocaleString();
+        }
+
+        // Grafik Inisialisasi
+        function initChart() {
+            const ctx = document.getElementById('simulatorChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'],
+                    datasets: [{
+                        label: 'BBCA',
+                        data: [10050, 10100, 10075, 10120, 10110, 10140, 10130, 10150],
+                        borderColor: '#1a73e8',
+                        backgroundColor: 'rgba(26, 115, 232, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: false } }
+                }
+            });
+        }
+
+        function updateChart(currentPrice) {
+            if (!chartInstance) return;
+            chartInstance.data.datasets[0].label = document.getElementById("stockSelect").value;
+            chartInstance.data.datasets[0].data = [
+                currentPrice * 0.99, currentPrice * 0.992, currentPrice * 0.995, currentPrice * 0.993, 
+                currentPrice * 0.997, currentPrice * 0.996, currentPrice * 0.998, currentPrice
+            ];
+            chartInstance.update();
+        }
+
+        window.onload = function() {
+            initChart();
+            calculateOrderTotal();
+        };
+    </script>
+</body>
+</html>
