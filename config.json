@@ -1,0 +1,96 @@
+{
+  "platform": {
+    "name": "IndoInves",
+    "tagline": "Platform Pintar Investasi, Keuangan, dan Kumpulan Tools Finansial Modern",
+    "baseUrl": "https://indoinves.github.io/",
+    "author": "IndoInves Team",
+    "language": "id",
+    "year": 2026
+  },
+  "metadata": {
+    "description": "Platform digital untuk merencanakan investasi, mengelola keuangan, mengakses kalkulator finansial, serta memantau simulasi saham dan kripto.",
+    "keywords": [
+      "investasi",
+      "keuangan",
+      "saham",
+      "kripto",
+      "kalkulator investasi",
+      "simulator saham",
+      "indoinves"
+    ],
+    "logo": "https://indoinves.github.io/img/indoinves.png"
+  },
+  "navigation": [
+    {
+      "title": "Beranda",
+      "url": "https://indoinves.github.io/"
+    },
+    {
+      "title": "Tentang Kami",
+      "url": "https://indoinves.github.io/about.html"
+    },
+    {
+      "title": "Komunitas",
+      "url": "https://indoinves.github.io/komunitas.html"
+    },
+    {
+      "title": "Forum Diskusi",
+      "url": "https://indoinves.github.io/forum.html"
+    },
+    {
+      "title": "Kontak",
+      "url": "https://indoinves.github.io/contact.html"
+    }
+  ],
+  "tools": [
+    {
+      "id": "simulator-saham",
+      "name": "Simulator Saham",
+      "url": "https://indoinves.github.io/tools/simulatorsaham.html",
+      "category": "Trading & Saham"
+    },
+    {
+      "id": "simulator-kripto",
+      "name": "Simulator Kripto",
+      "url": "https://indoinves.github.io/tools/simulatorkripto.html",
+      "category": "Kripto"
+    },
+    {
+      "id": "simulator-kripto-pro",
+      "name": "Simulator Kripto Pro",
+      "url": "https://indoinves.github.io/tools/simulatorkripto-pro.html",
+      "category": "Kripto"
+    },
+    {
+      "id": "kalkulator-investasi",
+      "name": "Kalkulator Investasi",
+      "url": "https://indoinves.github.io/tools/investasi.html",
+      "category": "Keuangan"
+    },
+    {
+      "id": "bank-locator",
+      "name": "Bank Locator",
+      "url": "https://indoinves.github.io/tools/banklocator.html",
+      "category": "Direktori"
+    },
+    {
+      "id": "content-blog",
+      "name": "Content Blog & Artikel",
+      "url": "https://indoinves.github.io/tools/contentblog.html",
+      "category": "Edukasi"
+    },
+    {
+      "id": "website-tools",
+      "name": "Website & Tech Tools",
+      "url": "https://indoinves.github.io/tools/website.html",
+      "category": "Developer Tools"
+    }
+  ],
+  "socialAndLegal": {
+    "advertise": "https://indoinves.github.io/advertise.html",
+    "disclaimer": "https://indoinves.github.io/disclaimer.html",
+    "privacyPolicy": "https://indoinves.github.io/privacy.html",
+    "termsOfService": "https://indoinves.github.io/terms.html",
+    "license": "MIT"
+  }
+}
