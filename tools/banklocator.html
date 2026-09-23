@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Peta & Direktori 30 Negara dan 30 Bank Global - Indoinves</title>
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://indoinves.github.io/tools/banklocator.html">
+
+    <!-- Meta SEO -->
+    <meta name="description" content="Gunakan Tools Direktori Peta Lokasi Bank Global mencakup 30 negara dan 30 bank utama dunia. Dilengkapi peta interaktif Leaflet, informasi kantor pusat, dan artikel finansial.">
+    <meta name="keywords" content="Peta Bank Dunia, Bank 30 Negara, Direktori Bank Global, Kantor Pusat Bank, Indoinves Tools">
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY">
+
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- CSS Styling -->
+    <style>
+        :root {
+            --primary: #1a73e8; /* Blue Theme */
+            --secondary: #174ea6;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --border: #dadce0;
+            --success: #137333;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
+
+        header { background: #fff; border-bottom: 1px solid var(--border); padding: 15px 20px; position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-area img { width: 40px; height: 40px; object-fit: contain; }
+        .logo-area span { font-size: 1.2rem; font-weight: bold; color: var(--dark); }
+
+        .nav-slider-container { background: #1a202c; overflow-x: auto; white-space: nowrap; padding: 10px 20px; }
+        .nav-slider { display: inline-flex; gap: 15px; }
+        .nav-slider a { color: #fff; text-decoration: none; padding: 6px 14px; font-size: 0.9rem; border-radius: 20px; transition: 0.3s; background: rgba(255,255,255,0.05); }
+        .nav-slider a:hover { background: var(--primary); color: #fff; }
+
+        .main-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        
+        .hero-title { text-align: center; margin-bottom: 30px; }
+        .hero-title h1 { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
+        .hero-title p { color: #555; font-size: 1rem; }
+
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 40px; }
+        @media(max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .card h2 { font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--light); padding-bottom: 8px; color: var(--primary); }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
+        .form-group label { font-size: 0.9rem; font-weight: bold; }
+        .form-group select, .form-group input { padding: 10px; border: 1px solid var(--border); border-radius: 5px; font-size: 0.95rem; }
+
+        /* Bank Info Box */
+        .info-box { background: #e8f0fe; border-left: 4px solid var(--primary); padding: 15px; border-radius: 4px; margin-top: 15px; font-size: 0.95rem; }
+        .info-box h3 { color: var(--secondary); margin-bottom: 5px; }
+
+        /* Map Container */
+        #map { height: 420px; width: 100%; border-radius: 6px; border: 1px solid var(--border); }
+
+        /* Article / Tutorial Section */
+        .article-section { background: #fff; padding: 30px; border-radius: 8px; margin-top: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .article-section h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 15px; }
+        .article-section h3 { font-size: 1.2rem; margin: 20px 0 10px; color: var(--dark); }
+        .article-section p { margin-bottom: 15px; color: #444; text-align: justify; }
+        .article-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 6px; margin: 15px 0; }
+
+        footer { background: #111; color: #ccc; padding: 40px 20px; text-align: center; margin-top: 50px; font-size: 0.9rem; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 15px 0; }
+        .footer-links a { color: #aaa; text-decoration: none; }
+        .footer-links a:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="https://indoinves.github.io/" class="logo-area">
+                <img src="https://indoinves.github.io/indoinves.png" alt="Indoinves Logo" onerror="this.src='https://indoinves.github.io/indoinves.jpg'">
+                <span>Indoinves Global Bank Explorer</span>
+            </a>
+            <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary);">30 Negara • 30 Bank Utama • Peta Interaktif</div>
+        </div>
+    </header>
+
+    <!-- Navigation Slider -->
+    <div class="nav-slider-container">
+        <div class="nav-slider">
+            <a href="https://indoinves.github.io/">Beranda</a>
+            <a href="https://indoinves.github.io/tools/simulatorsaham.html">Simulator Saham</a>
+            <a href="https://indoinves.github.io/tools/simulatorkripto.html">Simulator Kripto</a>
+            <a href="https://indoinves.github.io/tools/banklocator.html">Peta Bank Global</a>
+            <a href="https://indoinves.github.io/tools/website.html">SEO Checker</a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <div class="hero-title">
+            <h1>Tools Peta & Direktori 30 Bank di 30 Negara Dunia</h1>
+            <p>Jelajahi informasi lengkap kantor pusat dan lokasi geografis dari 30 bank terkemuka yang mewakili 30 negara strategis di seluruh penjuru dunia.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <!-- Left Column: Selection Controls & Details -->
+            <div class="card">
+                <h2>Pilih Negara & Bank Utama</h2>
+                
+                <div class="form-group">
+                    <label>Pilih Negara (1 dari 30 Negara):</label>
+                    <select id="countrySelect" onchange="updateBankOptions()">
+                        <!-- Diisi otomatis oleh JavaScript -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Pilih Bank Terkemuka:</label>
+                    <select id="bankSelect" onchange="displayBankInfo()">
+                        <!-- Diisi otomatis oleh JavaScript -->
+                    </select>
+                </div>
+
+                <div class="info-box" id="bankInfoCard">
+                    <h3>Informasi Kantor Pusat</h3>
+                    <p><strong>Nama Bank:</strong> <span id="infoName">-</span></p>
+                    <p><strong>Negara Asal:</strong> <span id="infoCountry">-</span></p>
+                    <p><strong>Kota / Alamat Kantor Pusat:</strong> <span id="infoAddress">-</span></p>
+                    <p><strong>Total Aset Estimasi:</strong> <span id="infoAssets">-</span></p>
+                </div>
+            </div>
+
+            <!-- Right Column: Interactive Map -->
+            <div class="card">
+                <h2>Peta Lokasi Kantor Pusat Bank</h2>
+                <div style="margin-bottom: 10px; font-size: 0.85rem; color: #666;">Peta otomatis mengarah ke koordinat GPS markas besar bank yang dipilih.</div>
+                <div id="map"></div>
+            </div>
+
+        </div>
+
+        <!-- Article / Tutorial Section SEO Lengkap -->
+        <article class="article-section">
+            <h2>Panduan Memanfaatkan Direktori dan Peta Lokasi Bank Global</h2>
+            
+            <img src="https://picsum.photos/1200/400?random=bankgeo1" alt="Ilustrasi Perbankan Internasional dan Jaringan Keuangan Global" class="article-img">
+            
+            <p>Sistem keuangan internasional sangat bergantung pada stabilitas dan jaringan operasional lembaga perbankan skala besar. Melalui <strong>Tools Peta & Direktori 30 Bank Global Indoinves</strong>, Anda dapat dengan mudah meneliti peta geografis, kota markas, serta skala aset dari 30 bank representatif di 30 negara terkemuka di dunia.</p>
+
+            <h3>1. Mengapa Pemetaan Kantor Pusat Bank Penting?</h3>
+            <p>Bagi pelaku bisnis internasional, akademisi ekonomi, maupun analis pasar modal, mengetahui lokasi fisik kantor pusat bank sentral dan komersial utama membantu dalam:</p>
+            <ul>
+                <li><strong>Analisis Kepatuhan & Regulasi Lintas Batas:</strong> Memahami yurisdiksi tempat lembaga keuangan tersebut beroperasi secara hukum.</li>
+                <li><strong>Studi Hubungan Koresponden Bank:</strong> Melacak jalur transaksi kliring internasional (*swift code* dan jaringan likuiditas global).</li>
+                <li><strong>Riset Geopolitik Finansial:</strong> Memetakan konsentrasi kekuatan aset finansial di berbagai belahan benua (Amerika, Eropa, Asia, hingga Oseania).</li>
+            </ul>
+
+            <img src="https://picsum.photos/1200/400?random=bankgeo2" alt="Teknologi Finansial dan Peta Interaktif Modern" class="article-img">
+
+            <h3>2. Cakupan 30 Negara dan 30 Bank Utama</h3>
+            <p>Database dalam alat ini dirancang merangkum institusi kelas dunia, mulai dari raksasa perbankan Asia seperti *Industrial and Commercial Bank of China (ICBC)* dan *Mitsubishi UFJ Financial Group (Jepang)*, raksasa Amerika Serikat seperti *JPMorgan Chase*, hingga institusi terkemuka di Eropa, Australia, Timur Tengah, dan Amerika Latin.</p>
+
+            <h3>3. Cara Menggunakan Alat Ini</h3>
+            <ol>
+                <li>Pilih negara tujuan melalui menu pilihan pertama.</li>
+                <li>Pilih nama bank representatif negara tersebut pada menu kedua.</li>
+                <li>Perhatikan ringkasan profil finansial serta amati perpindahan pin penunjuk lokasi pada peta interaktif secara *real-time*.</li>
+            </ol>
+        </article>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://indoinves.github.io/">Home</a>
+            <a href="https://indoinves.github.io/about.html">About Us</a>
+            <a href="https://indoinves.github.io/contact.html">Contact Us</a>
+            <a href="https://indoinves.github.io/privacy.html">Privacy Policy</a>
+            <a href="https://indoinves.github.io/sitemap.html">Sitemap</a>
+            <a href="https://indoinves.github.io/disclaimer.html">Disclaimer</a>
+            <a href="https://indoinves.github.io/terms.html">Terms on Conditional License</a>
+        </div>
+        <p>&copy; 2026 Indoinves. All Rights Reserved. Global Bank Location Explorer Tools.</p>
+    </footer>
+
+    <!-- Leaflet JS for Maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Database 30 Negara dan 30 Bank Terkemuka Beserta Koordinat GPS Kantor Pusat
+        const globalBankData = [
+            { country: "Amerika Serikat", bank: "JPMorgan Chase", city: "New York, USA", address: "383 Madison Ave, New York, NY 10017", assets: "$4.42 Triliun", lat: 40.7558, lng: -73.9772 },
+            { country: "China", bank: "Industrial and Commercial Bank of China (ICBC)", city: "Beijing, China", address: "55 Fuxingmennei Ave, Xicheng District, Beijing", assets: "$7.64 Triliun", lat: 39.9042, lng: 116.3575 },
+            { country: "Jepang", bank: "Mitsubishi UFJ Financial Group (MUFG)", city: "Tokyo, Japan", address: "2-7-1 Marunouchi, Chiyoda-ku, Tokyo", assets: "$2.66 Triliun", lat: 35.6812, lng: 139.7671 },
+            { country: "Inggris", bank: "HSBC Holdings", city: "London, UK", address: "8 Canada Square, London E14 5HQ", assets: "$3.43 Triliun", lat: 51.5054, lng: -0.0175 },
+            { country: "Prancis", bank: "BNP Paribas", city: "Paris, France", address: "16 Boulevard des Italiens, 75009 Paris", assets: "$3.27 Triliun", lat: 48.8719, lng: 2.3394 },
+            { country: "Kanada", bank: "Royal Bank of Canada (RBC)", city: "Toronto, Canada", address: "200 Bay St, Toronto, ON M5J 2J5", assets: "$1.72 Triliun", lat: 43.6465, lng: -79.3797 },
+            { country: "Jerman", bank: "Deutsche Bank", city: "Frankfurt, Germany", address: "Taunusanlage 12, 60325 Frankfurt am Main", assets: "$1.68 Triliun", lat: 50.1136, lng: 8.6678 },
+            { country: "Swiss", bank: "UBS Group", city: "Zurich, Switzerland", address: "Bahnhofstrasse 45, 8001 Zurich", assets: "$1.61 Triliun", lat: 47.3769, lng: 8.5417 },
+            { country: "Spanyol", bank: "Banco Santander", city: "Madrid, Spain", address: "Ciudad Grupo Santander, Boadilla del Monte, Madrid", assets: "$2.25 Triliun", lat: 40.4072, lng: -3.8824 },
+            { country: "Australia", bank: "Commonwealth Bank of Australia (CBA)", city: "Sydney, Australia", address: "Harbour Street, Sydney NSW 2000", assets: "$955 Miliar", lat: -33.8736, lng: 151.2033 },
+            { country: "Belanda", bank: "ING Group", city: "Amsterdam, Netherlands", address: "Bijlmerplein 888, 1102 MG Amsterdam", assets: "$1.23 Triliun", lat: 52.3135, lng: 4.9463 },
+            { country: "Italia", bank: "Intesa Sanpaolo", city: "Milan, Italy", address: "Piazza San Carlo 156, 10121 Torino / Milan", assets: "$1.12 Triliun", lat: 45.4642, lng: 9.1900 },
+            { country: "Singapura", bank: "DBS Bank", city: "Singapore", address: "12 Marina Boulevard, Marina Bay Financial Centre, Singapore", assets: "$697 Miliar", lat: 1.2789, lng: 103.8550 },
+            { country: "India", bank: "State Bank of India (SBI)", city: "Mumbai, India", address: "Madame Cama Road, Nariman Point, Mumbai", assets: "$877 Miliar", lat: 18.9220, lng: 72.8277 },
+            { country: "Brasil", bank: "Itaú Unibanco", city: "São Paulo, Brazil", address: "Praça Alfredo Egydio de Souza Aranha 100, São Paulo", assets: "$562 Miliar", lat: -23.5505, lng: -46.6333 },
+            { country: "Korea Selatan", bank: "KB Financial Group", city: "Seoul, South Korea", address: "84 Namdaemun-ro, Jung-gu, Seoul", assets: "$552 Miliar", lat: 37.5610, lng: 126.9825 },
+            { country: "Rusia", bank: "Sberbank", city: "Moscow, Russia", address: "Vavilova St 19, Moscow 117997", assets: "$870 Miliar", lat: 55.7059, lng: 37.5819 },
+            { country: "Swedia", bank: "Nordea", city: "Helsinki, Finland", address: "Satamaradankatu 5, Helsinki (Stokholm origin)", assets: "$768 Miliar", lat: 60.1699, lng: 24.9384 },
+            { country: "Uni Emirat Arab", bank: "First Abu Dhabi Bank (FAB)", city: "Abu Dhabi, UAE", address: "FAB Business Center, Khalifa Business Park, Abu Dhabi", assets: "$382 Miliar", lat: 24.4539, lng: 54.3773 },
+            { country: "Qatar", bank: "Qatar National Bank (QNB)", city: "Doha, Qatar", address: "Aswaq Street, West Bay, Doha", assets: "$381 Miliar", lat: 25.3216, lng: 51.5275 },
+            { country: "Arab Saudi", bank: "Saudi National Bank (SNB)", city: "Riyadh, Saudi Arabia", address: "King Fahd Road, Riyadh", assets: "$270 Miliar", lat: 24.7136, lng: 46.6753 },
+            { country: "Turki", bank: "Garanti BBVA", city: "Istanbul, Turkey", address: "Levent Nispetiye Mah. Akar Cad. 35, Istanbul", assets: "$130 Miliar", lat: 41.0772, lng: 29.0135 },
+            { country: "Meksiko", bank: "BBVA Mexico", city: "Mexico City, Mexico", address: "Av. Paseo de la Reforma 510, Cuauhtémoc, Ciudad de México", assets: "$145 Miliar", lat: 19.4239, lng: -99.1656 },
+            { country: "Indonesia", bank: "Bank Rakyat Indonesia (BRI)", city: "Jakarta, Indonesia", address: "Jl. Jend. Sudirman Kav. 44-46, Jakarta Pusat", assets: "$120 Miliar", lat: -6.2201, lng: 106.8166 },
+            { country: "Malaysia", bank: "Maybank", city: "Kuala Lumpur, Malaysia", address: "Menara Maybank, 100 Jalan Tun Perak, Kuala Lumpur", assets: "$220 Miliar", lat: 3.1490, lng: 101.6969 },
+            { country: "Thailand", bank: "Bangkok Bank", city: "Bangkok, Thailand", address: "333 Silom Road, Bang Rak, Bangkok", assets: "$125 Miliar", lat: 13.7278, lng: 100.5283 },
+            { country: "Filipina", bank: "BDO Unibank", city: "Makati, Philippines", address: "BDO Corporate Center, 7899 Makati Ave, Makati", assets: "$80 Miliar", lat: 14.5547, lng: 121.0244 },
+            { country: "Afrika Selatan", bank: "Standard Bank Group", city: "Johannesburg, South Africa", address: "Standard Bank Centre, 5 Simmonds Street, Johannesburg", assets: "$170 Miliar", lat: -26.2041, lng: 28.0473 },
+            { country: "Austria", bank: "Erste Group", city: "Vienna, Austria", address: "Am Belvedere 1, 1100 Wien, Vienna", assets: "$518 Miliar", lat: 48.1852, lng: 16.3789 },
+            { country: "Belgia", bank: "KBC Group", city: "Brussels, Belgium", address: "Havenlaan 2, 1080 Brussels", assets: "$471 Miliar", lat: 50.8601, lng: 4.3488 }
+        ];
+
+        let map = null;
+        let marker = null;
+
+        function initMap() {
+            // Inisialisasi peta dengan Leaflet pada koordinat awal JPMorgan New York
+            map = L.map('map').setView([40.7558, -73.9772], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            marker = L.marker([40.7558, -73.9772]).addTo(map)
+                .bindPopup("<b>JPMorgan Chase</b><br>New York, USA")
+                .openPopup();
+        }
+
+        function populateCountryDropdown() {
+            const countrySelect = document.getElementById("countrySelect");
+            countrySelect.innerHTML = "";
+            
+            globalBankData.forEach((item, index) => {
+                let opt = document.createElement("option");
+                opt.value = index;
+                opt.textContent = `${item.country} - ${item.bank}`;
+                countrySelect.appendChild(opt);
+            });
+
+            updateBankOptions();
+        }
+
+        function updateBankOptions() {
+            const countryIndex = document.getElementById("countrySelect").value;
+            const bankSelect = document.getElementById("bankSelect");
+            bankSelect.innerHTML = "";
+
+            const selectedData = globalBankData[countryIndex];
+            let opt = document.createElement("option");
+            opt.value = countryIndex;
+            opt.textContent = selectedData.bank + " (" + selectedData.city + ")";
+            bankSelect.appendChild(opt);
+
+            displayBankInfo();
+        }
+
+        function displayBankInfo() {
+            const index = document.getElementById("bankSelect").value;
+            const data = globalBankData[index];
+
+            document.getElementById("infoName").textContent = data.bank;
+            document.getElementById("infoCountry").textContent = data.country;
+            document.getElementById("infoAddress").textContent = data.address;
+            document.getElementById("infoAssets").textContent = data.assets;
+
+            // Update Peta
+            if (map && marker) {
+                map.setView([data.lat, data.lng], 14);
+                marker.setLatLng([data.lat, data.lng]);
+                marker.setPopupContent(`<b>${data.bank}</b><br>${data.address}`).openPopup();
+            }
+        }
+
+        window.onload = function() {
+            initMap();
+            populateCountryDropdown();
+        };
+    </script>
+</body>
+</html>
