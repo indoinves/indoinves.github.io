@@ -1,0 +1,129 @@
+from flask import Flask, render_template_string
+from datetime import datetime
+
+app = Flask(__name__)
+
+HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndoInves - Platform Pintar Investasi & Keuangan</title>
+    <meta name="description" content="Platform digital untuk merencanakan investasi, mengelola keuangan, mengakses kalkulator finansial, serta memantau simulasi saham dan kripto.">
+    <meta name="keywords" content="investasi, keuangan, saham, kripto, kalkulator investasi, simulator saham, indoinves">
+    <meta name="author" content="IndoInves Team">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="IndoInves - Platform Pintar Investasi & Keuangan">
+    <meta property="og:description" content="Akses berbagai tools finansial, simulator saham, kripto, dan kalkulator investasi gratis di sini.">
+    <meta property="og:image" content="https://indoinves.github.io/img/indoinves.png">
+    <meta property="og:url" content="https://indoinves.github.io/">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+
+    <!-- Custom Styling -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        img.logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+        p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #475569;
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://indoinves.github.io/img/indoinves.png" alt="IndoInves Logo" class="logo">
+        <h1>Selamat Datang di IndoInves</h1>
+        <p>Platform pintar investasi, keuangan, dan kumpulan tools finansial modern untuk membantu masa depan finansial Anda.</p>
+        
+        <div class="btn-group">
+            <a href="https://indoinves.github.io/" class="btn">Buka Website Utama</a>
+            <a href="https://indoinves.github.io/tools/investasi.html" class="btn btn-secondary">Jelajahi Tools</a>
+        </div>
+
+        <footer>
+            &copy; {{ current_year }} IndoInves. All rights reserved.
+        </footer>
+    </div>
+
+</body>
+</html>
+"""
+
+@app.route('/')
+def home():
+    current_year = datetime.now().year
+    return render_template_string(HTML_TEMPLATE, current_year=current_year)
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
