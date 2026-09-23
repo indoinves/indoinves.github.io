@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Indoinves | Global Market, Finance & Macro Economy News</title>
+    
+    <!-- Google AdSense & Verification Meta Tags -->
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Indoinves adalah publikasi digital otoritatif yang menyajikan berita pasar global, analisis makroekonomi, intelijen keuangan, dan wawasan bisnis struktural.">
+    <meta name="keywords" content="Indoinves, Berita Keuangan, Makro Ekonomi, Pasar Global, Finansial, Investasi, Saham, Properti, Manufaktur, Tech News">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://indoinves.github.io/about.html">
+    
+    <!-- Open Graph / Facebook Properties -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://indoinves.github.io/about.html">
+    <meta property="og:title" content="About Us - Indoinves | Global Market, Finance & Macro Economy News">
+    <meta property="og:description" content="Indoinves menyajikan analisis mendalam makroekonomi, finansial, dan lanskap bisnis global secara real-time dan terstruktur.">
+    <meta property="og:image" content="https://indoinves.github.io/indoinves.png">
+    <meta property="og:image:alt" content="Indoinves Portal Logo">
+    
+    <!-- Twitter Card Properties -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://indoinves.github.io/about.html">
+    <meta name="twitter:title" content="About Us - Indoinves | Global Market, Finance & Macro Economy News">
+    <meta name="twitter:description" content="Indoinves menyajikan analisis mendalam makroekonomi, finansial, dan lanskap bisnis global secara real-time dan terstruktur.">
+    <meta name="twitter:image" content="https://indoinves.github.io/indoinves.png">
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="https://indoinves.github.io/manifest.json">
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/indoinves.png">
+    
+    <!-- FontAwesome Core Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- JSON-LD Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "Indoinves",
+      "url": "https://indoinves.github.io/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://indoinves.github.io/indoinves.png",
+        "width": 600,
+        "height": 60
+      },
+      "sameAs": [
+        "https://indoinves.github.io/#facebook",
+        "https://indoinves.github.io/#twitter",
+        "https://indoinves.github.io/#linkedin"
+      ],
+      "description": "Indoinves adalah publikasi digital otoritatif yang menyajikan berita pasar global, analisis makroekonomi, intelijen keuangan, dan wawasan bisnis struktural.",
+      "publishingPrinciples": "https://indoinves.github.io/"
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --rainbow-grad: linear-gradient(90deg, #ff007f, #ff7f00, #fffe00, #00ff00, #00ffff, #007fff, #7f00ff);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Rainbow Hover Utility */
+        .rainbow-hover {
+            transition: color 0.3s ease, background 0.3s ease;
+            position: relative;
+        }
+        .rainbow-hover:hover {
+            background: var(--rainbow-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        /* Animate Up Effect */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards ease-out;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: #020617;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo-container a {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            max-height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Navigation Links & Dropdowns */
+        .main-nav {
+            background-color: #0f172a;
+            border-top: 1px solid #1e293b;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-list::-webkit-scrollbar {
+            height: 4px;
+        }
+        .nav-list::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 14px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #1e293b;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            list-style: none;
+            display: none;
+            z-index: 1001;
+            border-radius: 0 0 4px 4px;
+            border: 1px solid #334155;
+        }
+
+        .dropdown-menu li a {
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--text-main);
+            text-decoration: none;
+            display: block;
+            transition: background 0.2s;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #334155;
+            color: var(--accent);
+        }
+
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Hero & Typing Animation */
+        .hero {
+            padding: 80px 5%;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 200;
+            color: var(--text-main);
+        }
+
+        .typing-container {
+            font-size: 1.25rem;
+            color: var(--accent);
+            min-height: 30px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .typing-text::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Main Workspace & Ad Placement */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            flex-grow: 1;
+        }
+
+        .adsense-placeholder {
+            background-color: #1e293b;
+            border: 1px dashed #475569;
+            padding: 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        /* Content Sections */
+        .content-card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .content-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        .content-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* Media Section (License Free Elements Placeholder) */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .media-item {
+            background-color: #0f172a;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .media-caption {
+            padding: 12px;
+            font-size: 14px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* Form Controls */
+        .contact-section {
+            background-color: #1e293b;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            margin-top: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .form-group input, .form-group textarea {
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            padding: 12px;
+            color: var(--text-main);
+            border-radius: 6px;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .btn-submit {
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 14px 28px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            background-color: #7dd3fc;
+        }
+
+        /* Share Container */
+        .share-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .share-fb { background-color: #1877f2; }
+        .share-tw { background-color: #1da1f2; }
+        .share-ln { background-color: #0077b5; }
+
+        /* Footer */
+        footer {
+            background-color: #020617;
+            padding: 60px 5% 30px;
+            border-top: 1px solid #334155;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #1e293b;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            max-width: 450px;
+            background-color: #1e293b;
+            border: 1px solid #475569;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+        }
+
+        .cookie-banner p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .cookie-btn {
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Responsive Layout fixes */
+        @media(max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-nav {
+                display: none;
+                width: 100%;
+            }
+
+            .main-nav.active {
+                display: block;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                padding: 10px 0;
+                overflow-x: visible;
+                white-space: normal;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+                background-color: #0f172a;
+                padding-left: 20px;
+                border: none;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Dropdown Structure -->
+    <header>
+        <div class="header-top">
+            <div class="logo-container">
+                <a href="https://indoinves.github.io/">
+                    <!-- Responsive Logo with structural fallback hierarchy handling -->
+                    <img src="https://indoinves.github.io/indoinves.png" onerror="this.onerror=null; this.src='https://indoinves.github.io/indoinves.jpg';" alt="Indoinves Logo" class="logo-img">
+                </a>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="main-nav" id="mainNav">
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/">Home</a></li>
+                <li class="nav-item">
+                    <a class="nav-link rainbow-hover" href="#market-finance">Market & Finance <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://indoinves.github.io/#market">Market</a></li>
+                        <li><a href="https://indoinves.github.io/#finance">Finance</a></li>
+                        <li><a href="https://indoinves.github.io/#banking">Banking</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#macro-economy">Macro Economy</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#explainers">Explainers</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#manufacturing">Manufacturing</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#property">Property</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#health">Health</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#education">Education</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#lifestyle">Lifestyle</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#hospitality">Hospitality</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#tech-media">Tech & Media</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#smes">Smes</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#luxury">Luxury</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#whos-who">Who's Who</a></li>
+                <li class="nav-item">
+                    <a class="nav-link rainbow-hover" href="#international">International <i class="fas fa-chevron-down" style="font-size:10px;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://indoinves.github.io/#southeast-asia">Southeast Asia</a></li>
+                        <li><a href="https://indoinves.github.io/#united-states">United States</a></li>
+                        <li><a href="https://indoinves.github.io/#europe">Europe</a></li>
+                        <li><a href="https://indoinves.github.io/#world">World</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#local-resources">Local Resources</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#politics">Politics</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#culture">Culture</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#science">Science</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#public-policy">Public Policy</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#business-news">Business News</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#sports">Sports</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#arts">Arts</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#celebrities">Celebrities</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#automotive">Automotive</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#environment">Environment</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#commentary">Commentary</a></li>
+                <li class="nav-item"><a class="nav-link rainbow-hover" href="https://indoinves.github.io/#interview">Interview</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Showcase Section with typing effect -->
+    <section class="hero">
+        <h1 class="rainbow-hover">About Indoinves</h1>
+        <div class="typing-container">
+            <span class="typing-text" id="typingText"></span>
+        </div>
+    </section>
+
+    <!-- Main Workspace Contents -->
+    <main class="container">
+        
+        <!-- Google AdSense Container Placement -->
+        <div class="adsense-placeholder">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8423475960451668"
+                 data-ad-slot="default"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <p>[Google AdSense Placement Workspace Area]</p>
+        </div>
+
+        <article class="content-card animate-up">
+            <h2>Visi & Misi Kami</h2>
+            <p><strong>Indoinves</strong> adalah publikasi digital otoritatif terkemuka yang dirancang untuk menyampaikan berita terkini berdampak tinggi, analisis mendalam makroekonomi, intelijen pasar keuangan, serta kerangka kerja struktural bisnis yang komprehensif kepada para pembaca, investor global, pengambil kebijakan, dan pemimpin bisnis di seluruh penjuru dunia.</p>
+            <p>Di era transformasi pasar global yang dinamis ini, kami berdedikasi penuh dalam menyajikan data yang transparan, objektif, dan dapat ditindaklanjuti untuk mendukung pengelolaan kapital jangka panjang yang berkelanjutan serta ketahanan operasional korporasi.</p>
+            
+            <!-- License-Free High Quality Visual Assets Placeholders -->
+            <div class="media-grid">
+                <div class="media-item">
+                    <!-- Standard high quality workspace fallback image asset -->
+                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80" alt="Financial Analytics Stock Floor Display Visual">
+                    <div class="media-caption">Analisis Pergerakan Pasar & Finansial Real-Time</div>
+                </div>
+                <div class="media-item">
+                    <video controls muted preload="none" poster="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80">
+                        <!-- Valid open source royalty free sample streaming channel source -->
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung pemutaran video.
+                    </video>
+                    <div class="media-caption">Brifing Eksklusif Makro Ekonomi Global 2026</div>
+                </div>
+            </div>
+
+            <p>Kami meyakini bahwa konvergensi antara teknologi finansial tingkat lanjut dan tata kelola regulasi yang disiplin memegang peranan krusial bagi akselerasi pertumbuhan berkelanjutan global.</p>
+        </article>
+
+        <!-- Social Media Share Component -->
+        <div class="share-container animate-up">
+            <span style="font-weight: bold; font-size:14px;">Share This Page:</span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://indoinves.github.io/about.html" target="_blank" rel="noopener noreferrer" class="share-btn share-fb" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=https://indoinves.github.io/about.html" target="_blank" rel="noopener noreferrer" class="share-btn share-tw" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://indoinves.github.io/about.html" target="_blank" rel="noopener noreferrer" class="share-btn share-ln" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <!-- Integrated Contact and Subscription Form Elements -->
+        <section class="contact-section animate-up">
+            <h2>Hubungi Kami & Subscribe</h2>
+            <p style="font-size:14px; margin-bottom: 25px;">Kirimkan pesan Anda langsung ke meja redaksi kami atau berlangganan buletin harian harian Indoinves Intelijen.</p>
+            <form action="https://indoinves.github.io/" method="GET">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda...">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Alamat Email</label>
+                        <input type="email" id="email" name="email" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="message">Pesan Anda (Opsional)</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tuliskan feedback atau pertanyaan Anda di sini..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Subscribe & Kirim Pesan</button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Comprehensive Structural Footer Block -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="https://indoinves.github.io/indoinves.png" onerror="this.onerror=null; this.src='https://indoinves.github.io/indoinves.jpg';" alt="Indoinves Footer Logo" style="max-height: 40px; width:auto;">
+                <p>Indoinves menyediakan data pasar real-time, analisis mendalam makro ekonomi, finansial intelijen, serta kerangka struktural komprehensif bagi investor dunia.</p>
+            </div>
+            <div class="footer-links">
+                <div>
+                    <h4 style="margin-bottom:15px; font-size:14px; color:var(--text-main);">Quick Links</h4>
+                    <ul>
+                        <li><a href="https://indoinves.github.io/">Home</a></li>
+                        <li><a href="https://indoinves.github.io/about.html">About Us</a></li>
+                        <li><a href="https://indoinves.github.io/#contact-us">Contact Us</a></li>
+                        <li><a href="https://indoinves.github.io/#privacy-policy">Privacy Policy</a></li>
+                        <li><a href="https://indoinves.github.io/#sitemap">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; font-size:14px; color:var(--text-main);">Policies & Editorial</h4>
+                    <ul>
+                        <li><a href="https://indoinves.github.io/#disclaimer">Disclaimer</a></li>
+                        <li><a href="https://indoinves.github.io/#terms">Terms On Conditional License</a></li>
+                        <li><a href="https://indoinves.github.io/#editorial">Editorial Guidelines</a></li>
+                        <li><a href="https://indoinves.github.io/#advertise">Advertise With Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; font-size:14px; color:var(--text-main);">Community & Careers</h4>
+                    <ul>
+                        <li><a href="https://indoinves.github.io/#join">Join the Team</a></li>
+                        <li><a href="https://indoinves.github.io/#forum">Contact Forum</a></li>
+                        <li><a href="https://indoinves.github.io/#komunitas">Komunitas Indoinves</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Indoinves - All Rights Reserved. Secured via HTTPS.
+        </div>
+    </footer>
+
+    <!-- Compliant English Language Cookies Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p>We use cookies to enhance your user experience, analyze site traffic, and serve personalized advertisements through Google AdSense in accordance with our Privacy Policy.</p>
+        <button class="cookie-btn" id="acceptCookies">Accept Cookies</button>
+    </div>
+
+    <!-- Active Behavioral Script Workspaces -->
+    <script>
+        // Responsive Mobil Navigation Drawer Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Typing Text Animation Logic Workspace
+        const stringsArray = [
+            "Navigating Global Markets & Macro Economic Shifts.",
+            "Real-time Updates & Financial Intelligence Data.",
+            "Structural Frameworks for Global Systemic Investors."
+        ];
+        let currentStringIndex = 0;
+        let currentCharIndex = 0;
+        const typingSpeed = 60;
+        const erasingSpeed = 35;
+        const newTextDelay = 2000;
+        const typingTextSpan = document.getElementById("typingText");
+
+        function type() {
+            if (currentCharIndex < stringsArray[currentStringIndex].length) {
+                typingTextSpan.textContent += stringsArray[currentStringIndex].charAt(currentCharIndex);
+                currentCharIndex++;
+                setTimeout(type, typingSpeed);
+            } else {
+                setTimeout(erase, newTextDelay);
+            }
+        }
+
+        function erase() {
+            if (currentCharIndex > 0) {
+                typingTextSpan.textContent = stringsArray[currentStringIndex].substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+                setTimeout(erase, erasingSpeed);
+            } else {
+                currentStringIndex = (currentStringIndex + 1) % stringsArray.length;
+                setTimeout(type, typingSpeed + 50);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (stringsArray.length) setTimeout(type, 500);
+            
+            // Cookie Banner Persistence Execution Workspace
+            if (!localStorage.getItem('indoinves_cookies_accepted')) {
+                setTimeout(() => {
+                    document.getElementById('cookieBanner').style.display = 'block';
+                }, 1000);
+            }
+        });
+
+        document.getElementById('acceptCookies').addEventListener('click', () => {
+            localStorage.setItem('indoinves_cookies_accepted', 'true');
+            document.getElementById('cookieBanner').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
