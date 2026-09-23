@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indoinves Search Tools Content blog News - Tools Blogger Search Url Blog</title>
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://indoinves.github.io/tools/contentblog.html">
+
+    <!-- Meta SEO & Adsense -->
+    <meta name="description" content="Indoinves Search Tools Content Blog News - Masukkan URL blog atau WordPress/Blogspot Anda untuk generate konten hingga 17 postingan otomatis dengan gambar, judul, dan deskripsi.">
+    <meta name="keywords" content="Indoinves, Search Tools, Blog News, Content Generator, Blogger API, Tools SEO">
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Indoinves Search Tools Content blog News">
+    <meta property="og:description" content="Tools interaktif untuk menampilkan postingan blog/website secara otomatis menggunakan API dengan tampilan modern dan responsif.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://indoinves.github.io/tools/contentblog.html">
+    <meta property="og:image" content="https://indoinves.github.io/indoinves.png">
+    <meta property="og:image:alt" content="Indoinves Logo">
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="https://indoinves.github.io/manifest.json">
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/indoinves.png">
+
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+
+    <!-- CSS Styling -->
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header & Logo */
+        header {
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-area img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo-area span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        /* Search Bar di Header */
+        .header-search {
+            display: flex;
+            gap: 5px;
+        }
+
+        .header-search input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .header-search button {
+            padding: 8px 15px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Rainbow Hover Slider Navibar */
+        .nav-slider-container {
+            background: #222;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 20px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-slider {
+            display: inline-flex;
+            gap: 15px;
+        }
+
+        .nav-slider a {
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Rainbow Hover Effect */
+        .nav-slider a:hover {
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 400% 400%;
+            animation: rainbowAnimation 3s ease infinite;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        @keyframes rainbowAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Main Container & Animated Up */
+        .main-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .animated-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typing Effect Container */
+        .typing-container {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a73e8;
+            margin-bottom: 20px;
+            border-right: 3px solid #1a73e8;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(40, end) infinite, blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #1a73e8; }
+        }
+
+        /* Tool Input Section */
+        .tool-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .tool-box h1 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .tool-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tool-input-group input {
+            flex: 1;
+            min-width: 280px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .tool-input-group button {
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tool-input-group button:hover {
+            background: #1557b0;
+        }
+
+        /* Posts Grid / List Output */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .post-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .post-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .post-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .post-card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .post-card h2 a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .post-card h2 a:hover {
+            text-decoration: underline;
+        }
+
+        .post-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .post-desc {
+            font-size: 0.9rem;
+            color: #444;
+            flex: 1;
+        }
+
+        .status-msg {
+            font-style: italic;
+            color: #666;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Footer Styling */
+        footer {
+            background: #111;
+            color: #ccc;
+            padding: 40px 20px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-logo-desc {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-logo-desc img {
+            width: 50px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 0.85srem;
+            color: #888;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2000;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .cookie-banner button {
+            background: #1a73e8;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        @media(max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-search {
+                width: 100%;
+            }
+            .header-search input {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation Logo -->
+    <header>
+        <div class="header-container">
+            <a href="https://indoinves.github.io/" class="logo-area">
+                <img src="https://indoinves.github.io/indoinves.png" alt="Indoinves Logo" onerror="this.src='https://indoinves.github.io/indoinves.jpg'">
+                <span>Indoinves Search Tools</span>
+            </a>
+            <div class="header-search">
+                <input type="text" id="globalSearchInput" placeholder="Cari topik atau keyword...">
+                <button onclick="handleGlobalSearch()">Cari</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Rainbow Hover Slider Navbar -->
+    <div class="nav-slider-container">
+        <div class="nav-slider">
+            <a href="https://indoinves.github.io/">Beranda</a>
+            <a href="https://indoinves.github.io/market-finance.html">Market & Finance</a>
+            <a href="https://indoinves.github.io/macro-economy.html">Macro Economy</a>
+            <a href="https://indoinves.github.io/explainers.html">Explainers</a>
+            <a href="https://indoinves.github.io/manufacturing.html">Manufacturing</a>
+            <a href="https://indoinves.github.io/property.html">Property</a>
+            <a href="https://indoinves.github.io/health.html">Health</a>
+            <a href="https://indoinves.github.io/education.html">Education</a>
+            <a href="https://indoinves.github.io/lifestyle.html">Lifestyle</a>
+            <a href="https://indoinves.github.io/hospitality.html">Hospitality</a>
+            <a href="https://indoinves.github.io/tech-media.html">Tech & Media</a>
+            <a href="https://indoinves.github.io/smes.html">Smes</a>
+            <a href="https://indoinves.github.io/luxury.html">Luxury</a>
+            <a href="https://indoinves.github.io/whos-who.html">Who's Who</a>
+            <a href="https://indoinves.github.io/international.html">International</a>
+            <a href="https://indoinves.github.io/local-resources.html">Local Resources</a>
+            <a href="https://indoinves.github.io/politics.html">Politics</a>
+            <a href="https://indoinves.github.io/culture.html">Culture</a>
+            <a href="https://indoinves.github.io/science.html">Science</a>
+            <a href="https://indoinves.github.io/public-policy.html">Public Policy</a>
+            <a href="https://indoinves.github.io/business-news.html">Business News</a>
+            <a href="https://indoinves.github.io/southeast-asia.html">Southeast Asia</a>
+            <a href="https://indoinves.github.io/united-states.html">United States</a>
+            <a href="https://indoinves.github.io/europe.html">Europe</a>
+            <a href="https://indoinves.github.io/world.html">World</a>
+            <a href="https://indoinves.github.io/sports.html">Sports</a>
+            <a href="https://indoinves.github.io/arts.html">Arts</a>
+            <a href="https://indoinves.github.io/celebrities.html">Celebrities</a>
+            <a href="https://indoinves.github.io/automotive.html">Automotive</a>
+            <a href="https://indoinves.github.io/environment.html">Environment</a>
+            <a href="https://indoinves.github.io/commentary.html">Commentary</a>
+            <a href="https://indoinves.github.io/interview.html">Interview</a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-container animated-up">
+        
+        <!-- Animated Typing Title/Banner -->
+        <div class="typing-container">Indoinves Content Blog News Generator</div>
+
+        <!-- Tool Input Section -->
+        <div class="tool-box">
+            <h1>Indoinves Search Content Tool</h1>
+            <p style="margin-bottom: 15px; font-size: 0.95rem; color: #555;">Masukkan URL Blog, WordPress, atau Blogspot Anda untuk menampilkan hingga 17 postingan beserta judul, gambar, dan deskripsinya secara instan.</p>
+            <div class="tool-input-group">
+                <input type="text" id="blogUrlInput" placeholder="Contoh: https://waumkm.blogspot.com atau URL blog Anda" value="https://waumkm.blogspot.com">
+                <button onclick="fetchBlogPosts()">Generate Postingan</button>
+            </div>
+            
+            <!-- Posts Container Output -->
+            <div id="posts-container" class="posts-grid">
+                <div class="status-msg">Masukkan URL dan klik tombol Generate untuk memuat konten.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-desc">
+                <img src="https://indoinves.github.io/indoinves.png" alt="Indoinves Logo" onerror="this.src='https://indoinves.github.io/indoinves.jpg'">
+                <p><strong>Indoinves</strong> adalah portal berita, ekonomi, dan penyedia tools digital terpercaya yang menyajikan informasi mendalam seputar market, bisnis, teknologi, dan analisis global.</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://indoinves.github.io/">Home</a>
+                <a href="https://indoinves.github.io/about.html">About Us</a>
+                <a href="https://indoinves.github.io/contact.html">Contact Us</a>
+                <a href="https://indoinves.github.io/privacy.html">Privacy Policy</a>
+                <a href="https://indoinves.github.io/sitemap.html">Sitemap</a>
+                <a href="https://indoinves.github.io/disclaimer.html">Disclaimer</a>
+                <a href="https://indoinves.github.io/terms.html">Terms On Conditional License</a>
+                <a href="https://indoinves.github.io/editorial.html">Editorial</a>
+                <a href="https://indoinves.github.io/advertise.html">Advertise</a>
+                <a href="https://indoinves.github.io/join-team.html">Join the Team</a>
+                <a href="https://indoinves.github.io/contact-forum.html">Contact Forum Komunitas</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; Indoinves - All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent (English) -->
+    <div id="cookieBanner" class="cookie-banner">
+        <span>We use cookies to enhance your user experience, analyze traffic, and serve targeted advertisements through Google AdSense. By clicking "Accept", you consent to our use of cookies.</span>
+        <button onclick="acceptCookies()">Accept</button>
+    </div>
+
+    <!-- JavaScript Script API & Functionality -->
+    <script>
+        const API_KEY = "AIzaSyBQzhHXSKDYsIkPHpI6m_zoiEvGsSr9a2I";
+
+        async function fetchBlogPosts() {
+            const inputUrl = document.getElementById("blogUrlInput").value.trim();
+            const container = document.getElementById("posts-container");
+
+            if (!inputUrl) {
+                container.innerHTML = `<div class="status-msg">Silakan masukkan URL blog yang valid terlebih dahulu.</div>`;
+                return;
+            }
+
+            container.innerHTML = `<div class="status-msg loading">Mengambil data postingan dari ${inputUrl}...</div>`;
+
+            try {
+                // 1. Mendapatkan Blog ID berdasarkan URL
+                const idResponse = await fetch(`https://www.googleapis.com/blogger/v3/blogs/byurl?url=${encodeURIComponent(inputUrl)}&key=${API_KEY}`);
+                const idData = await idResponse.json();
+
+                if (!idData.id) {
+                    container.innerHTML = `<div class="status-msg">Gagal menemukan Blog ID. Periksa kembali URL blog atau pastikan blog tersebut publik.</div>`;
+                    return;
+                }
+
+                const blogId = idData.id;
+
+                // 2. Mengambil daftar postingan (maksimal 17 postingan)
+                const postsResponse = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?maxResults=17&key=${API_KEY}`);
+                const postsData = await postsResponse.json();
+
+                if (!postsData.items || postsData.items.length === 0) {
+                    container.innerHTML = `<div class="status-msg">Tidak ada postingan publik yang ditemukan pada blog ini.</div>`;
+                    return;
+                }
+
+                // 3. Render postingan ke dalam HTML Card (Judul, Gambar, Deskripsi, Target _blank)
+                let htmlContent = "";
+                postsData.items.forEach(post => {
+                    const publishDate = new Date(post.published).toLocaleDateString("id-ID", {
+                        day: 'numeric', month: 'long', year: 'numeric'
+                    });
+
+                    // Ekstraksi gambar pertama dari konten HTML postingan jika ada
+                    let imageUrl = "https://picsum.photos/300/160?random=" + Math.floor(Math.random() * 1000); // Default gambar bebas lisensi jika tidak ada
+                    if (post.content) {
+                        const imgMatch = post.content.match(/<img[^>]+src="([^">]+)"/);
+                        if (imgMatch && imgMatch[1]) {
+                            imageUrl = imgMatch[1];
+                        }
+                    }
+
+                    // Bersihkan HTML untuk deskripsi singkat
+                    const cleanDescription = post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 140) + "..." : "Tidak ada deskripsi tersedia.";
+
+                    htmlContent += `
+                        <div class="post-card">
+                            <img src="${imageUrl}" alt="${post.title}" onerror="this.src='https://picsum.photos/300/160'">
+                            <div class="post-content">
+                                <div class="post-date">Dipublikasikan: ${publishDate}</div>
+                                <h2><a href="${post.url}" target="_blank">${post.title}</a></h2>
+                                <div class="post-desc">${cleanDescription}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = htmlContent;
+
+            } catch (error) {
+                console.error("Terjadi kesalahan:", error);
+                container.innerHTML = `<div class="status-msg">Terjadi kesalahan saat mengambil data dari Blogger API. Pastikan koneksi atau format URL benar.</div>`;
+            }
+        }
+
+        // Fungsi Global Search
+        function handleGlobalSearch() {
+            const query = document.getElementById("globalSearchInput").value;
+            if(query) {
+                alert("Mencari: " + query);
+            }
+        }
+
+        // Fungsi Cookie Acceptance
+        function acceptCookies() {
+            document.getElementById("cookieBanner").style.display = "none";
+            localStorage.setItem("indoinves_cookie_accepted", "true");
+        }
+
+        window.onload = function() {
+            if(localStorage.getItem("indoinves_cookie_accepted") === "true") {
+                document.getElementById("cookieBanner").style.display = "none";
+            }
+            // Auto fetch default blog on load
+            fetchBlogPosts();
+        }
+    </script>
+</body>
+</html>
