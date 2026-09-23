@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  indoinves-web:
+    build: .
+    container_name: indoinves_container
+    ports:
+      - "8080:80"
+    restart: always
+    environment:
+      - NGINX_PORT=80
+    networks:
+      - indoinves-net
+
+networks:
+  indoinves-net:
+    driver: bridge
