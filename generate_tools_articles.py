@@ -33,6 +33,35 @@ def generate_tool_html(category, title_slug, page_title):
     <title>{page_title} - Indoinves Tools</title>
     <meta name="description" content="Indoinves provides advanced software utilities, financial calculators, and professional digital tools for {category}." />
     <meta name="keywords" content="Indoinves, Tools, Software, Financial Calculator, {category}, Digital Utility" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY" />
+    
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+    <!-- Manifest JSON Link -->
+    <link rel="manifest" href="https://indoinves.github.io/manifest.json" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://indoinves.github.io/indoinves.png" type="image/png" />
+    
+    <!-- Schema JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "Indoinves",
+      "url": "https://indoinves.github.io/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://indoinves.github.io/indoinves.png"
+      },
+      "sameAs": [
+        "https://facebook.com/indoinves",
+        "https://twitter.com/indoinves",
+        "https://linkedin.com/company/indoinves"
+      ]
+    }
+    </script>
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="{page_title} - Indoinves" />
