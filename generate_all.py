@@ -1,4 +1,8 @@
 import os
+import plugin
+plugin.generate_plugin_store()
+import templates
+templates.generate_templates_store()
 
 categories = [
     "macro-economy", "explainers", "manufacturing", "property", "health", 
