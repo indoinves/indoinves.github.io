@@ -65,6 +65,20 @@ def generate_html(category, title_slug, page_title):
       ]
     }}
     </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY" />
+    
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+    <!-- Manifest JSON Link -->
+    <link rel="manifest" href="https://indoinves.github.io/manifest.json" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://indoinves.github.io/indoinves.png" type="image/png" />
+    
+    
+    
     <style>
         body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: #f9f9f9; }}
         header, footer {{ background: #111; color: #fff; padding: 20px; text-align: center; }}
