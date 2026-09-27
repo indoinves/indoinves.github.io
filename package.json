@@ -1,0 +1,31 @@
+{
+  "name": "indoinves-platform",
+  "version": "1.0.0",
+  "description": "Platform Pintar Investasi, Keuangan, dan Kumpulan Tools Finansial Modern",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 8000",
+    "dev": "npx live-server ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/indoinves/indoinves.github.io.git"
+  },
+  "keywords": [
+    "finance",
+    "investment",
+    "calculator",
+    "crypto",
+    "stocks"
+  ],
+  "author": "IndoInves",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indoinves/indoinves.github.io/issues"
+  },
+  "homepage": "https://indoinves.github.io/#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  }
+}
