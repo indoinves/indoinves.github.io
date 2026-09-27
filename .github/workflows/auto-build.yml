@@ -4,6 +4,10 @@ on:
   push:
     branches: [ main, master ]
 
+# Tambahkan izin write agar bot bisa commit & push folder otomatis
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
