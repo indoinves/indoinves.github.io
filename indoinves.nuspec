@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>IndoInves.Platform</id>
+        <version>1.0.0</version>
+        <authors>IndoInves</authors>
+        <owners>IndoInves</owners>
+        <projectUrl>https://indoinves.github.io/</projectUrl>
+        <license type="expression">MIT</license>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Platform Pintar Investasi, Keuangan, dan Kumpulan Tools Finansial Modern</description>
+        <tags>finance investment tools frontend html</tags>
+    </metadata>
+    <files>
+        <file src="**/*" exclude="pom.xml;Dockerfile;Containerfile;nginx.conf;.git/**;*.nuspec" target="content/" />
+    </files>
+</package>
