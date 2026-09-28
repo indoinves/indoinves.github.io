@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Indoinves</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google AdSense & Verification Meta Tags -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY" />
+    
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+    <link rel="manifest" href="https://indoinves.github.io/manifest.json" />
+</head>
+<body class="bg-slate-900 text-slate-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-slate-800 p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-700">
+        <div class="flex flex-col items-center mb-6">
+            <img src="https://indoinves.github.io/img/indoinves.png" alt="Indoinves Logo" class="w-16 h-16 mb-2 object-contain">
+            <h1 class="text-2xl font-bold text-emerald-400">Indoinves Portal</h1>
+            <p class="text-xs text-slate-400">Silakan masuk sesuai hak akses Anda</p>
+        </div>
+
+        <form id="loginForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">Email / Username</label>
+                <input type="text" id="username" required class="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-emerald-500 text-sm" placeholder="admin@indoinves.com / member@indoinves.com">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Password</label>
+                <input type="password" id="password" required class="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-emerald-500 text-sm" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-semibold py-2.5 rounded-lg transition duration-200">
+                Masuk Dashboard
+            </button>
+        </form>
+        
+        <div class="mt-4 text-xs text-center text-slate-400">
+            <p>Demo Admin: <span class="text-emerald-400 font-mono">admin / admin123</span></p>
+            <p>Demo Member: <span class="text-emerald-400 font-mono">member / member123</span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value.trim();
+
+            if (u === 'admin' && p === 'admin123') {
+                localStorage.setItem('indoinves_role', 'admin');
+                window.location.href = 'admin.html';
+            } else if (u === 'member' && p === 'member123') {
+                localStorage.setItem('indoinves_role', 'member');
+                window.location.href = 'member.html';
+            } else {
+                alert('Username atau Password salah!');
+            }
+        });
+    </script>
+</body>
+</html>
