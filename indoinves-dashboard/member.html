@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - Indoinves</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+</head>
+<body class="bg-slate-950 text-slate-100 flex h-screen overflow-hidden">
+
+    <!-- Sidebar Member -->
+    <aside id="sidebar" class="bg-slate-900 w-64 border-r border-slate-800 flex flex-col transition-all duration-300 absolute md:relative z-20 h-full -translate-x-full md:translate-x-0">
+        <div class="p-4 flex items-center space-x-3 border-b border-slate-800">
+            <img src="https://indoinves.github.io/img/indoinves.png" alt="Logo" class="w-8 h-8 object-contain">
+            <span class="font-bold text-lg text-emerald-400">Indoinves Member</span>
+        </div>
+        <nav class="flex-1 p-4 space-y-2 text-sm">
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 font-medium">🏠 <span>Dashboard Utama</span></a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">📈 <span>Portofolio Saya</span></a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">💳 <span>Top Up / Tarik Dana</span></a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">👤 <span>Profil Akun</span></a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+            <button onclick="logout()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 font-medium py-2 rounded-lg text-sm transition">Keluar</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-full overflow-y-auto">
+        <!-- Topbar -->
+        <header class="bg-slate-900 border-b border-slate-800 p-4 flex justify-between items-center">
+            <button onclick="toggleSidebar()" class="md:hidden text-slate-300 focus:outline-none">☰ Menu</button>
+            <h2 class="text-lg font-semibold text-emerald-400 hidden md:block">Akun Members</h2>
+            <div class="flex items-center space-x-2 text-sm text-slate-300">
+                <span>Halo, <strong>Member Setia</strong></span>
+            </div>
+        </header>
+
+        <!-- Content Body -->
+        <main class="p-6 space-y-6">
+            <!-- Saldo & Portofolio Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                    <p class="text-xs text-slate-400">Total Saldo Portofolio</p>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1">Rp 12.540.000</h3>
+                </div>
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                    <p class="text-xs text-slate-400">Keuntungan (ROI)</p>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1">+14.2%</h3>
+                </div>
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                    <p class="text-xs text-slate-400">Status Akun</p>
+                    <h3 class="text-2xl font-bold text-blue-400 mt-1">Verified VIP</h3>
+                </div>
+            </div>
+
+            <!-- Detail Akun Members -->
+            <div class="bg-slate-900 rounded-xl border border-slate-800 p-6 space-y-4">
+                <h3 class="text-base font-semibold text-emerald-400">Informasi Akun Members</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <p class="text-slate-400">Nama Lengkap</p>
+                        <p class="font-medium text-slate-200">Investor Indoinves</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400">Email Terdaftar</p>
+                        <p class="font-medium text-slate-200">member@indoinves.com</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400">Nomor Rekening Bank</p>
+                        <p class="font-medium text-slate-200">BCA - 1234567890</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400">Tanggal Bergabung</p>
+                        <p class="font-medium text-slate-200">12 Januari 2026</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        if(localStorage.getItem('indoinves_role') !== 'member') {
+            window.location.href = 'index.html';
+        }
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        }
+        function logout() {
+            localStorage.removeItem('indoinves_role');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
