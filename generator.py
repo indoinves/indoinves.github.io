@@ -1,13 +1,8 @@
 import os
+import plugin
+import templates
 
-# Coba melakukan import untuk modul tambahan (plugin & templates store) jika ada
-try:
-    import plugin
-    import templates
-    HAS_STORE_MODULES = True
-except ImportError:
-    HAS_STORE_MODULES = False
-
+# Daftar Kategori Artikel & Tools
 categories = [
     "macro-economy", "explainers", "manufacturing", "property", "health", 
     "education", "lifestyle", "hospitality", "tech-media", "smes", "luxury", 
@@ -25,31 +20,148 @@ tool_categories = [
 ]
 
 BASE_URL = "https://indoinves.github.io"
+urls_for_sitemap = [
+    f"{BASE_URL}/", 
+    f"{BASE_URL}/contact.html", 
+    f"{BASE_URL}/sitemap.html", 
+    f"{BASE_URL}/store/plugins.html", 
+    f"{BASE_URL}/store/templates.html"
+]
 
-# Fungsi untuk menghasilkan teks panjang terstruktur SEO (30 Bab + Tabel Data)
+# 1. Jalankan fungsi pembuat Store (Plugin & Templates)
+try:
+    plugin.generate_plugin_store()
+    templates.generate_templates_store()
+except Exception as e:
+    print(f"Catatan modul store: {e}")
+
+# Buat file index.html untuk folder store utama
+store_dir = os.path.join(".", "store")
+os.makedirs(store_dir, exist_ok=True)
+with open(os.path.join(store_dir, "index.html"), "w", encoding="utf-8") as f:
+    f.write("""<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indoinves Store Directory - Indoinves Global Intelligence</title>
+    <meta name="description" content="Pusat unduhan plugin dan 17.000+ templates profesional." />
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+<!-- Google AdSense & Verification Meta Tags -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY" />
+    
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+    <link rel="icon" href="https://indoinves.github.io/indoinves.png" type="image/png" />
+    <link rel="manifest" href="https://indoinves.github.io/manifest.json" />
+
+</head>
+<body>
+    <header style="background: #111; color: #fff; padding: 20px; text-align: center;">
+        <h1>Indoinves Store Directory</h1>
+        <p>Direktori Resmi Indoinves Global Intelligence</p>
+    </header>
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.05); border-radius: 6px;">
+        <h2>Selamat Datang di Pusat Toko & Direktori</h2>
+        <p>Pusat unduhan plugin dan 17.000+ templates profesional.</p>
+        <ul>
+            <li><a href="https://indoinves.github.io/">Kembali ke Beranda Utama (Home)</a></li>
+            <li><a href="https://indoinves.github.io/store/plugins.html">Kunjungi Toko 1.000+ Plugins</a></li>
+            <li><a href="https://indoinves.github.io/store/templates.html">Kunjungi Toko 17.000+ Templates</a></li>
+            <li><a href="https://indoinves.github.io/sitemap.html">Lihat Peta Situs (Sitemap)</a></li>
+        </ul>
+    </div>
+</body>
+</html>""")
+urls_for_sitemap.append(f"{BASE_URL}/store/")
+
+
+# Template untuk index direktori agar tidak 404
+def get_directory_index_template(title, description):
+    return f"""<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} - Indoinves Global Intelligence</title>
+    <meta name="description" content="{description}" />
+    <link rel="icon" type="image/png" href="{BASE_URL}/img/indoinves.png">
+    <style>
+        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: #f9f9f9; }}
+        header {{ background: #111; color: #fff; padding: 20px; text-align: center; }}
+        .container {{ max-width: 800px; margin: 40px auto; padding: 20px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.05); border-radius: 6px; }}
+        h1 {{ color: #111; }}
+        a {{ color: #0056b3; text-decoration: none; }}
+        a:hover {{ text-decoration: underline; }}
+        footer {{ background: #111; color: #fff; text-align: center; padding: 20px; margin-top: 40px; }}
+    </style><!-- Google AdSense & Verification Meta Tags -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY" />
+    
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+    <link rel="icon" href="https://indoinves.github.io/indoinves.png" type="image/png" />
+    <link rel="manifest" href="https://indoinves.github.io/manifest.json" />
+
+</head>
+<body>
+    <header>
+        <h1>{title}</h1>
+        <p>Direktori Resmi Indoinves Global Intelligence</p>
+    </header>
+    <div class="container">
+        <h2>Selamat Datang di Pusat Informasi Direktori Ini</h2>
+        <p>{description}</p>
+        <p>Silakan akses halaman utama atau direktori terkait melalui tautan berikut:</p>
+        <ul>
+            <li><a href="{BASE_URL}/">Kembali ke Beranda Utama (Home)</a></li>
+            <li><a href="{BASE_URL}/store/plugins.html">Kunjungi Toko 1.000+ Plugins</a></li>
+            <li><a href="{BASE_URL}/store/templates.html">Kunjungi Toko 17.000+ Templates</a></li>
+            <li><a href="{BASE_URL}/sitemap.html">Lihat Peta Situs (Sitemap)</a></li>
+        </ul>
+    </div>
+<!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://indoinves.github.io/">Home</a>
+            <a href="https://indoinves.github.io/about.html">About Us</a>
+            <a href="https://indoinves.github.io/contact.html">Contact Us</a>
+            <a href="https://indoinves.github.io/privacy.html">Privacy Policy</a>
+            <a href="https://indoinves.github.io/sitemap.html">Sitemap</a>
+            <a href="https://indoinves.github.io/disclaimer.html">Disclaimer</a>
+            <a href="https://indoinves.github.io/terms.html">Terms on Conditional License</a>
+        </div>
+        <p>&copy; 2026 Indoinves. All Rights Reserved. Global Intelligence Report & Explorer Tools.</p>
+    </footer>
+
+</body>
+</html>
+"""
+
+
+# Fungsi generator konten artikel masif berstruktur SEO tinggi
 def generate_long_content(category_name, index):
     paragraphs = []
-    
     for chapter in range(1, 31):
         chapter_title = f"Bab {chapter}: Analisis Komprehensif dan Proyeksi Strategis {category_name.replace('-', ' ').title()} Bagian {index}.{chapter}"
-        
         body_text = f"""
-        Dalam era globalisasi modern, sektor {category_name.replace('-', ' ')} menghadapi transformasi masif yang belum pernah terjadi sebelumnya. 
+        Dalam era globalisasi modern, sektor {category_name} menghadapi transformasi masif yang belum pernah terjadi sebelumnya. 
         Bab ini mengupas tuntas seluruh variabel fundamental, mulai dari regulasi makroekonomi, penetrasi teknologi digital, hingga mitigasi risiko fiskal jangka panjang. 
         Para pelaku industri, investor institusional, dan pembuat kebijakan dituntut untuk memahami pergeseran paradigma ini agar tetap kompetitif di kancah internasional. 
         Analisis mendalam menunjukkan bahwa efisiensi operasional dan adaptasi terhadap tren global menjadi penentu utama keberhasilan finansial korporasi besar maupun usaha skala menengah.
         
         <br><br>
         
-        Eksplorasi lanjutan memperlihatkan adanya korelasi kuat antara stabilitas geopolitik dan arus investasi asing langsung (FDI). 
+        Eksplorasi lanjutan terhadap {category_name} memperlihatkan adanya korelasi kuat antara stabilitas geopolitik dan arus investasi asing langsung (FDI). 
         Berdasarkan data historis dekade terakhir, ketahanan sektor ini sangat bergantung pada fleksibilitas rantai pasok global serta kesiapan infrastruktur digital pendukung. 
         Indoinves secara berkala memantau indikator-indikator krusial ini untuk menyajikan panduan akurat bagi para eksekutif dan analis pasar. 
         Melalui pendekatan multidisiplin, pemangku kepentingan dapat mengantisipasi volatilitas pasar serta mengidentifikasi peluang pertumbuhan baru yang belum tergarap secara optimal di berbagai kawasan strategis dunia.
         """
-        
         paragraphs.append(f"<h2>{chapter_title}</h2><p>{body_text}</p>")
         
-        # Tambahkan tabel data setiap 5 bab sekali untuk memperkaya bobot konten
         if chapter % 5 == 0:
             table_html = f"""
             <h3>Tabel Komparasi Metrik Global - Sektor {category_name.replace('-', ' ').title()} (Fase {chapter})</h3>
@@ -75,7 +187,7 @@ def generate_long_content(category_name, index):
                         <td>Tingkat Likuiditas Pasar</td>
                         <td>High Yield</td>
                         <td>Optimum</td>
-                        <td>Ekspansi Kuat</td>
+                        <td>Espansi Kuat</td>
                         <td>Aman</td>
                     </tr>
                     <tr>
@@ -89,55 +201,12 @@ def generate_long_content(category_name, index):
             </table>
             """
             paragraphs.append(table_html)
-
     return "".join(paragraphs)
 
-# Template untuk index direktori agar terhindar dari Error 404
-def get_directory_index_template(title, description):
-    return f"""<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} - Indoinves Global Intelligence</title>
-    <meta name="description" content="{description}" />
-    <link rel="icon" type="image/png" href="{BASE_URL}/img/indoinves.png">
-    <style>
-        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: #f9f9f9; }}
-        header {{ background: #111; color: #fff; padding: 20px; text-align: center; }}
-        .container {{ max-width: 800px; margin: 40px auto; padding: 20px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.05); border-radius: 6px; }}
-        h1 {{ color: #111; }}
-        a {{ color: #0056b3; text-decoration: none; }}
-        a:hover {{ text-decoration: underline; }}
-        footer {{ background: #111; color: #fff; text-align: center; padding: 20px; margin-top: 40px; }}
-    </style>
-</head>
-<body>
-    <header>
-        <h1>{title}</h1>
-        <p>Direktori Resmi Indoinves Global Intelligence</p>
-    </header>
-    <div class="container">
-        <h2>Selamat Datang di Pusat Informasi Direktori Ini</h2>
-        <p>{description}</p>
-        <p>Silakan kembali ke halaman utama atau akses daftar artikel dan perangkat di bawah:</p>
-        <ul>
-            <li><a href="{BASE_URL}/">Kembali ke Beranda Utama (Home)</a></li>
-            {f'<li><a href="{BASE_URL}/store/plugins.html">Kunjungi Toko 1.000+ Plugins</a></li>' if HAS_STORE_MODULES else ''}
-            {f'<li><a href="{BASE_URL}/store/templates.html">Kunjungi Toko 17.000+ Templates</a></li>' if HAS_STORE_MODULES else ''}
-        </ul>
-    </div>
-    <footer>
-        <p>&copy; 2026 Indoinves. All Rights Reserved.</p>
-    </footer>
-</body>
-</html>
-"""
 
-# Template Utama Artikel / Utility (Full Layout dengan Integrasi Konten Masif)
+# Template HTML Artikel & Utility Utama
 def get_html_template(title, category_name, index):
     long_article_content = generate_long_content(category_name, index)
-    
     return f"""<!DOCTYPE html>
 <html lang="id">
 <head>
@@ -186,7 +255,6 @@ def get_html_template(title, category_name, index):
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="header-container">
             <a href="{BASE_URL}/" class="logo-area">
@@ -197,7 +265,6 @@ def get_html_template(title, category_name, index):
         </div>
     </header>
     
-    <!-- Navigation Slider -->
     <div class="nav-slider-container">
         <div class="nav-slider">
             <a href="{BASE_URL}/">Home</a>
@@ -206,13 +273,13 @@ def get_html_template(title, category_name, index):
             <a href="{BASE_URL}/tech-media/artikel-1.html">Tech & Media</a>
             <a href="{BASE_URL}/tools/saham/utility-1.html">Saham Tools</a>
             <a href="{BASE_URL}/tools/kripto/utility-1.html">Kripto Tools</a>
+            <a href="{BASE_URL}/tools/banklocator/utility-1.html">Bank Locator</a>
             <a href="{BASE_URL}/business-news/artikel-1.html">Business News</a>
             <a href="{BASE_URL}/international/artikel-1.html">International</a>
             <a href="{BASE_URL}/contact.html">Contact Us</a>
         </div>
     </div>
 
-    <!-- Container Utama & Sidebar -->
     <div class="container">
         <main>
             <article>
@@ -220,54 +287,30 @@ def get_html_template(title, category_name, index):
                 <p><em>Oleh Tim Riset Global Indoinves | Dokumen Resmi Sektor: {category_name.replace('-', ' ').title()}</em></p>
                 <img src="{BASE_URL}/img/indoinves.jpg" alt="{title}" style="width:100%; height:auto; border-radius:6px; margin: 15px 0;">
                 
-                <!-- Unit Iklan Banner AdSense -->
-                <div style="margin: 25px 0;">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-8423475960451668"
-                         data-ad-slot="6147545291"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({{}});
-                    </script>
-                </div>
-
-                <!-- ISI ARTIKEL MASIF -->
                 {long_article_content}
 
-                <!-- Unit Iklan Autorelaxed AdSense -->
-                <div style="margin: 25px 0;">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-format="autorelaxed"
-                         data-ad-client="ca-pub-8423475960451668"
-                         data-ad-slot="7183276396"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({{}});
-                    </script>
-                </div>
-
-                <h3>Tautan Internal Terkait (Internal Links)</h3>
+                <h3>7 Tautan Internal Terkait (Internal Links)</h3>
                 <ul>
                     <li><a href="{BASE_URL}/">Pusat Direktori Utama Indoinves</a></li>
                     <li><a href="{BASE_URL}/macro-economy/artikel-1.html">Analisis Makro Ekonomi Global</a></li>
                     <li><a href="{BASE_URL}/property/artikel-1.html">Laporan Properti dan Real Estate</a></li>
                     <li><a href="{BASE_URL}/tools/saham/utility-1.html">Kalkulator dan Analisis Saham</a></li>
+                    <li><a href="{BASE_URL}/tools/banklocator/utility-1.html">Direktori Pemetaan Bank Dunia</a></li>
                     <li><a href="{BASE_URL}/business-news/artikel-1.html">Kabar Berita Bisnis Internasional</a></li>
+                    <li><a href="{BASE_URL}/contact.html">Kontak Resmi Layanan Redaksi</a></li>
                 </ul>
 
-                <h3>Tautan Eksternal Otoritatif (External Links)</h3>
+                <h3>7 Tautan Eksternal Otoritatif (External Links)</h3>
                 <ul>
                     <li><a href="https://www.reuters.com" target="_blank" rel="noopener">Reuters Global Financial Markets</a></li>
                     <li><a href="https://www.bloomberg.com" target="_blank" rel="noopener">Bloomberg Business & Economics</a></li>
+                    <li><a href="https://www.wsj.com" target="_blank" rel="noopener">The Wall Street Journal Intelligence</a></li>
+                    <li><a href="https://www.ft.com" target="_blank" rel="noopener">Financial Times Global Desk</a></li>
+                    <li><a href="https://www.cnbc.com" target="_blank" rel="noopener">CNBC International Markets</a></li>
                     <li><a href="https://www.imf.org" target="_blank" rel="noopener">International Monetary Fund (IMF)</a></li>
                     <li><a href="https://www.worldbank.org" target="_blank" rel="noopener">World Bank Open Data & Reports</a></li>
                 </ul>
 
-                <!-- Social Share -->
                 <div class="social-share">
                     <span>Sebarkan Laporan Ini:</span>
                     <a href="https://facebook.com/sharer/sharer.php?u={BASE_URL}/" target="_blank">Facebook</a>
@@ -276,7 +319,6 @@ def get_html_template(title, category_name, index):
                     <a href="https://api.whatsapp.com/send?text=Kunjungi%20laporan%20lengkap%20Indoinves" target="_blank">WhatsApp</a>
                 </div>
 
-                <!-- Formulir Kontak -->
                 <div class="contact-form">
                     <h3>Formulir Konsultasi Riset & Kolaborasi Redaksi</h3>
                     <form action="{BASE_URL}/contact.html" method="GET">
@@ -289,26 +331,56 @@ def get_html_template(title, category_name, index):
             </article>
         </main>
 
-        <!-- Sidebar -->
         <aside>
             <div style="margin-bottom: 30px;">
-                <h3 style="border-bottom: 2px solid #0056b3; padding-bottom: 5px; font-size: 1.1rem;">🔥 Artikel Populer</h3>
+                <h3 style="border-bottom: 2px solid #0056b3; padding-bottom: 5px; font-size: 1.1rem;">🔥 7 Artikel Populer</h3>
                 <ul style="padding-left: 18px; font-size: 0.9rem; line-height: 1.8;">
                     <li><a href="{BASE_URL}/macro-economy/artikel-1.html" style="color:#0056b3; text-decoration:none;">Proyeksi Makro Ekonomi Global</a></li>
                     <li><a href="{BASE_URL}/property/artikel-1.html" style="color:#0056b3; text-decoration:none;">Eksklusif: Real Estate Komersial</a></li>
                     <li><a href="{BASE_URL}/tech-media/artikel-1.html" style="color:#0056b3; text-decoration:none;">Transformasi Digital Finansial</a></li>
                     <li><a href="{BASE_URL}/tools/saham/utility-1.html" style="color:#0056b3; text-decoration:none;">Valuasi Saham Blue Chip Dunia</a></li>
+                    <li><a href="{BASE_URL}/business-news/artikel-1.html" style="color:#0056b3; text-decoration:none;">Megamerger Korporasi Global</a></li>
+                    <li><a href="{BASE_URL}/international/artikel-1.html" style="color:#0056b3; text-decoration:none;">Dinamika Suku Bunga Bank Sentral</a></li>
+                    <li><a href="{BASE_URL}/tools/banklocator/utility-1.html" style="color:#0056b3; text-decoration:none;">Direktori Bank Multinasional</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 style="border-bottom: 2px solid #333; padding-bottom: 5px; font-size: 1.1rem;">📂 7 Arsip Artikel</h3>
+                <ul style="padding-left: 18px; font-size: 0.9rem; line-height: 1.8;">
+                    <li><a href="{BASE_URL}/macro-economy/artikel-2.html" style="color:#333; text-decoration:none;">Arsip Edisi Triwulan I</a></li>
+                    <li><a href="{BASE_URL}/property/artikel-2.html" style="color:#333; text-decoration:none;">Arsip Tinjauan Properti Lama</a></li>
+                    <li><a href="{BASE_URL}/tech-media/artikel-2.html" style="color:#333; text-decoration:none;">Arsip Teknologi & Media</a></li>
+                    <li><a href="{BASE_URL}/tools/saham/utility-2.html" style="color:#333; text-decoration:none;">Arsip Kalkulator Keuangan</a></li>
+                    <li><a href="{BASE_URL}/business-news/artikel-2.html" style="color:#333; text-decoration:none;">Arsip Buletin Bisnis</a></li>
+                    <li><a href="{BASE_URL}/international/artikel-2.html" style="color:#333; text-decoration:none;">Arsip Kebijakan Publik</a></li>
+                    <li><a href="{BASE_URL}/tools/banklocator/utility-2.html" style="color:#333; text-decoration:none;">Arsip Pemetaan Perbankan</a></li>
                 </ul>
             </div>
         </aside>
     </div>
-
-    <!-- Footer -->
+   <!-- Unit Iklan Banner AdSense -->
+                <div style="margin: 25px 0;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-8423475960451668"
+                         data-ad-slot="6147545291"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({{}});
+                    </script>
+                </div>
     <footer>
         <div class="footer-links">
             <a href="{BASE_URL}/">Home</a>
+            <a href="{BASE_URL}/about.html">About Us</a>
             <a href="{BASE_URL}/contact.html">Contact Us</a>
+            <a href="{BASE_URL}/privacy.html">Privacy Policy</a>
             <a href="{BASE_URL}/sitemap.html">Sitemap</a>
+            <a href="{BASE_URL}/disclaimer.html">Disclaimer</a>
+            <a href="{BASE_URL}/terms.html">Terms on Conditional License</a>
         </div>
         <p>&copy; 2026 Indoinves. All Rights Reserved. Global Intelligence Report & Explorer Tools.</p>
     </footer>
@@ -317,33 +389,18 @@ def get_html_template(title, category_name, index):
 </html>
 """
 
-# Inisialisasi Daftar URL Sitemap
-urls_for_sitemap = [
-    f"{BASE_URL}/", 
-    f"{BASE_URL}/contact.html"
-]
 
-# 1. Generate Toko (Jika plugin & templates tersedia)
-if HAS_STORE_MODULES:
-    plugin.generate_plugin_store()
-    templates.generate_templates_store()
-    
-    store_dir = os.path.join(".", "store")
-    os.makedirs(store_dir, exist_ok=True)
-    with open(os.path.join(store_dir, "index.html"), "w", encoding="utf-8") as f:
-        f.write(get_directory_index_template("Indoinves Store Directory", "Pusat unduhan plugin dan templates profesional."))
-    urls_for_sitemap.append(f"{BASE_URL}/store/")
-
-# 2. Proses Generate Kategori Utama Artikel (Total 10 file per kategori)
+# 2. Generate Kategori Artikel dan file index.html di setiap foldernya
 for cat in categories:
     cat_dir = os.path.join(".", cat)
     os.makedirs(cat_dir, exist_ok=True)
     
-    # Buat index.html di setiap direktori kategori untuk mencegah 404
+    # Buat index.html di folder kategori agar tidak 404
     with open(os.path.join(cat_dir, "index.html"), "w", encoding="utf-8") as f:
-        f.write(get_directory_index_template(f"Kategori {cat.replace('-', ' ').title()}", f"Arsip dan laporan eksklusif untuk kategori {cat}."))
+        f.write(get_directory_index_template(f"Kategori {cat.replace('-', ' ').title()}", f"Arsip dan laporan eksklusif untuk topik dan kategori {cat}."))
     urls_for_sitemap.append(f"{BASE_URL}/{cat}/")
 
+    # Generate artikel di dalam kategori tersebut (10 artikel per kategori)
     for i in range(10):
         file_name = f"artikel-{i+1}.html"
         file_path = os.path.join(cat_dir, file_name)
@@ -351,25 +408,28 @@ for cat in categories:
             f.write(get_html_template(f"Laporan Eksklusif {cat.replace('-', ' ').title()} - Edisi {i+1}", cat, i+1))
         urls_for_sitemap.append(f"{BASE_URL}/{cat}/{file_name}")
 
-# 3. Proses Generate Tools (Total 10 file per tool category)
+
+# 3. Generate Tools & Utilitas beserta file index.html di setiap sub-foldernya
 for tool_cat in tool_categories:
     cat_dir = os.path.join(".", tool_cat)
     os.makedirs(cat_dir, exist_ok=True)
     
-    # Buat index.html di setiap subfolder tools
-    tool_name_clean = tool_cat.split('/')[-1]
+    # Buat index.html di sub-folder tools agar tidak 404
+    sub_name = tool_cat.split('/')[-1]
     with open(os.path.join(cat_dir, "index.html"), "w", encoding="utf-8") as f:
-        f.write(get_directory_index_template(f"Tools {tool_name_clean.title()}", f"Kumpulan perangkat dan kalkulator utilitas untuk {tool_name_clean}."))
+        f.write(get_directory_index_template(f"Tools {sub_name.title()}", f"Kumpulan perangkat dan kalkulator utilitas untuk sektor {sub_name}."))
     urls_for_sitemap.append(f"{BASE_URL}/{tool_cat}/")
 
+    # Generate utility files di dalam folder tools (10 file per tool category)
     for i in range(10):
         file_name = f"utility-{i+1}.html"
         file_path = os.path.join(cat_dir, file_name)
         with open(file_path, "w", encoding="utf-8") as f:
-            f.write(get_html_template(f"Analisis Sistem {tool_name_clean.title()} - Utility {i+1}", tool_name_clean, i+1))
+            f.write(get_html_template(f"Analisis Sistem {sub_name.title()} - Utility {i+1}", sub_name, i+1))
         urls_for_sitemap.append(f"{BASE_URL}/{tool_cat}/{file_name}")
 
-# 4. Buat File sitemap.xml Secara Otomatis
+
+# 4. Buat File sitemap.xml Otomatis mencakup seluruh direktori dan file
 sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
 sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
 
@@ -385,4 +445,5 @@ sitemap_content.append("</urlset>")
 with open("sitemap.xml", "w", encoding="utf-8") as f:
     f.write("\n".join(sitemap_content))
 
-print("Generator file HTML, direktori indeks, dan sitemap.xml berhasil dijalankan tanpa celah!")
+print("Sukses! Seluruh file index.html direktori, artikel masif, tools, store, dan sitemap.xml telah berhasil dibuat.")
+    
