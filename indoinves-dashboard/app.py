@@ -12,8 +12,8 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
 # Konfigurasi PayPal SDK (Gunakan mode 'sandbox' untuk uji coba, 'live' untuk produksi)
 paypalrestsdk.configure({
     "mode": "sandbox",  # ganti ke "live" jika sudah siap produksi
-    "client_id": "YOUR_PAYPAL_CLIENT_ID",
-    "client_secret": "YOUR_PAYPAL_CLIENT_SECRET"
+    "client_id": "BAAGkRZXLxjNS5S3NiNypJRoGTyWqcsiWxxJt_-JKD2XqsRpCKjH-0SriOw3clU96j7AIEymXQzYsPFVAU",
+    "client_secret": "EBUPteGteGmnI1f2auq_zIQPc1MoqsvijbN3hqfYGm8Q-JpC2DZlvkUfO0rxM3y6NI3-fvpZHwd4N5jy"
 })
 
 
