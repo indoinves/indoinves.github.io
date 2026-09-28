@@ -248,6 +248,12 @@ def get_html_template(title, category_name, index):
                 </div>
             </article>
         </main>
+<script src="/popup-paypal.js"></script>
+<script src="/path/to/popup-paypal.js"></script>
+
+<button onclick="openPayPalModal()" class="bg-blue-600 px-4 py-2 rounded-lg text-white">Get Rewards Now $1000</button>
+
+
 
         <!-- Sidebar (7 Populer & 7 Arsip) -->
         <aside>
