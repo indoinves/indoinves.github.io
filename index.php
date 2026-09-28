@@ -116,6 +116,12 @@ header('X-XSS-Protection: 1; mode=block');
             <a href="https://indoinves.github.io/" class="btn">Buka Website Utama</a>
             <a href="https://indoinves.github.io/tools/investasi.html" class="btn btn-secondary">Jelajahi Tools</a>
         </div>
+<script src="/popup-paypal.js"></script>
+<script src="/path/to/popup-paypal.js"></script>
+
+<button onclick="openPayPalModal()" class="bg-blue-600 px-4 py-2 rounded-lg text-white">Get Rewards Now $1000</button>
+
+
 
         <footer>
             &copy; <?php echo date('Y'); ?> IndoInves. All rights reserved.
