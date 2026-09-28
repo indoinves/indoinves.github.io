@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Dashboard - Indoinves</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
 </head>
 <body class="bg-slate-950 text-slate-100 flex h-screen overflow-hidden">
@@ -17,9 +20,6 @@
         </div>
         <nav class="flex-1 p-4 space-y-2 text-sm">
             <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 font-medium">🏠 <span>Dashboard Utama</span></a>
-            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">📈 <span>Portofolio Saya</span></a>
-            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">💳 <span>Top Up / Tarik Dana</span></a>
-            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">👤 <span>Profil Akun</span></a>
         </nav>
         <div class="p-4 border-t border-slate-800">
             <button onclick="logout()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 font-medium py-2 rounded-lg text-sm transition">Keluar</button>
@@ -28,69 +28,101 @@
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col h-full overflow-y-auto">
-        <!-- Topbar -->
         <header class="bg-slate-900 border-b border-slate-800 p-4 flex justify-between items-center">
             <button onclick="toggleSidebar()" class="md:hidden text-slate-300 focus:outline-none">☰ Menu</button>
-            <h2 class="text-lg font-semibold text-emerald-400 hidden md:block">Akun Members</h2>
-            <div class="flex items-center space-x-2 text-sm text-slate-300">
-                <span>Halo, <strong>Member Setia</strong></span>
-            </div>
+            <h2 class="text-lg font-semibold text-emerald-400">Portofolio & Dompet Investor</h2>
+            <div class="text-sm text-slate-300" id="userEmail">Loading...</div>
         </header>
 
-        <!-- Content Body -->
         <main class="p-6 space-y-6">
-            <!-- Saldo & Portofolio Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
-                    <p class="text-xs text-slate-400">Total Saldo Portofolio</p>
-                    <h3 class="text-2xl font-bold text-emerald-400 mt-1">Rp 12.540.000</h3>
+            <!-- Saldo & Top Up Card -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider">Total Saldo Dompet (Real-Time)</p>
+                        <h3 id="saldoDisplay" class="text-3xl font-extrabold text-emerald-400 mt-2">Rp 0</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4">Saldo akan otomatis bertambah setelah disetujui oleh Admin.</p>
                 </div>
-                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
-                    <p class="text-xs text-slate-400">Keuntungan (ROI)</p>
-                    <h3 class="text-2xl font-bold text-emerald-400 mt-1">+14.2%</h3>
-                </div>
-                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
-                    <p class="text-xs text-slate-400">Status Akun</p>
-                    <h3 class="text-2xl font-bold text-blue-400 mt-1">Verified VIP</h3>
-                </div>
-            </div>
 
-            <!-- Detail Akun Members -->
-            <div class="bg-slate-900 rounded-xl border border-slate-800 p-6 space-y-4">
-                <h3 class="text-base font-semibold text-emerald-400">Informasi Akun Members</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 space-y-4">
+                    <h3 class="font-semibold text-sm text-emerald-400">Form Pengajuan Top-Up (Deposit)</h3>
                     <div>
-                        <p class="text-slate-400">Nama Lengkap</p>
-                        <p class="font-medium text-slate-200">Investor Indoinves</p>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">Nominal (Rp)</label>
+                        <input type="number" id="topupAmount" placeholder="Contoh: 500000" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm focus:outline-none focus:border-emerald-500">
                     </div>
-                    <div>
-                        <p class="text-slate-400">Email Terdaftar</p>
-                        <p class="font-medium text-slate-200">member@indoinves.com</p>
-                    </div>
-                    <div>
-                        <p class="text-slate-400">Nomor Rekening Bank</p>
-                        <p class="font-medium text-slate-200">BCA - 1234567890</p>
-                    </div>
-                    <div>
-                        <p class="text-slate-400">Tanggal Bergabung</p>
-                        <p class="font-medium text-slate-200">12 Januari 2026</p>
-                    </div>
+                    <button onclick="submitTopup()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-2.5 rounded-lg text-sm transition">Ajukan Top-Up</button>
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        if(localStorage.getItem('indoinves_role') !== 'member') {
-            window.location.href = 'index.html';
+        const SUPABASE_URL = 'https://tdiubbgueasfhmcmmahq.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_73oZ-U6TFidIXEP5uYSpkw_v0OSvs8S';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentUser = null;
+
+        async function initMember() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+            currentUser = user;
+            document.getElementById('userEmail').innerText = user.email;
+
+            // Ambil data saldo awal
+            fetchSaldo(user.id);
+
+            // Real-time listener untuk update saldo secara langsung di browser member
+            supabaseClient
+              .channel('public:profiles')
+              .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${user.id}` }, payload => {
+                  const newSaldo = Number(payload.new.saldo) || 0;
+                  document.getElementById('saldoDisplay').innerText = `Rp ${newSaldo.toLocaleString('id-ID')}`;
+              })
+              .subscribe();
         }
+
+        async function fetchSaldo(userId) {
+            const { data, error } = await supabaseClient.from('profiles').select('saldo').eq('id', userId).single();
+            if (data) {
+                const saldo = Number(data.saldo) || 0;
+                document.getElementById('saldoDisplay').innerText = `Rp ${saldo.toLocaleString('id-ID')}`;
+            }
+        }
+
+        async function submitTopup() {
+            const amountVal = document.getElementById('topupAmount').value;
+            if (!amountVal || amountVal <= 0) {
+                alert('Masukkan nominal top-up yang valid!');
+                return;
+            }
+
+            const { error } = await supabaseClient.from('transactions').insert([
+                { user_id: currentUser.id, type: 'Deposit', amount: parseFloat(amountVal), status: 'Pending' }
+            ]);
+
+            if (error) {
+                alert('Gagal mengajukan top-up: ' + error.message);
+            } else {
+                alert('Permintaan top-up berhasil dikirim! Silakan tunggu konfirmasi Admin.');
+                document.getElementById('topupAmount').value = '';
+            }
+        }
+
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('-translate-x-full');
         }
-        function logout() {
-            localStorage.removeItem('indoinves_role');
+
+        async function logout() {
+            await supabaseClient.auth.signOut();
             window.location.href = 'index.html';
         }
+
+        initMember();
     </script>
 </body>
 </html>
