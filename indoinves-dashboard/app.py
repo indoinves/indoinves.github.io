@@ -38,7 +38,7 @@ def member_dashboard():
 @app.route("/create-paypal-payment", methods=["POST"])
 def create_paypal_payment():
     data = request.get_json()
-    amount = data.get("amount")  # Jumlah dalam USD (atau konversi IDR ke USD)
+    amount = data.get("amount")  # Jumlah dalam USD
 
     payment = paypalrestsdk.Payment({
         "intent": "sale",
@@ -70,14 +70,13 @@ def paypal_execute():
     payment = paypalrestsdk.Payment.find(payment_id)
 
     if payment.execute({"payer_id": payer_id}):
-        # Pembayaran berhasil! Anda bisa memperbarui saldo member di Supabase di sini jika diperlukan.
         return redirect(url_for("member_dashboard"))
     else:
         return "Pembayaran Gagal", 400
 
 
 # ----------------------------------------------------
-# 1. LANDING PAGE & AUTH MODAL
+# 1. LANDING PAGE & AUTH MODAL (RESPONSIVE)
 # ----------------------------------------------------
 OPEN_INDEX_HTML = """
 <!DOCTYPE html>
@@ -91,34 +90,37 @@ OPEN_INDEX_HTML = """
     <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <img src="https://indoinves.github.io/img/indoinves.png" alt="Indoinves Logo" class="w-10 h-10 object-contain">
-                <span class="font-bold text-xl text-emerald-400 tracking-wide">INDOINVES</span>
+                <img src="https://indoinves.github.io/img/indoinves.png" alt="Indoinves Logo" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
+                <span class="font-bold text-lg sm:text-xl text-emerald-400 tracking-wide">INDOINVES</span>
             </div>
             <div>
-                <button onclick="openAuthModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-4 py-2 rounded-lg font-semibold text-sm transition">
+                <button onclick="openAuthModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-3.5 py-2 sm:px-4 rounded-lg font-semibold text-xs sm:text-sm transition shadow">
                     Masuk / Daftar
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex-1 flex flex-col items-center justify-center text-center">
-        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight max-w-3xl mb-6">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 flex-1 flex flex-col items-center justify-center text-center">
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight max-w-3xl mb-4 sm:mb-6 leading-tight">
             Kembangkan Portofolio Masa Depan Bersama <span class="text-emerald-400">Indoinves</span>
         </h1>
-        <p class="text-slate-400 max-w-xl mb-8 text-lg">Platform investasi dan securities crowdfunding aman, transparan, dan terkurasi untuk pertumbuhan aset finansial Anda.</p>
-        <button onclick="openAuthModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 px-6 rounded-xl transition shadow-lg shadow-emerald-500/20">
+        <p class="text-slate-400 max-w-xl mb-6 sm:mb-8 text-base sm:text-lg px-2">
+            Platform investasi dan securities crowdfunding aman, transparan, dan terkurasi untuk pertumbuhan aset finansial Anda.
+        </p>
+        <button onclick="openAuthModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 px-6 sm:px-8 rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm sm:text-base">
             Mulai Akses Dashboard
         </button>
     </main>
 
-    <div id="authModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
-        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl w-full max-w-md relative shadow-2xl">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-xl font-bold">&times;</button>
-            <h2 class="text-xl font-bold text-emerald-400 mb-4 text-center">Portal Akun Indoinves</h2>
+    <!-- Modal Auth Responsif -->
+    <div id="authModal" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-2xl w-full max-w-md relative shadow-2xl">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-2xl font-bold">&times;</button>
+            <h2 class="text-xl font-bold text-emerald-400 mb-6 text-center">Portal Akun Indoinves</h2>
             <div class="space-y-4">
                 <div>
                     <label class="block text-xs text-slate-400 mb-1">Email</label>
@@ -128,13 +130,17 @@ OPEN_INDEX_HTML = """
                     <label class="block text-xs text-slate-400 mb-1">Password</label>
                     <input type="password" id="passwordInput" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:border-emerald-500 outline-none">
                 </div>
-                <div class="flex gap-3 pt-2">
-                    <button onclick="handleLogin()" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-2.5 rounded-lg text-sm transition">Masuk</button>
-                    <button onclick="handleRegister()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 rounded-lg text-sm border border-slate-700 transition">Daftar</button>
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button onclick="handleLogin()" class="w-full sm:flex-1 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-2.5 rounded-lg text-sm transition">Masuk</button>
+                    <button onclick="handleRegister()" class="w-full sm:flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 rounded-lg text-sm border border-slate-700 transition">Daftar</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-500">
+        &copy; 2026 Indoinves. All rights reserved.
+    </footer>
 
     <script>
         const supabaseClient = supabase.createClient('https://tdiubbgueasfhmcmmahq.supabase.co', 'sb_publishable_73oZ-U6TFidIXEP5uYSpkw_v0OSvs8S');
@@ -171,7 +177,7 @@ OPEN_INDEX_HTML = """
 """
 
 # ----------------------------------------------------
-# 2. ADMIN DASHBOARD LENGKAP
+# 2. ADMIN DASHBOARD LENGKAP (RESPONSIVE DENGAN MOBILE SIDEBAR TOGGLE)
 # ----------------------------------------------------
 ADMIN_HTML_TEMPLATE = """
 <!DOCTYPE html>
@@ -183,20 +189,24 @@ ADMIN_HTML_TEMPLATE = """
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex">
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col md:flex-row">
 
-    <!-- Sidebar -->
-    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between hidden md:flex">
+    <!-- Mobile Sidebar Overlay & Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300">
         <div class="p-6">
-            <div class="flex items-center space-x-3 mb-8">
-                <img src="https://indoinves.github.io/img/indoinves.png" alt="Logo" class="w-8 h-8 object-contain">
-                <span class="font-bold text-lg text-emerald-400">Admin Panel</span>
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-3">
+                    <img src="https://indoinves.github.io/img/indoinves.png" alt="Logo" class="w-8 h-8 object-contain">
+                    <span class="font-bold text-lg text-emerald-400">Admin Panel</span>
+                </div>
+                <!-- Tombol Tutup Sidebar khusus HP -->
+                <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white text-xl font-bold">&times;</button>
             </div>
             <nav class="space-y-1">
-                <button onclick="switchTab('overview')" id="nav-overview" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium bg-emerald-500/10 text-emerald-400">📊 <span>Overview</span></button>
-                <button onclick="switchTab('users')" id="nav-users" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white">👥 <span>Manajemen Member</span></button>
-                <button onclick="switchTab('transactions')" id="nav-transactions" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white">💳 <span>Persetujuan Top-up</span></button>
-                <button onclick="switchTab('projects')" id="nav-projects" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white">📈 <span>Proyek Investasi</span></button>
+                <button onclick="switchTab('overview'); toggleSidebar();" id="nav-overview" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium bg-emerald-500/10 text-emerald-400">📊 <span>Overview</span></button>
+                <button onclick="switchTab('users'); toggleSidebar();" id="nav-users" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white">👥 <span>Manajemen Member</span></button>
+                <button onclick="switchTab('transactions'); toggleSidebar();" id="nav-transactions" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white">💳 <span>Persetujuan Top-up</span></button>
+                <button onclick="switchTab('projects'); toggleSidebar();" id="nav-projects" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white">📈 <span>Proyek Investasi</span></button>
             </nav>
         </div>
         <div class="p-6 border-t border-slate-800">
@@ -205,29 +215,32 @@ ADMIN_HTML_TEMPLATE = """
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <!-- Topbar -->
-        <header class="bg-slate-900 border-b border-slate-800 h-16 flex items-center justify-between px-8">
-            <h1 class="text-lg font-bold text-emerald-400 uppercase tracking-wider" id="pageTitle">Overview Statistik</h1>
-            <a href="/" class="text-xs text-slate-400 hover:text-white underline">Beranda Utama</a>
+    <main class="flex-1 flex flex-col min-w-0 md:ml-64">
+        <!-- Topbar Responsif -->
+        <header class="bg-slate-900 border-b border-slate-800 h-16 flex items-center justify-between px-4 sm:px-8 sticky top-0 z-30">
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleSidebar()" class="md:hidden text-slate-300 hover:text-emerald-400 text-xl font-bold focus:outline-none">&#9776;</button>
+                <h1 class="text-base sm:text-lg font-bold text-emerald-400 uppercase tracking-wider truncate" id="pageTitle">Overview Statistik</h1>
+            </div>
+            <a href="/" class="text-xs text-slate-400 hover:text-white underline whitespace-nowrap">Beranda Utama</a>
         </header>
 
-        <div class="p-8 space-y-6">
+        <div class="p-4 sm:p-8 space-y-6">
             
             <!-- TAB 1: OVERVIEW -->
             <section id="tab-overview" class="space-y-6">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                    <div class="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl">
                         <p class="text-sm text-slate-400">Total Member Terdaftar</p>
-                        <h3 class="text-3xl font-extrabold text-emerald-400 mt-2" id="statTotalUsers">0</h3>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-2" id="statTotalUsers">0</h3>
                     </div>
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                    <div class="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl">
                         <p class="text-sm text-slate-400">Total Saldo Member</p>
-                        <h3 class="text-3xl font-extrabold text-emerald-400 mt-2" id="statTotalSaldo">Rp 0</h3>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-2" id="statTotalSaldo">Rp 0</h3>
                     </div>
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                    <div class="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl">
                         <p class="text-sm text-slate-400">Proyek Aktif</p>
-                        <h3 class="text-3xl font-extrabold text-emerald-400 mt-2" id="statTotalProjects">0</h3>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-2" id="statTotalProjects">0</h3>
                     </div>
                 </div>
             </section>
@@ -235,9 +248,9 @@ ADMIN_HTML_TEMPLATE = """
             <!-- TAB 2: USERS MANAGEMENT -->
             <section id="tab-users" class="space-y-4 hidden">
                 <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-                    <div class="p-6 border-b border-slate-800"><h3 class="font-bold text-lg">Daftar Akun Member</h3></div>
+                    <div class="p-4 sm:p-6 border-b border-slate-800"><h3 class="font-bold text-base sm:text-lg">Daftar Akun Member</h3></div>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300">
+                        <table class="w-full text-left text-sm text-slate-300 min-w-[600px]">
                             <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
                                 <tr>
                                     <th class="px-6 py-3">Email</th>
@@ -246,9 +259,7 @@ ADMIN_HTML_TEMPLATE = """
                                     <th class="px-6 py-3">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="userTableBody" class="divide-y divide-slate-800">
-                                <!-- Data injected via JS -->
-                            </tbody>
+                            <tbody id="userTableBody" class="divide-y divide-slate-800"></tbody>
                         </table>
                     </div>
                 </div>
@@ -257,9 +268,9 @@ ADMIN_HTML_TEMPLATE = """
             <!-- TAB 3: TRANSACTIONS MANAGEMENT -->
             <section id="tab-transactions" class="space-y-4 hidden">
                 <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-                    <div class="p-6 border-b border-slate-800"><h3 class="font-bold text-lg">Persetujuan Transaksi / Top-Up Pending</h3></div>
+                    <div class="p-4 sm:p-6 border-b border-slate-800"><h3 class="font-bold text-base sm:text-lg">Persetujuan Transaksi / Top-Up Pending</h3></div>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300">
+                        <table class="w-full text-left text-sm text-slate-300 min-w-[700px]">
                             <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
                                 <tr>
                                     <th class="px-6 py-3">ID Transaksi</th>
@@ -269,9 +280,7 @@ ADMIN_HTML_TEMPLATE = """
                                     <th class="px-6 py-3">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="transactionTableBody" class="divide-y divide-slate-800">
-                                <!-- Data injected via JS -->
-                            </tbody>
+                            <tbody id="transactionTableBody" class="divide-y divide-slate-800"></tbody>
                         </table>
                     </div>
                 </div>
@@ -279,21 +288,21 @@ ADMIN_HTML_TEMPLATE = """
 
             <!-- TAB 4: PROJECTS MANAGEMENT -->
             <section id="tab-projects" class="space-y-6 hidden">
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl space-y-4">
-                    <h3 class="font-bold text-lg text-emerald-400">Tambah Proyek Crowdfunding Baru</h3>
+                <div class="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl space-y-4">
+                    <h3 class="font-bold text-base sm:text-lg text-emerald-400">Tambah Proyek Crowdfunding Baru</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input type="text" id="projTitle" placeholder="Nama Proyek Bisnis" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
-                        <input type="number" id="projTarget" placeholder="Target Dana (Rp)" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
-                        <input type="number" id="projRoi" placeholder="Estimasi ROI (%)" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
-                        <input type="text" id="projDuration" placeholder="Durasi (Contoh: 12 Bulan)" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
+                        <input type="text" id="projTitle" placeholder="Nama Proyek Bisnis" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white outline-none focus:border-emerald-500">
+                        <input type="number" id="projTarget" placeholder="Target Dana (Rp)" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white outline-none focus:border-emerald-500">
+                        <input type="number" id="projRoi" placeholder="Estimasi ROI (%)" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white outline-none focus:border-emerald-500">
+                        <input type="text" id="projDuration" placeholder="Durasi (Contoh: 12 Bulan)" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white outline-none focus:border-emerald-500">
                     </div>
-                    <button onclick="createProject()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-6 py-2.5 rounded-lg text-sm transition">Terbitkan Proyek</button>
+                    <button onclick="createProject()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-6 py-2.5 rounded-lg text-sm transition">Terbitkan Proyek</button>
                 </div>
 
                 <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-                    <div class="p-6 border-b border-slate-800"><h3 class="font-bold text-lg">Daftar Proyek Aktif</h3></div>
+                    <div class="p-4 sm:p-6 border-b border-slate-800"><h3 class="font-bold text-base sm:text-lg">Daftar Proyek Aktif</h3></div>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300">
+                        <table class="w-full text-left text-sm text-slate-300 min-w-[600px]">
                             <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
                                 <tr>
                                     <th class="px-6 py-3">Proyek</th>
@@ -302,9 +311,7 @@ ADMIN_HTML_TEMPLATE = """
                                     <th class="px-6 py-3">Durasi</th>
                                 </tr>
                             </thead>
-                            <tbody id="projectTableBody" class="divide-y divide-slate-800">
-                                <!-- Data injected via JS -->
-                            </tbody>
+                            <tbody id="projectTableBody" class="divide-y divide-slate-800"></tbody>
                         </table>
                     </div>
                 </div>
@@ -315,6 +322,11 @@ ADMIN_HTML_TEMPLATE = """
 
     <script>
         const supabaseClient = supabase.createClient('https://tdiubbgueasfhmcmmahq.supabase.co', 'sb_publishable_73oZ-U6TFidIXEP5uYSpkw_v0OSvs8S');
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        }
 
         function switchTab(tabName) {
             ['overview', 'users', 'transactions', 'projects'].forEach(t => {
@@ -434,30 +446,34 @@ ADMIN_HTML_TEMPLATE = """
 """
 
 # ----------------------------------------------------
-# 3. MEMBER DASHBOARD LENGKAP (DENGAN PAYPAL & PAKET)
+# 3. MEMBER DASHBOARD LENGKAP (RESPONSIVE)
 # ----------------------------------------------------
 MEMBER_HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Dashboard - Indoinves</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-8">
-    <div class="max-w-4xl mx-auto space-y-8">
-        <div>
-            <h1 class="text-2xl font-bold text-emerald-400">Dashboard Investor</h1>
-            <p class="text-sm text-slate-300">Selamat datang di Portofolio Member Anda.</p>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 sm:p-8">
+    <div class="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div>
+                <h1 class="text-2xl font-bold text-emerald-400">Dashboard Investor</h1>
+                <p class="text-sm text-slate-300">Selamat datang di Portofolio Member Anda.</p>
+            </div>
+            <a href="/" class="text-emerald-400 underline text-sm w-fit">Kembali ke Beranda</a>
         </div>
 
         <!-- Top-Up Saldo via PayPal -->
-        <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 space-y-4">
+        <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800 space-y-4 shadow-lg">
             <h3 class="font-bold text-emerald-400">Top-Up Saldo via PayPal</h3>
-            <div class="flex gap-4 items-center">
-                <input type="number" id="depositAmount" placeholder="Jumlah dalam USD" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-emerald-500">
-                <button onclick="payWithPayPal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition">
+            <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+                <input type="number" id="depositAmount" placeholder="Jumlah dalam USD" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white outline-none focus:border-emerald-500 w-full sm:w-64">
+                <button onclick="payWithPayPal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-lg text-sm transition">
                     Bayar dengan PayPal
                 </button>
             </div>
@@ -466,10 +482,10 @@ MEMBER_HTML_TEMPLATE = """
         <!-- Pilih Paket Investasi / Langganan -->
         <div class="space-y-4">
             <h3 class="text-xl font-bold text-emerald-400">Pilih Paket Investasi / Langganan</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 
                 <!-- Paket 1 -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl flex flex-col justify-between">
+                <div class="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl flex flex-col justify-between shadow-lg">
                     <div>
                         <h4 class="font-bold text-lg text-white">Paket Reguler</h4>
                         <p class="text-slate-400 text-sm mt-1">Langganan bulanan platform.</p>
@@ -482,7 +498,7 @@ MEMBER_HTML_TEMPLATE = """
                 </div>
                 
                 <!-- Paket 2 -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl flex flex-col justify-between">
+                <div class="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl flex flex-col justify-between shadow-lg">
                     <div>
                         <h4 class="font-bold text-lg text-white">Paket Premium</h4>
                         <p class="text-slate-400 text-sm mt-1">Akses eksklusif proyek pilihan.</p>
@@ -495,7 +511,7 @@ MEMBER_HTML_TEMPLATE = """
                 </div>
                 
                 <!-- Paket 3 -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl flex flex-col justify-between">
+                <div class="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl flex flex-col justify-between shadow-lg sm:col-span-2 lg:col-span-1">
                     <div>
                         <h4 class="font-bold text-lg text-white">Paket Bisnis</h4>
                         <p class="text-slate-400 text-sm mt-1">Fitur lengkap dan dukungan prioritas.</p>
@@ -508,10 +524,6 @@ MEMBER_HTML_TEMPLATE = """
                 </div>
                 
             </div>
-        </div>
-
-        <div>
-            <a href="/" class="inline-block mt-4 text-emerald-400 underline text-sm">Kembali ke Beranda</a>
         </div>
     </div>
 
@@ -529,7 +541,7 @@ MEMBER_HTML_TEMPLATE = """
             });
             const data = await response.json();
             if (data.approval_url) {
-                window.location.href = data.approval_url; // Redirect ke halaman konfirmasi PayPal
+                window.location.href = data.approval_url;
             } else {
                 alert('Gagal memproses pembayaran PayPal: ' + (data.error || 'Kesalahan tidak dikenal'));
             }
