@@ -16,16 +16,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://indoinves.github.io/store/plugins.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://indoinves.github.io/store/templates.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://indoinves.github.io/store/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
