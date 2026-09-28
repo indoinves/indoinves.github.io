@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Indoinves</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+</head>
+<body class="bg-slate-950 text-slate-100 flex h-screen overflow-hidden">
+
+    <!-- Sidebar Admin -->
+    <aside id="sidebar" class="bg-slate-900 w-64 border-r border-slate-800 flex flex-col transition-all duration-300 absolute md:relative z-20 h-full -translate-x-full md:translate-x-0">
+        <div class="p-4 flex items-center space-x-3 border-b border-slate-800">
+            <img src="https://indoinves.github.io/img/indoinves.png" alt="Logo" class="w-8 h-8 object-contain">
+            <span class="font-bold text-lg text-emerald-400">Admin Panel</span>
+        </div>
+        <nav class="flex-1 p-4 space-y-2 text-sm">
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 font-medium">📊 <span>Overview</span></a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">👥 <span>Kelola Member</span></a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">💰 <span>Data Investasi</span></a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300">⚙️ <span>Pengaturan Web</span></a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+            <button onclick="logout()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 font-medium py-2 rounded-lg text-sm transition">Keluar</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-full overflow-y-auto">
+        <!-- Topbar -->
+        <header class="bg-slate-900 border-b border-slate-800 p-4 flex justify-between items-center">
+            <button onclick="toggleSidebar()" class="md:hidden text-slate-300 focus:outline-none">☰ Menu</button>
+            <h2 class="text-lg font-semibold text-emerald-400 hidden md:block">Dashboard Administrator</h2>
+            <div class="flex items-center space-x-2 text-sm text-slate-300">
+                <span>Halo, <strong>Admin</strong></span>
+            </div>
+        </header>
+
+        <!-- Content Body -->
+        <main class="p-6 space-y-6">
+            <!-- Statistik Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                    <p class="text-xs text-slate-400">Total Member</p>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1">1,245</h3>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                    <p class="text-xs text-slate-400">Total Dana Investasi</p>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-1">Rp 482.5 Juta</h3>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                    <p class="text-xs text-slate-400">Transaksi Pending</p>
+                    <h3 class="text-2xl font-bold text-amber-400 mt-1">12</h3>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                    <p class="text-xs text-slate-400">Status Sistem</p>
+                    <h3 class="text-2xl font-bold text-blue-400 mt-1">Normal</h3>
+                </div>
+            </div>
+
+            <!-- Tabel Data Member Terbaru -->
+            <div class="bg-slate-900 rounded-xl border border-slate-800 p-5">
+                <h3 class="text-base font-semibold mb-4">Member Terbaru</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-800 text-slate-400 uppercase text-xs">
+                            <tr>
+                                <th class="p-3">Nama</th>
+                                <th class="p-3">Email</th>
+                                <th class="p-3">Status</th>
+                                <th class="p-3">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr>
+                                <td class="p-3">Budi Santoso</td>
+                                <td class="p-3 text-slate-400">budi@mail.com</td>
+                                <td class="p-3"><span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded text-xs">Aktif</span></td>
+                                <td class="p-3"><button class="text-emerald-400 hover:underline">Detail</button></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Siti Rahma</td>
+                                <td class="p-3 text-slate-400">siti@mail.com</td>
+                                <td class="p-3"><span class="bg-amber-500/10 text-amber-400 px-2 py-1 rounded text-xs">Pending</span></td>
+                                <td class="p-3"><button class="text-emerald-400 hover:underline">Detail</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        if(localStorage.getItem('indoinves_role') !== 'admin') {
+            window.location.href = 'index.html';
+        }
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        }
+        function logout() {
+            localStorage.removeItem('indoinves_role');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
