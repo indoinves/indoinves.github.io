@@ -7,6 +7,9 @@
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Google AdSense & Verification Meta Tags -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
@@ -15,7 +18,6 @@
     
     <!-- Favicon & Manifest -->
     <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
-    <link rel="icon" href="https://indoinves.github.io/indoinves.png" type="image/png" />
     <link rel="manifest" href="https://indoinves.github.io/manifest.json" />
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
@@ -28,8 +30,8 @@
                 <span class="font-bold text-xl text-emerald-400 tracking-wide">INDOINVES</span>
             </div>
             <div>
-                <button onclick="openLoginModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-4 py-2 rounded-lg font-semibold text-sm transition">
-                    Masuk / Login
+                <button onclick="openAuthModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-4 py-2 rounded-lg font-semibold text-sm transition shadow-md shadow-emerald-500/10">
+                    Masuk / Daftar
                 </button>
             </div>
         </div>
@@ -38,106 +40,130 @@
     <!-- Hero Section -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex-1 flex flex-col items-center justify-center text-center">
         <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full mb-4 border border-emerald-500/20">
-            Platform Investasi & Crowdfunding Legal & Aman
+            Platform Investasi & Crowdfunding Real-Time Aman
         </span>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight max-w-3xl mb-6">
             Kembangkan Portofolio Masa Depan Bersama <span class="text-emerald-400">Indoinves</span>
         </h1>
         <p class="text-slate-400 text-base sm:text-lg max-w-2xl mb-8">
-            Solusi investasi terintegrasi dengan transparansi tinggi. Akses dashboard member dan kelola proyek investasi dengan mudah, aman, dan terukur.
+            Solusi investasi terintegrasi dengan data real-time berbasis cloud. Akses dashboard member, kelola saldo, dan pantau investasi secara transparan.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 w-full justify-center max-w-md">
-            <button onclick="openLoginModal()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 px-6 rounded-xl transition shadow-lg shadow-emerald-500/20">
-                Akses Dashboard
+            <button onclick="openAuthModal()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 px-6 rounded-xl transition shadow-lg shadow-emerald-500/20">
+                Mulai Akses Dashboard
             </button>
-            <a href="#fitur" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium py-3 px-6 rounded-xl transition border border-slate-700">
-                Pelajari Fitur
-            </a>
         </div>
     </main>
-
-    <!-- Fitur Singkat -->
-    <section id="fitur" class="bg-slate-900 border-t border-slate-800 py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div class="p-6 bg-slate-950 rounded-2xl border border-slate-800">
-                <div class="text-3xl mb-3">🛡️</div>
-                <h3 class="font-bold text-lg text-emerald-400 mb-2">Keamanan Berlapis</h3>
-                <p class="text-sm text-slate-400">Didukung protokol keamanan tinggi dan sistem verifikasi KYC menyeluruh untuk melindungi hak investor.</p>
-            </div>
-            <div class="p-6 bg-slate-950 rounded-2xl border border-slate-800">
-                <div class="text-3xl mb-3">📊</div>
-                <h3 class="font-bold text-lg text-emerald-400 mb-2">Dashboard Transparan</h3>
-                <p class="text-sm text-slate-400">Pantau pertumbuhan aset, grafik ROI real-time, dan laporan dividen langsung dari genggaman Anda.</p>
-            </div>
-            <div class="p-6 bg-slate-950 rounded-2xl border border-slate-800">
-                <div class="text-3xl mb-3">⚡</div>
-                <h3 class="font-bold text-lg text-emerald-400 mb-2">Manajemen Cepat</h3>
-                <p class="text-sm text-slate-400">Admin panel terintegrasi memudahkan validasi transaksi, monitoring proyek, dan distribusi profit secara akurat.</p>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
         <p>&copy; 2026 Indoinves. All rights reserved.</p>
     </footer>
 
-    <!-- Modal Login (Popup) -->
-    <div id="loginModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
+    <!-- Modal Autentikasi (Login / Register) -->
+    <div id="authModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
         <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl w-full max-w-md relative shadow-2xl">
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-lg font-bold">&times;</button>
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-xl font-bold">&times;</button>
             
             <div class="flex flex-col items-center mb-6">
                 <img src="https://indoinves.github.io/img/indoinves.png" alt="Logo" class="w-14 h-14 mb-2 object-contain">
-                <h2 class="text-xl font-bold text-emerald-400">Login Portal Indoinves</h2>
-                <p class="text-xs text-slate-400">Pilih akses masuk sesuai akun demo Anda</p>
+                <h2 class="text-xl font-bold text-emerald-400">Portal Akun Indoinves</h2>
+                <p class="text-xs text-slate-400">Masuk atau daftar menggunakan email Anda</p>
             </div>
 
-            <form id="mainLoginForm" class="space-y-4">
+            <div class="space-y-4">
                 <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Username</label>
-                    <input type="text" id="loginUser" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500" placeholder="admin atau member">
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Email</label>
+                    <input type="email" id="emailInput" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500" placeholder="nama@email.com">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
-                    <input type="password" id="loginPass" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500" placeholder="••••••••">
+                    <input type="password" id="passwordInput" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500" placeholder="••••••••">
                 </div>
-                <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-2.5 rounded-lg transition text-sm">
-                    Masuk Sekarang
-                </button>
-            </form>
-
-            <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400 space-y-1">
-                <p>🔹 <strong>Admin Demo:</strong> <code class="text-emerald-400">admin</code> / <code class="text-emerald-400">admin123</code></p>
-                <p>🔹 <strong>Member Demo:</strong> <code class="text-emerald-400">member</code> / <code class="text-emerald-400">member123</code></p>
+                
+                <div class="flex gap-3 pt-2">
+                    <button onclick="handleLogin()" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-2.5 rounded-lg transition text-sm">
+                        Masuk
+                    </button>
+                    <button onclick="handleRegister()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium py-2.5 rounded-lg transition text-sm border border-slate-700">
+                        Daftar Baru
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Script Interaksi -->
+    <!-- Script Integrasi Supabase -->
     <script>
-        function openLoginModal() {
-            document.getElementById('loginModal').classList.remove('hidden');
+        const SUPABASE_URL = 'https://tdiubbgueasfhmcmmahq.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_73oZ-U6TFidIXEP5uYSpkw_v0OSvs8S';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        function openAuthModal() {
+            document.getElementById('authModal').classList.remove('hidden');
         }
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.add('hidden');
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
         }
 
-        document.getElementById('mainLoginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const u = document.getElementById('loginUser').value.trim();
-            const p = document.getElementById('loginPass').value.trim();
+        async function handleLogin() {
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
 
-            if (u === 'admin' && p === 'admin123') {
-                localStorage.setItem('indoinves_role', 'admin');
-                window.location.href = 'admin.html';
-            } else if (u === 'member' && p === 'member123') {
-                localStorage.setItem('indoinves_role', 'member');
-                window.location.href = 'member.html';
-            } else {
-                alert('Username atau Password salah! Gunakan akun demo yang tersedia.');
+            if (!email || !password) {
+                alert('Email dan Password wajib diisi!');
+                return;
             }
-        });
+
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) {
+                alert('Login Gagal: ' + error.message);
+                return;
+            }
+
+            // Periksa role user dari tabel profiles
+            const { data: profile, error: profileErr } = await supabaseClient
+                .from('profiles')
+                .select('role')
+                .eq('id', data.user.id)
+                .single();
+
+            if (profileErr || !profile) {
+                window.location.href = 'member.html';
+                return;
+            }
+
+            if (profile.role === 'admin') {
+                window.location.href = 'admin.html';
+            } else {
+                window.location.href = 'member.html';
+            }
+        }
+
+        async function handleRegister() {
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
+
+            if (!email || !password) {
+                alert('Email dan Password wajib diisi!');
+                return;
+            }
+
+            const { data, error } = await supabaseClient.auth.signUp({ email, password });
+            if (error) {
+                alert('Pendaftaran Gagal: ' + error.message);
+                return;
+            }
+
+            // Daftarkan baris profil ke tabel profiles dengan saldo awal 0
+            if (data.user) {
+                await supabaseClient.from('profiles').insert([
+                    { id: data.user.id, email: email, role: 'member', saldo: 0 }
+                ]);
+            }
+
+            alert('Pendaftaran Berhasil! Silakan klik tombol "Masuk".');
+        }
     </script>
 </body>
 </html>
