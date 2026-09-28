@@ -1,186 +1,152 @@
-import streamlit as st
-import pandas as pd
+from flask import Flask, redirect, render_template_string, request, url_for
+from supabase import Client, create_client
 
-# Konfigurasi Halaman & Tema
-st.set_page_config(
-    page_title="Indoinves - Platform Investasi & Crowdfunding",
-    page_icon="https://indoinves.github.io/img/indoinves.png",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+app = Flask(__name__)
 
-# Custom CSS untuk mempercantik tampilan ala Indoinves
-st.markdown("""
-    <style>
-    .main { background-color: #020617; color: #f8fafc; }
-    .sidebar .sidebar-content { background-color: #0f172a; }
-    .metric-card { background-color: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; }
-    </style>
-""", unsafe_allow_html=True)
+# Kredensial Supabase Anda
+SUPABASE_URL = "https://tdiubbgueasfhmcmmahq.supabase.co"
+SUPABASE_ANON_KEY = "sb_publishable_73oZ-U6TFidIXEP5uYSpkw_v0OSvs8S"
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-# Sesi Login Sederhana (Simulasi)
-if 'logged_in' not in st.session_state:
-    st.session_state.logged_in = False
-    st.session_state.role = None
-    st.session_state.username = ""
 
-# --- HALAMAN LOGIN ---
-if not st.session_state.logged_in:
-    col1, col2, col3 = st.columns([1, 1.5, 1])
-    with col2:
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        st.image("https://indoinves.github.io/img/indoinves.png", width=100)
-        st.title("Portal Indoinves")
-        st.markdown("Silakan masuk untuk mengakses sistem investasi.")
-        
-        with st.form("login_form"):
-            username = st.text_input("Username / Email", placeholder="admin atau member")
-            password = st.text_input("Password", type="password", placeholder="admin123 / member123")
-            submit = st.form_submit_button("Masuk Dashboard", use_container_width=True)
+@app.route("/")
+def index():
+  # Menggunakan template index.html yang Anda miliki
+  # (Pastikan file index.html ditaruh di dalam folder 'templates' jika ingin dipisah,
+  # atau dirender langsung lewat string seperti di bawah ini jika digabung)
+  return render_template_string(OPEN_INDEX_HTML)
+
+
+@app.route("/admin.html")
+def admin_dashboard():
+  return render_template_string(ADMIN_HTML_TEMPLATE)
+
+
+@app.route("/member.html")
+def member_dashboard():
+  return render_template_string(MEMBER_HTML_TEMPLATE)
+
+
+# Template HTML disimpan langsung agar mudah dijalankan dalam satu file app.py
+OPEN_INDEX_HTML = """
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indoinves - Platform Investasi & Securities Crowdfunding Terpercaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/img/indoinves.png">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://indoinves.github.io/img/indoinves.png" alt="Indoinves Logo" class="w-10 h-10 object-contain">
+                <span class="font-bold text-xl text-emerald-400 tracking-wide">INDOINVES (Python Backend)</span>
+            </div>
+            <div>
+                <button onclick="openAuthModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-4 py-2 rounded-lg font-semibold text-sm transition">
+                    Masuk / Daftar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex-1 flex flex-col items-center justify-center text-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight max-w-3xl mb-6">
+            Kembangkan Portofolio Masa Depan Bersama <span class="text-emerald-400">Indoinves</span>
+        </h1>
+        <button onclick="openAuthModal()" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 px-6 rounded-xl transition">
+            Mulai Akses Dashboard
+        </button>
+    </main>
+
+    <div id="authModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl w-full max-w-md relative shadow-2xl">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-xl font-bold">&times;</button>
+            <h2 class="text-xl font-bold text-emerald-400 mb-4 text-center">Portal Akun Indoinves</h2>
+            <div class="space-y-4">
+                <input type="email" id="emailInput" placeholder="nama@email.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
+                <input type="password" id="passwordInput" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
+                <div class="flex gap-3 pt-2">
+                    <button onclick="handleLogin()" class="flex-1 bg-emerald-500 text-slate-950 font-bold py-2.5 rounded-lg text-sm">Masuk</button>
+                    <button onclick="handleRegister()" class="flex-1 bg-slate-800 text-slate-200 py-2.5 rounded-lg text-sm border border-slate-700">Daftar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const supabaseClient = supabase.createClient('https://tdiubbgueasfhmcmmahq.supabase.co', 'sb_publishable_73oZ-U6TFidIXEP5uYSpkw_v0OSvs8S');
+        function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
+        function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
+
+        async function handleLogin() {
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) { alert('Login Gagal: ' + error.message); return; }
             
-            if submit:
-                if username == "admin" and password == "admin123":
-                    st.session_state.logged_in = True
-                    st.session_state.role = "admin"
-                    st.session_state.username = "Administrator"
-                    st.rerun()
-                elif username == "member" and password == "member123":
-                    st.session_state.logged_in = True
-                    st.session_state.role = "member"
-                    st.session_state.username = "Budi Santoso (Investor)"
-                    st.rerun()
-                else:
-                    st.error("Username atau Password salah! (Gunakan admin/admin123 atau member/member123)")
-        
-        st.info("💡 **Demo Akun:**\n- Admin: `admin` / `admin123`\n- Member: `member` / `member123`")
+            const { data: profile } = await supabaseClient.from('profiles').select('role').eq('id', data.user.id).single();
+            if (profile && profile.role === 'admin') {
+                window.location.href = '/admin.html';
+            } else {
+                window.location.href = '/member.html';
+            }
+        }
 
-# --- SETELAH LOGIN ---
-else:
-    # Sidebar Navigasi
-    with st.sidebar:
-        st.image("https://indoinves.github.io/img/indoinves.png", width=60)
-        st.markdown(f"### INDOINVES\n*Login sebagai:* **{st.session_state.username}**")
-        st.markdown("---")
-        
-        if st.session_state.role == "admin":
-            menu = st.radio("Navigasi Admin", ["Overview", "Manajemen User (KYC)", "Validasi Transaksi", "Manajemen Proyek"])
-        else:
-            menu = st.radio("Navigasi Member", ["Dashboard Utama", "Portofolio Aktif", "Katalog Proyek", "Dompet & Top-Up"])
-            
-        st.markdown("---")
-        if st.button("Keluar (Logout)", use_container_width=True):
-            st.session_state.logged_in = False
-            st.session_state.role = None
-            st.rerun()
+        async function handleRegister() {
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            const { data, error } = await supabaseClient.auth.signUp({ email, password });
+            if (error) { alert('Gagal: ' + error.message); return; }
+            if (data.user) {
+                await supabaseClient.from('profiles').insert([{ id: data.user.id, email: email, role: 'member', saldo: 0 }]);
+            }
+            alert('Pendaftaran Berhasil! Silakan Masuk.');
+        }
+    </script>
+</body>
+</html>
+"""
 
-    # ================= DASBOR ADMIN =================
-    if st.session_state.role == "admin":
-        st.title("🛠️ Admin Dashboard - Pusat Kendali Operasional")
-        
-        if menu == "Overview":
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                st.metric(label="Total AUM (Asset Under Management)", value="Rp 482.5 Juta", delta="+12.4%")
-            with col2:
-                st.metric(label="Total Investor Aktif", value="1,245 Orang", delta="+45 bulan ini")
-            with col3:
-                st.metric(label="Transaksi Pending", value="12 Antrean", delta="-2")
-            with col4:
-                st.metric(label="Kesehatan Sistem", value="Normal", delta="100% Uptime")
-                
-            st.markdown("### 📈 Grafik Volume Transaksi Harian")
-            chart_data = pd.DataFrame({'Hari': ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'], 'Volume (Juta Rp)': [15, 22, 45, 30, 60, 85, 50]})
-            st.bar_chart(chart_data, x='Hari', y='Volume (Juta Rp)', color="#10b981")
+ADMIN_HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"><title>Admin Dashboard - Indoinves</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 p-8">
+    <h1 class="text-2xl font-bold text-emerald-400 mb-6">Panel Administrator</h1>
+    <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+        <p class="text-sm text-slate-300">Selamat datang di Admin Dashboard. (Kelola transaksi & member di sini).</p>
+        <a href="/" class="inline-block mt-4 text-emerald-400 underline text-sm">Kembali ke Beranda</a>
+    </div>
+</body>
+</html>
+"""
 
-        elif menu == "Manajemen User (KYC)":
-            st.subheader("Pusat Verifikasi Identitas (KYC)")
-            kyc_data = pd.DataFrame({
-                "ID": [101, 102, 103],
-                "Nama": ["Dewi Lestari", "Rian Hidayat", "Siti Aminah"],
-                "Email": ["dewi@mail.com", "rian@mail.com", "siti@mail.com"],
-                "Status KTP": ["Pending", "Verified", "Pending"],
-                "Aksi": ["Setujui / Tolak", "Terverifikasi", "Setujui / Tolak"]
-            })
-            st.dataframe(kyc_data, use_container_width=True)
+MEMBER_HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"><title>Member Dashboard - Indoinves</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 p-8">
+    <h1 class="text-2xl font-bold text-emerald-400 mb-6">Dashboard Investor</h1>
+    <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+        <p class="text-sm text-slate-300">Selamat datang di Portofolio Member Anda.</p>
+        <a href="/" class="inline-block mt-4 text-emerald-400 underline text-sm">Kembali ke Beranda</a>
+    </div>
+</body>
+</html>
+"""
 
-        elif menu == "Validasi Transaksi":
-            st.subheader("Antrean Konfirmasi Deposit & Withdrawal")
-            trx_data = pd.DataFrame({
-                "Trx ID": ["TRX-901", "TRX-902"],
-                "Member": ["Budi Santoso", "Andi Pratama"],
-                "Tipe": ["Deposit", "Withdrawal"],
-                "Jumlah": ["Rp 5.000.000", "Rp 2.500.000"],
-                "Status": ["Menunggu Validasi", "Menunggu Validasi"]
-            })
-            st.dataframe(trx_data, use_container_width=True)
-            if st.button("Proses Validasi Otomatis"):
-                st.success("Semua transaksi terpilih berhasil direkonsiliasi!")
-
-        elif menu == "Manajemen Proyek":
-            st.subheader("Penerbitan Proyek Crowdfunding Baru")
-            with st.form("project_form"):
-                p_title = st.text_input("Nama Proyek / Bisnis")
-                p_target = st.number_input("Target Pendanaan (Rp)", value=100000000)
-                p_price = st.number_input("Harga Per Lembar Saham (Rp)", value=10000)
-                submitted = st.form_submit_button("Terbitkan Proyek ke Katalog")
-                if submitted:
-                    st.success(f"Proyek '{p_title}' berhasil diterbitkan ke katalog member!")
-
-    # ================= DASBOR MEMBER =================
-    elif st.session_state.role == "member":
-        st.title("👤 Member Dashboard - Portofolio Investor")
-        
-        if menu == "Dashboard Utama":
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                st.metric(label="Total Kekayaan Bersih", value="Rp 12.540.000", delta="+14.2% ROI")
-            with col2:
-                st.metric(label="Kas Tersedia (Wallet)", value="Rp 1.540.000")
-            with col3:
-                st.metric(label="Keuntungan Bulan Ini", value="Rp 340.000", delta="Aman")
-                
-            st.markdown("### 📊 Alokasi Aset Portofolio Anda")
-            asset_data = pd.DataFrame({'Instrumen': ['Crowdfunding Properti', 'SBN Ritel', 'Reksadana Pasar Uang', 'Kas'], 'Persentase (%)': [50, 30, 15, 5]})
-            st.bar_chart(asset_data, x='Instrumen', y='Persentase (%)', color="#3b82f6")
-
-        elif menu == "Portofolio Aktif":
-            st.subheader("Daftar Investasi Berjalan")
-            portfolio = pd.DataFrame({
-                "Proyek": ["Green Apartment BSD", "Kopi Nusantara Franchise"],
-                "Lembar Saham": [500, 250],
-                "Total Modal": ["Rp 5.000.000", "Rp 6.000.000"],
-                "Estimasi Imbal Hasil": ["12% p.a", "15% p.a"],
-                "Status": ["Berjalan", "Berjalan"]
-            })
-            st.dataframe(portfolio, use_container_width=True)
-
-        elif menu == "Katalog Proyek":
-            st.subheader("Peluang Investasi Terbaru (Securities Crowdfunding)")
-            st.markdown("Pilih proyek berkualitas yang telah dikurasi oleh tim Indoinves.")
-            
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown("#### 🏢 Pabrik Kakao Sulawesi")
-                st.write("Target: Rp 500.000.000 | Minimal: Rp 100.000")
-                if st.button("Beli Saham Proyek 1"):
-                    st.success("Berhasil memesan saham Pabrik Kakao Sulawesi!")
-            with col2:
-                st.markdown("#### ⚡ PLTS Atap Industri")
-                st.write("Target: Rp 250.000.000 | Minimal: Rp 50.000")
-                if st.button("Beli Saham Proyek 2"):
-                    st.success("Berhasil memesan saham PLTS Atap Industri!")
-
-        elif menu == "Dompet & Top-Up":
-            st.subheader("Manajemen Saldo & Tarik Dana")
-            st.write("Saldo Dompet Saat Ini: **Rp 1.540.000**")
-            
-            tab1, tab2 = st.tabs(["Top Up (Deposit)", "Tarik Dana (Withdrawal)"])
-            with tab1:
-                topup_amount = st.number_input("Nominal Top Up", value=100000, step=50000)
-                if st.button("Generate QRIS / VA"):
-                    st.info(f"Silakan scan QRIS atau transfer ke VA BCA untuk nominal Rp {topup_amount:,}")
-            with tab2:
-                wd_amount = st.number_input("Nominal Penarikan", value=500000, step=50000)
-                st.text("Rekening Terdaftar: BCA - 1234567890 (Budi Santoso)")
-                if st.button("Ajukan Penarikan"):
-                    st.success("Pengajuan penarikan dana berhasil dikirim ke Admin.")
+if __name__ == "__main__":
+  app.run(debug=True, port=5000)
