@@ -1,0 +1,26 @@
+name: Generate Sitemap
+
+on:
+  push:
+    branches:
+      - main # Ganti dengan 'master' jika branch utama Anda master
+
+jobs:
+  sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate sitemap
+        uses: cicirello/generate-sitemap@v1
+        with:
+          base-url: 'https://indoinves.github.io/'
+
+      - name: Commit and push sitemap if it changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Automatic sitemap generation'
+          file_pattern: sitemap.xml
