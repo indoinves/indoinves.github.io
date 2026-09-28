@@ -43,422 +43,113 @@
     }
     </script>
 
-    <style type="text/css">
+    <style>
         :root {
-            --primary-color: #0f172a;
-            --accent-color: #2563eb;
-            --text-color: #334155;
-            --bg-light: #f8fafc;
-            --white: #ffffff;
+            --primary-color: #0b1f33;
+            --secondary-color: #16324f;
+            --accent-color: #1e824c;
+            --header-bg: #ffffff;
+            --text-color: #2b2b2b;
+            --bg-light: #f4f6f8;
             --border-color: #e2e8f0;
+            --white: #ffffff;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { color: var(--text-color); background-color: var(--bg-light); line-height: 1.6; }
+        
+        /* Header */
+        header { background: var(--header-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-container img { height: 42px; display: block; }
+        .search-box form input { padding: 9px 14px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; width: 240px; outline: none; transition: border 0.2s; }
+        .search-box form input:focus { border-color: var(--accent-color); }
+
+        /* Responsive Navigation & Dropdown Styling */
+        nav { background: var(--primary-color); color: var(--white); position: relative; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15); }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+        
+        .nav-container { display: flex; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+        .nav-container li { position: relative; }
+        .nav-container li a { display: block; color: #e2e8f0; padding: 12px 14px; text-decoration: none; font-size: 13.5px; font-weight: 500; transition: background 0.2s, color 0.2s; white-space: nowrap; }
+        .nav-container li a:hover, .dropdown:hover > a { background: var(--secondary-color); color: var(--white); }
+        
+        /* Dropdown content */
+        .dropdown-content { display: none; position: absolute; background: var(--white); min-width: 200px; box-shadow: 0px 10px 25px rgba(0,0,0,0.15); z-index: 999; top: 100%; left: 0; border-radius: 0 0 6px 6px; overflow: hidden; border-top: 3px solid var(--accent-color); }
+        .dropdown-content a { color: var(--text-color) !important; padding: 11px 16px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+        .dropdown-content a:hover { background: #f8fafc; color: var(--accent-color) !important; padding-left: 20px; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* Mobile Menu Toggle Button */
+        .menu-toggle { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; padding: 8px; }
+
+        /* Responsive Breakpoint for Navigation */
+        @media(max-width: 1024px) {
+            .menu-toggle { display: block; }
+            .nav-wrap { flex-direction: column; align-items: flex-start; padding: 10px 15px; }
+            .nav-container { display: none; width: 100%; flex-direction: column; padding-bottom: 10px; }
+            .nav-container.active { display: flex; }
+            .nav-container li { width: 100%; border-top: 1px solid rgba(255,255,255,0.08); }
+            .dropdown-content { position: static; box-shadow: none; background: rgba(0,0,0,0.15); border-top: none; }
+            .dropdown-content a { color: #cbd5e1 !important; padding-left: 25px; }
+            .dropdown-content a:hover { background: rgba(0,0,0,0.25); color: #fff !important; }
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        /* Layout Grid */
+        .main-layout { max-width: 1200px; margin: 25px auto; display: grid; grid-template-columns: 2.5fr 1fr; gap: 30px; padding: 0 20px; }
+        @media(max-width: 900px) { .main-layout { grid-template-columns: 1fr; } }
 
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Top Bar & Header */
-        header {
-            background: var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-        }
-
-        .logo-container img {
-            height: 45px;
-            width: auto;
-        }
-
-        /* Navigation Bar with Rainbow Hover & Dropdown */
-        nav {
-            background: var(--primary-color);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .nav-menu {
-            list-style: none;
-            display: flex;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 12px 16px;
-            color: var(--white);
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        /* Rainbow Hover Effect */
-        .nav-link:hover {
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rainbow 3s linear infinite;
-        }
-
-        @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        /* Dropdown Menu */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: var(--white);
-            min-width: 220px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
-            z-index: 1001;
-            list-style: none;
-            top: 100%;
-            left: 0;
-        }
-
-        .dropdown-content li a {
-            color: var(--primary-color);
-            padding: 10px 15px;
-            display: block;
-            font-size: 13px;
-            border-bottom: 1px solid var(--border-color);
-            transition: background 0.2s;
-        }
-
-        .dropdown-content li a:hover {
-            background-color: var(--bg-light);
-            color: var(--accent-color);
-            -webkit-text-fill-color: var(--accent-color);
-        }
-
-        .nav-item:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Hero Section & Slider */
-        .hero-section {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        .slider-container {
-            position: relative;
-            background: var(--primary-color);
-            color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            padding: 50px 30px;
-            text-align: center;
-        }
-
-        .slider-content h1 {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .slider-content p {
-            font-size: 16px;
-            color: #94a3b8;
-            max-width: 700px;
-            margin: 0 auto 20px auto;
-        }
-
-        /* Animated Up Effect */
-        .animated-up {
-            animation: fadeInUp 1s ease-in-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Main Layout */
-        .main-layout {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2.2fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 900px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .content-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        /* Typography & Article Formatting */
-        h1.article-title { font-size: 28px; color: var(--primary-color); margin-bottom: 15px; }
-        h2.article-heading { font-size: 22px; color: var(--primary-color); margin: 25px 0 15px; }
-        h3.article-subheading { font-size: 18px; color: var(--primary-color); margin: 20px 0 10px; }
-        p.article-paragraph { margin-bottom: 15px; text-align: justify; }
-
+        /* Content Styles */
+        .content-area { background: var(--white); padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        h1 { font-size: 28px; color: var(--primary-color); margin-bottom: 15px; line-height: 1.3; }
+        .lead-text { font-size: 16px; font-weight: 600; color: #555; margin-bottom: 20px; }
+        
         /* Table of Contents */
-        .toc-box {
-            background: var(--bg-light);
-            border-left: 4px solid var(--accent-color);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        .toc-box h4 { margin-bottom: 10px; color: var(--primary-color); }
-        .toc-box ul { padding-left: 20px; }
-        .toc-box li { margin-bottom: 5px; font-size: 14px; }
+        .toc { background: #f0f4f8; padding: 15px 20px; border-left: 4px solid var(--accent-color); margin: 20px 0; border-radius: 4px; }
+        .toc h3 { font-size: 18px; margin-bottom: 10px; color: var(--primary-color); }
+        .toc ul { padding-left: 20px; font-size: 14px; }
+        .toc li { margin-bottom: 5px; }
+        .toc a { color: var(--secondary-color); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
 
-        /* Data Table */
-        table.data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table.data-table th, table.data-table td {
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            text-align: left;
-            font-size: 14px;
-        }
-        table.data-table th {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
+        h2 { font-size: 22px; color: var(--primary-color); margin: 25px 0 10px; }
+        h3 { font-size: 18px; color: var(--secondary-color); margin: 20px 0 8px; }
+        h4 { font-size: 16px; margin: 15px 0 5px; }
+        h5 { font-size: 14px; margin: 12px 0 5px; }
+        h6 { font-size: 13px; margin: 10px 0 5px; color: #666; }
+        p { margin-bottom: 15px; font-size: 15px; }
 
-        /* Sidebar Widgets */
-        .sidebar-widget {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 25px;
-        }
+        /* Sidebar Styles */
+        .sidebar { display: flex; flex-direction: column; gap: 25px; }
+        .widget { background: var(--white); padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .widget h3 { font-size: 16px; border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; margin-bottom: 15px; color: var(--primary-color); }
+        .widget ul { list-style: none; }
+        .widget ul li { margin-bottom: 10px; font-size: 14px; }
+        .widget ul li a { color: var(--secondary-color); text-decoration: none; }
+        .widget ul li a:hover { text-decoration: underline; }
 
-        .sidebar-widget h3 {
-            font-size: 16px;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
+        /* Gallery Grid */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-top: 15px; }
+        .gallery-item { background: #ddd; height: 80px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #777; }
 
-        .post-list-item {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-            align-items: center;
-        }
+        /* FAQ Section */
+        .faq-box { background: #fafafa; border: 1px solid var(--border-color); padding: 15px; border-radius: 6px; margin-bottom: 15px; }
+        .faq-box h4 { margin-top: 0; color: var(--primary-color); }
 
-        .post-list-item img {
-            width: 70px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        .post-list-item a {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        .post-list-item a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Galleries & Grids */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 15px;
-        }
-
-        .card-item {
-            background: var(--white);
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
-        }
-
-        .card-item img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-        }
-
-        .card-body {
-            padding: 12px;
-        }
-
-        .card-body h4 {
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        /* Tags cloud */
-        .tag-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag-cloud a {
-            background: var(--bg-light);
-            padding: 5px 10px;
-            font-size: 12px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-        }
-        .tag-cloud a:hover {
-            background: var(--accent-color);
-            color: var(--white);
-        }
-
-        /* Form & Inputs */
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .btn-submit {
-            background: var(--accent-color);
-            color: var(--white);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .btn-submit:hover {
-            background: #1d4ed8;
-        }
-
-        /* Cookie Notice */
-        #cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #1e293b;
-            color: var(--white);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 9999;
-            font-size: 14px;
-        }
-        #cookie-banner button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+        /* Cookie Banner */
+        #cookie-banner { position: fixed; bottom: 0; left: 0; width: 100%; background: #111827; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); font-size: 14px; }
+        #cookie-banner button { background: var(--accent-color); color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        #cookie-banner button:hover { background: #166534; }
 
         /* Footer */
-        footer {
-            background: var(--primary-color);
-            color: #94a3b8;
-            padding: 40px 20px 20px;
-            margin-top: 40px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-col h4 {
-            color: var(--white);
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
-        .footer-col p, .footer-col ul {
-            font-size: 14px;
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 8px;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--white);
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            border-top: 1px solid #334155;
-            padding-top: 20px;
-            text-align: center;
-            font-size: 13px;
-        }
+        footer { background: var(--primary-color); color: var(--white); padding: 40px 20px 20px; margin-top: 40px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
+        .footer-col h4 { font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 8px; font-size: 14px; }
+        .footer-col ul li a { color: #cbd5e1; text-decoration: none; }
+        .footer-col ul li a:hover { color: #fff; text-decoration: underline; }
+        .footer-col p { font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; font-size: 13px; color: #94a3b8; }
     </style>
 </head>
 <body>
@@ -473,550 +164,214 @@
             </div>
             <div class="search-box">
                 <form action="https://indoinves.github.io/" method="GET">
-                    <input type="text" placeholder="Search news, markets..." style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 13px;" />
+                    <input type="text" placeholder="Search news, markets..." />
                 </form>
             </div>
         </div>
     </header>
 
-    <!-- Navigasi Dropdown Label Lengkap -->
+    <!-- Navigasi Dropdown Label Lengkap & Responsif -->
     <nav>
-        <div class="nav-container">
-            <ul class="nav-menu">
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/">Home</a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://indoinves.github.io/market-finance">Market & Finance ▾</a>
-                    <ul class="dropdown-content">
-                        <li><a href="https://indoinves.github.io/market">Market</a></li>
-                        <li><a href="https://indoinves.github.io/finance">Finance</a></li>
-                        <li><a href="https://indoinves.github.io/banking">Banking</a></li>
-                    </ul>
+        <div class="nav-wrap">
+            <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Navigation">☰ Menu</button>
+            <ul class="nav-container" id="main-nav-list">
+                <li><a href="https://indoinves.github.io/">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">Market & Finance ▾</a>
+                    <div class="dropdown-content">
+                        <a href="https://indoinves.github.io/market/stocks">Stocks & Equities</a>
+                        <a href="https://indoinves.github.io/market/crypto">Cryptocurrency</a>
+                        <a href="https://indoinves.github.io/market/forex">Forex Trading</a>
+                    </div>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/macro-economy">Macro Economy</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/explainers">Explainers</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/manufacturing">Manufacturing</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/property">Property</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/health">Health</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/education">Education</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/lifestyle">Lifestyle</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/hospitality">Hospitality</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/tech-media">Tech & Media</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/smes">Smes</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/luxury">Luxury</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/whos-who">Who's Who</a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://indoinves.github.io/regions">International ▾</a>
-                    <ul class="dropdown-content">
-                        <li><a href="https://indoinves.github.io/southeast-asia">Southeast Asia</a></li>
-                        <li><a href="https://indoinves.github.io/united-states">United States</a></li>
-                        <li><a href="https://indoinves.github.io/europe">Europe</a></li>
-                        <li><a href="https://indoinves.github.io/world">World</a></li>
-                    </ul>
+                <li><a href="https://indoinves.github.io/macro-economy">Macro Economy</a></li>
+                <li><a href="https://indoinves.github.io/explainers">Explainers</a></li>
+                <li><a href="https://indoinves.github.io/manufacturing">Manufacturing</a></li>
+                <li><a href="https://indoinves.github.io/property">Property</a></li>
+                <li><a href="https://indoinves.github.io/health">Health</a></li>
+                <li><a href="https://indoinves.github.io/education">Education</a></li>
+                <li><a href="https://indoinves.github.io/lifestyle">Lifestyle</a></li>
+                <li><a href="https://indoinves.github.io/hospitality">Hospitality</a></li>
+                <li><a href="https://indoinves.github.io/tech-media">Tech & Media</a></li>
+                <li><a href="https://indoinves.github.io/smes">Smes</a></li>
+                <li><a href="https://indoinves.github.io/luxury">Luxury</a></li>
+                <li><a href="https://indoinves.github.io/whos-who">Who's Who</a></li>
+                <li class="dropdown">
+                    <a href="#">International ▾</a>
+                    <div class="dropdown-content">
+                        <a href="https://indoinves.github.io/intl/americas">Americas</a>
+                        <a href="https://indoinves.github.io/intl/europe">Europe</a>
+                        <a href="https://indoinves.github.io/intl/asia">Asia Pacific</a>
+                    </div>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/local">Local Resources</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/politics">Politics</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/culture">Culture</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/science">Science</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/public-policy">Public Policy</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/business-news">Business News</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/sports">Sports</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/arts">Arts</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/celebrities">Celebrities</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/automotive">Automotive</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/commentary">Commentary</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://indoinves.github.io/interview">Interview</a></li>
+                <li><a href="https://indoinves.github.io/local-resources">Local Resources</a></li>
+                <li><a href="https://indoinves.github.io/politics">Politics</a></li>
+                <li><a href="https://indoinves.github.io/culture">Culture</a></li>
+                <li><a href="https://indoinves.github.io/science">Science</a></li>
+                <li><a href="https://indoinves.github.io/public-policy">Public Policy</a></li>
+                <li><a href="https://indoinves.github.io/business-news">Business News</a></li>
+                <li><a href="https://indoinves.github.io/sports">Sports</a></li>
+                <li><a href="https://indoinves.github.io/arts">Arts</a></li>
+                <li><a href="https://indoinves.github.io/celebrities">Celebrities</a></li>
+                <li><a href="https://indoinves.github.io/automotive">Automotive</a></li>
+                <li><a href="https://indoinves.github.io/commentary">Commentary</a></li>
+                <li><a href="https://indoinves.github.io/interview">Interview</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section / Slider with Animated Up -->
-    <div class="hero-section">
-        <div class="slider-container animated-up">
-            <div class="slider-content">
-                <h1>Navigating Global Markets & Macro Economic Shifts</h1>
-                <p>Indoinves provides real-time updates, analytical deep-dives, financial intelligence, and structural frameworks for global investors, policymakers, and business leaders.</p>
-                <a href="https://indoinves.github.io/featured" style="background: var(--accent-color); color: white; padding: 10px 20px; border-radius: 4px; font-weight: 600; display: inline-block;">Explore Featured Insights</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Layout Container -->
+    <!-- Main Content & Sidebar Layout -->
     <div class="main-layout">
         
-        <!-- Primary Column: Detailed Articles & News Hub -->
-        <main>
-            <!-- News Update Section (3 Artikel Utama) -->
-            <section class="content-card">
-                <h2 style="margin-bottom: 20px; color: var(--primary-color);">News Update & Global Intelligence</h2>
-                
-                <!-- Artikel 1 (~3000 kata placeholder mendalam dengan komponen lengkap) -->
-                <article>
-                    <header>
-                        <h1 class="article-title">Comprehensive Analysis of Global Macroeconomic Dynamics and Financial Markets in 2026</h1>
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">Published by Indoinves Editorial Team | Updated: September 2026</p>
-                    </header>
-
-                    <!-- Table of Contents -->
-                    <div class="toc-box">
-                        <h4>Table of Contents</h4>
-                        <ul>
-                            <li><a href="#intro">1. Introduction to Modern Global Economic Shifts</a></li>
-                            <li><a href="#monetary">2. Central Bank Monetary Policies and Interest Rate Trajectories</a></li>
-                            <li><a href="#table-section">3. Key Economic Indicators Matrix</a></li>
-                            <li><a href="#supply-chain">4. Global Supply Chain Resilience and Manufacturing Evolution</a></li>
-                            <li><a href="#tech-integration">5. Financial Technology and Digital Assets Integration</a></li>
-                            <li><a href="#faq">6. Frequently Asked Questions (FAQ)</a></li>
-                            <li><a href="#conclusion">7. Conclusion and Future Outlook</a></li>
-                        </ul>
-                    </div>
-
-                    <h2 id="intro" class="article-heading">1. Introduction to Modern Global Economic Shifts</h2>
-                    <p class="article-paragraph">The global economic architecture is currently undergoing a profound transformation driven by geopolitical realignments, technological innovations, and evolving monetary frameworks. As financial institutions adapt to multi-polar realities, understanding structural economic patterns becomes critical for long-term capital preservation. Analysts at <a href="https://indoinves.github.io/macro-economy" style="color: var(--accent-color);">Indoinves Macro Economy</a> observe that cross-border capital flows are increasingly sensitive to regional regulatory divergence.</p>
-                    <p class="article-paragraph">Furthermore, modern investors must evaluate traditional asset classes through the lens of heightened volatility. According to recent studies published by the <a href="https://www.imf.org" target="_blank" rel="nofollow">International Monetary Fund</a>, resilient economies are those successfully diversifying industrial output while maintaining disciplined fiscal policies. This comprehensive analysis evaluates core indicators governing global growth matrices in 2026.</p>
-
-                    <h2 id="monetary" class="article-heading">2. Central Bank Monetary Policies and Interest Rate Trajectories</h2>
-                    <p class="article-paragraph">Monetary authorities across major economies—including the Federal Reserve, European Central Bank, and regional Asian central banks—continue to balance inflationary control against sustainable employment targets. The normalization cycle has prompted corporate entities to re-evaluate debt structures and liquidity management strategies.</p>
-                    <p class="article-paragraph">For detailed insights into interest rate forecasts, refer to our comprehensive report on <a href="https://indoinves.github.io/market-finance" style="color: var(--accent-color);">Market & Finance Intelligence</a>. Financial portfolios must adapt dynamically to shifting yield curves and foreign exchange fluctuations.</p>
-
-                    <h3 class="article-subheading">Evaluating Corporate Debt Resilience</h3>
-                    <p class="article-paragraph">Corporate balance sheets facing high refinancing costs must prioritize cash flow efficiency over aggressive expansion. External benchmarks provided by the <a href="https://www.worldbank.org" target="_blank" rel="nofollow">World Bank Reports</a> emphasize structural agility as a prime determinant of market longevity.</p>
-
-                    <h2 id="table-section" class="article-heading">3. Key Economic Indicators Matrix</h2>
-                    <p class="article-paragraph">The following matrix summarizes key macroeconomic indicators across primary economic regions for Q3 2026:</p>
-                    
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Region</th>
-                                <th>GDP Growth (YoY)</th>
-                                <th>Inflation Rate</th>
-                                <th>Policy Interest Rate</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>United States</td>
-                                <td>2.4%</td>
-                                <td>2.2%</td>
-                                <td>4.50%</td>
-                            </tr>
-                            <tr>
-                                <td>Eurozone</td>
-                                <td>1.3%</td>
-                                <td>2.0%</td>
-                                <td>3.25%</td>
-                            </tr>
-                            <tr>
-                                <td>Southeast Asia</td>
-                                <td>5.1%</td>
-                                <td>2.8%</td>
-                                <td>5.75%</td>
-                            </tr>
-                            <tr>
-                                <td>Global Average</td>
-                                <td>3.0%</td>
-                                <td>2.5%</td>
-                                <td>4.10%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h2 id="supply-chain" class="article-heading">4. Global Supply Chain Resilience and Manufacturing Evolution</h2>
-                    <p class="article-paragraph">Manufacturing sectors worldwide are transitioning toward near-shoring and automated production ecosystems. Industrial automation reduces operational bottlenecks and insulates enterprises against external logistical shocks. Explore related developments via <a href="https://indoinves.github.io/manufacturing" style="color: var(--accent-color);">Indoinves Manufacturing Desk</a>.</p>
-                    <p class="article-paragraph">Additional industry data can be cross-verified through resources like <a href="https://www.reuters.com" target="_blank" rel="nofollow">Reuters Business News</a> and specialized analyses from <a href="https://www.bloomberg.com" target="_blank" rel="nofollow">Bloomberg Markets</a>.</p>
-
-                    <h2 id="tech-integration" class="article-heading">5. Financial Technology and Digital Assets Integration</h2>
-                    <p class="article-paragraph">The convergence of traditional finance and distributed ledger technology has created new compliance paradigms. Institutions are adopting tokenized securities and real-time cross-border settlement rails. Read our dedicated report on <a href="https://indoinves.github.io/tech-media" style="color: var(--accent-color);">Tech & Media Innovations</a> for further technical breakdown.</p>
-
-                    <h2 id="faq" class="article-heading">6. Frequently Asked Questions (FAQ)</h2>
-                    <div style="margin-bottom: 15px;">
-                        <strong>Q1: What are the primary drivers of macroeconomic shifts in 2026?</strong>
-                        <p>A1: Technological adoption, monetary policy divergence, and regional supply chain restructuring are the core drivers.</p>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <strong>Q2: How do central bank interest rates impact equity markets?</strong>
-                        <p>A2: Higher rates increase corporate borrowing costs, which can compress valuation multiples, whereas lowering rates typically stimulates liquidity.</p>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <strong>Q3: Where can I find reliable international financial statistics?</strong>
-                        <p>A3: Verified institutional data can be accessed via platforms such as the IMF, World Bank, and Indoinves Market databases.</p>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <strong>Q4: Why is supply chain near-shoring trending among manufacturers?</strong>
-                        <p>A4: Near-shoring minimizes transit vulnerability and enhances operational responsiveness to regional consumer demands.</p>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <strong>Q5: What role does fintech play in modern banking?</strong>
-                        <p>A5: Fintech accelerates transaction processing, enhances security through AI fraud detection, and democratizes access to financial tools.</p>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <strong>Q6: How does inflation affect consumer purchasing power?</strong>
-                        <p>A6: High inflation erodes real income value, requiring individuals and businesses to seek inflation-hedged investment vehicles.</p>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <strong>Q7: How can investors access Indoinves daily research updates?</strong>
-                        <p>A7: Subscribers can follow our daily publications directly on the Indoinves official website or via our newsletter subscription form.</p>
-                    </div>
-
-                    <h2 id="conclusion" class="article-heading">7. Conclusion and Future Outlook</h2>
-                    <p class="article-paragraph">In conclusion, navigating the current economic environment requires vigilance, diversification, and adherence to data-driven strategies. As markets adjust to structural transformations, Indoinves remains committed to delivering rigorous, timely, and actionable insights. For further exploration, visit our archives at <a href="https://indoinves.github.io/" style="color: var(--accent-color);">Indoinves Portal</a>.</p>
-                </article>
-            </section>
-
-            <!-- Artikel 2 & 3 News Update -->
-            <section class="content-card">
-                <h2 style="margin-bottom: 15px; color: var(--primary-color);">More News Updates</h2>
-                <div style="display: grid; gap: 20px;">
-                    <div>
-                        <h3 style="font-size: 18px; margin-bottom: 8px;"><a href="https://indoinves.github.io/news-tech-breakthrough" style="color: var(--primary-color);">AI Integration in Global Banking: Regulatory Compliance and Efficiency</a></h3>
-                        <p style="font-size: 14px; color: var(--text-color);">Banks across Europe and North America are accelerating AI deployment while adhering strictly to emerging regulatory frameworks established by policy bodies.</p>
-                    </div>
-                    <hr style="border: 0; border-top: 1px solid var(--border-color);">
-                    <div>
-                        <h3 style="font-size: 18px; margin-bottom: 8px;"><a href="https://indoinves.github.io/news-renewable-energy" style="color: var(--primary-color);">Renewable Energy Financing Surges Across Southeast Asian Markets</a></h3>
-                        <p style="font-size: 14px; color: var(--text-color);">Green bonds and sustainable infrastructure investments in ASEAN nations have reached unprecedented milestones in Q3 2026.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Galeri Video (5 post video) -->
-            <section class="content-card">
-                <h2 style="margin-bottom: 15px; color: var(--primary-color);">Gallery Video</h2>
-                <div class="grid-container">
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80" alt="Video 1">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/video-market-outlook">Global Market Outlook 2026 Briefing</a></h4>
-                        </div>
-                    </div>
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Video 2">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/video-central-bank">Central Bank Policy Discussion</a></h4>
-                        </div>
-                    </div>
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="Video 3">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/video-real-estate">Real Estate & REIT Trends</a></h4>
-                        </div>
-                    </div>
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80" alt="Video 4">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/video-fintech-revolution">Fintech Innovations Explained</a></h4>
-                        </div>
-                    </div>
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Video 5">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/video-leadership-summit">Global Leadership Summit Review</a></h4>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Galeri Images (5 post images) -->
-            <section class="content-card">
-                <h2 style="margin-bottom: 15px; color: var(--primary-color);">Gallery Images</h2>
-                <div class="grid-container">
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Image 1">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/img-financial-district">Financial District Skyline</a></h4>
-                        </div>
-                    </div>
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80" alt="Image 2">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/img-stock-trading">Stock Trading Floor Analytics</a></h4>
-                        </div>
-                    </div>
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Image 3">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/img-corporate-boardroom">Corporate Executive Meeting</a></h4>
-                        </div>
-                    </div>
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Image 4">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/img-tech-hub">High-Tech Innovation Hub</a></h4>
-                        </div>
-                    </div>
-                    <div class="card-item">
-                        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80" alt="Image 5">
-                        <div class="card-body">
-                            <h4><a href="https://indoinves.github.io/img-modern-port">Global Port & Logistics</a></h4>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Sidebar Column -->
-        <aside>
-            <!-- Related News (5 Artikel) -->
-            <div class="sidebar-widget">
-                <h3>Related News</h3>
-                <div class="post-list-item">
-                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=150&q=80" alt="Rel 1">
-                    <a href="https://indoinves.github.io/rel-1">Digital Currencies and Sovereign Monetary Policy Frameworks</a>
-                </div>
-                <div class="post-list-item">
-                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=150&q=80" alt="Rel 2">
-                    <a href="https://indoinves.github.io/rel-2">Venture Capital Trends in Emerging Southeast Asian Tech Startups</a>
-                </div>
-                <div class="post-list-item">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=150&q=80" alt="Rel 3">
-                    <a href="https://indoinves.github.io/rel-3">Commercial Real Estate Resilience Post-Interest Rate Peak</a>
-                </div>
-                <div class="post-list-item">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=150&q=80" alt="Rel 4">
-                    <a href="https://indoinves.github.io/rel-4">ESG Investing Standards and Global Corporate Transparency</a>
-                </div>
-                <div class="post-list-item">
-                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=150&q=80" alt="Rel 5">
-                    <a href="https://indoinves.github.io/rel-5">Energy Transition Strategies for Heavy Manufacturing Industries</a>
-                </div>
-            </div>
-
-            <!-- Most Popular (5 Artikel) -->
-            <div class="sidebar-widget">
-                <h3>Most Popular</h3>
-                <div class="post-list-item">
-                    <span style="font-weight: bold; font-size: 16px; color: var(--accent-color); width: 20px;">1</span>
-                    <a href="https://indoinves.github.io/pop-1">Top 10 Investment Portfolios for Wealth Preservation in 2026</a>
-                </div>
-                <div class="post-list-item">
-                    <span style="font-weight: bold; font-size: 16px; color: var(--accent-color); width: 20px;">2</span>
-                    <a href="https://indoinves.github.io/pop-2">Understanding Inflation Hedging Through Real Assets and Commodities</a>
-                </div>
-                <div class="post-list-item">
-                    <span style="font-weight: bold; font-size: 16px; color: var(--accent-color); width: 20px;">3</span>
-                    <a href="https://indoinves.github.io/pop-3">The Rise of Autonomous Supply Chains in Modern Logistics</a>
-                </div>
-                <div class="post-list-item">
-                    <span style="font-weight: bold; font-size: 16px; color: var(--accent-color); width: 20px;">4</span>
-                    <a href="https://indoinves.github.io/pop-4">Geopolitical Risk Analysis for Multinational Corporations</a>
-                </div>
-                <div class="post-list-item">
-                    <span style="font-weight: bold; font-size: 16px; color: var(--accent-color); width: 20px;">5</span>
-                    <a href="https://indoinves.github.io/pop-5">Cryptocurrency Regulation Updates Across United States and Europe</a>
-                </div>
-            </div>
-
-            <!-- Special Topics (7 Post) -->
-            <div class="sidebar-widget">
-                <h3>Special Topics</h3>
-                <ul style="list-style: none; font-size: 13px;">
-                    <li style="margin-bottom: 8px;"><a href="https://indoinves.github.io/topic-ai-finance" style="color: var(--primary-color);">• Artificial Intelligence in Quantitative Finance</a></li>
-                    <li style="margin-bottom: 8px;"><a href="https://indoinves.github.io/topic-green-bonds" style="color: var(--primary-color);">• Global Green Bond Issuance Records</a></li>
-                    <li style="margin-bottom: 8px;"><a href="https://indoinves.github.io/topic-semiconductors" style="color: var(--primary-color);">• Semiconductor Supply Chains & Geopolitics</a></li>
-                    <li style="margin-bottom: 8px;"><a href="https://indoinves.github.io/topic-healthcare-investments" style="color: var(--primary-color);">• Biotech & Healthcare Investment Frontiers</a></li>
-                    <li style="margin-bottom: 8px;"><a href="https://indoinves.github.io/topic-electric-vehicles" style="color: var(--primary-color);">• EV Market Consolidation and Battery Tech</a></li>
-                    <li style="margin-bottom: 8px;"><a href="https://indoinves.github.io/topic-space-economy" style="color: var(--primary-color);">• The Emerging Commercial Space Economy</a></li>
-                    <li style="margin-bottom: 8px;"><a href="https://indoinves.github.io/topic-cybersecurity" style="color: var(--primary-color);">• Corporate Cybersecurity and Risk Mitigation</a></li>
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <h1>Navigating Global Markets & Macro Economic Shifts</h1>
+            <p class="lead-text">Indoinves provides real-time updates, analytical deep-dives, financial intelligence, and structural business insights to a worldwide audience seeking authoritative coverage.</p>
+            
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#pengantar">1. Pengantar Dinamika Pasar Global</a></li>
+                    <li><a href="#analisis">2. Analisis Kebijakan Moneter & Suku Bunga</a></li>
+                    <li><a href="#transformasi">3. Transformasi Teknologi Finansial</a></li>
+                    <li><a href="#faq">4. Pertanyaan yang Sering Diajukan (FAQ)</a></li>
+                    <li><a href="#kesimpulan">5. Kesimpulan</a></li>
                 </ul>
             </div>
 
-            <!-- Most Popular Tags -->
-            <div class="sidebar-widget">
+            <h2 id="pengantar">1. Pengantar Dinamika Pasar Global</h2>
+            <p>Pasar keuangan internasional saat ini menghadapi berbagai tantangan kompleks mulai dari fluktuasi inflasi hingga pergeseran geopolitik. Untuk memahami tren terkini, Anda dapat merujuk pada laporan mendalam dari <a href="https://www.reuters.com" target="_blank" rel="noopener">Reuters Financial News</a> dan analisis komprehensif oleh <a href="https://www.bloomberg.com" target="_blank" rel="noopener">Bloomberg Markets</a>.</p>
+            
+            <h3>1.1 Faktor Pendorong Utama Ekonomi Makro</h3>
+            <p>Kebijakan fiskal pemerintah di berbagai negara berkembang maupun maju memegang peranan vital. Kunjungi panduan resmi dari <a href="https://www.imf.org" target="_blank" rel="noopener">International Monetary Fund (IMF)</a> dan data statistik global di <a href="https://www.worldbank.org" target="_blank" rel="noopener">World Bank Open Data</a> untuk data yang valid.</p>
+            
+            <h2 id="analisis">2. Analisis Kebijakan Moneter & Suku Bunga</h2>
+            <p>Bank sentral global terus menyesuaikan suku bunga acuan guna meredam tekanan harga komoditas energi.</p>
+            
+            <h4>2.1 Pengaruh Terhadap Pasar Saham Domestik</h4>
+            <p>Koreksi pasar sering kali terjadi ketika likuiditas global mengalami pengetatan yang masif.</p>
+            
+            <h5>2.1.1 Strategi Alokasi Aset Portofolio</h5>
+            <p>Investor disarankan untuk mendiversifikasikan portofolio ke instrumen defensif.</p>
+            
+            <h6>2.1.1.1 Instrumen Pendapatan Tetap</h6>
+            <p>Obligasi pemerintah jangka pendek menawarkan imbal hasil menarik di tengah ketidakpastian.</p>
+            
+            <h2 id="transformasi">3. Transformasi Teknologi Finansial</h2>
+            <p>Adopsi kecerdasan buatan (AI) dan blockchain telah mengubah cara lembaga keuangan beroperasi. Pelajari standar keamanan digital dari <a href="https://www.iso.org" target="_blank" rel="noopener">ISO Standards</a> serta tren inovasi teknologi melalui <a href="https://techcrunch.com" target="_blank" rel="noopener">TechCrunch</a> dan <a href="https://www.wired.com" target="_blank" rel="noopener">Wired Magazine</a>.</p>
+
+            <!-- Internal Links Section (7 Links embedded/listed for SEO equity) -->
+            <h3 style="margin-top: 30px;">Eksplorasi Topik Terkait di Indoinves:</h3>
+            <ul style="margin-bottom: 25px; padding-left: 20px;">
+                <li><a href="https://indoinves.github.io/tools/banklocator.html">Peta & Direktori Bank Global</a></li>
+                <li><a href="https://indoinves.github.io/tools/investasi.html">Kalkulator Investasi Finansial</a></li>
+                <li><a href="https://indoinves.github.io/tools/saham.html">Analisis Pasar Saham Harian</a></li>
+                <li><a href="https://indoinves.github.io/tools/simulatorkripto-pro.html">Simulator Kripto Versi Pro</a></li>
+                <li><a href="https://indoinves.github.io/tools/simulatorsaham.html">Simulator Trading Saham Pemula</a></li>
+                <li><a href="https://indoinves.github.io/tools/website.html">Website & SEO Checker Tools</a></li>
+                <li><a href="https://indoinves.github.io/editorial">Pedoman & Kebijakan Editorial Indoinves</a></li>
+            </ul>
+
+            <h2 id="faq">4. Pertanyaan yang Sering Diajukan (FAQ)</h2>
+            <div class="faq-box">
+                <h4>Apa itu Indoinves?</h4>
+                <p>Indoinves adalah publikasi digital otoritatif yang menyajikan berita bisnis, analisis makroekonomi, dan intelijen pasar keuangan global.</p>
+            </div>
+            <div class="faq-box">
+                <h4>Bagaimana cara menggunakan tools gratis di Indoinves?</h4>
+                <p>Anda dapat mengakses berbagai kalkulator finansial, simulator saham, dan direktori bank secara gratis langsung melalui menu navigasi atau bagian footer website.</p>
+            </div>
+            <div class="faq-box">
+                <h4>Apakah informasi di Indoinves dapat dijadikan acuan investasi?</h4>
+                <p>Informasi yang disajikan bersifat edukatif dan analitis. Keputusan investasi tetap berada di tangan pembaca dengan mempertimbangkan profil risiko masing-masing.</p>
+            </div>
+
+            <h2 id="kesimpulan">5. Kesimpulan</h2>
+            <p>Menavigasi pasar global dan pergeseran makroekonomi membutuhkan akses informasi yang cepat, akurat, dan terpercaya. Indoinves berkomitmen untuk terus menyajikan data dan analisis berkualitas tinggi guna mendukung keputusan finansial pembaca di seluruh dunia.</p>
+        </main>
+
+        <!-- Sidebar Widgets -->
+        <aside class="sidebar">
+            <div class="widget">
+                <h3>Gallery Video</h3>
+                <div style="background:#000; color:#fff; height:140px; display:flex; align-items:center; justify-content:center; border-radius:4px; font-weight:bold;">Video Player Preview</div>
+            </div>
+
+            <div class="widget">
+                <h3>Gallery Image</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">Img 1</div>
+                    <div class="gallery-item">Img 2</div>
+                    <div class="gallery-item">Img 3</div>
+                    <div class="gallery-item">Img 4</div>
+                    <div class="gallery-item">Img 5</div>
+                    <div class="gallery-item">Img 6</div>
+                    <div class="gallery-item">Img 7</div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Related News</h3>
+                <ul>
+                    <li><a href="#">Global Inflation Rates Stabilize in Q3</a></li>
+                    <li><a href="#">Central Banks Signal Shift in Monetary Policy</a></li>
+                    <li><a href="#">Tech Stocks Rally Amid AI Infrastructure Boom</a></li>
+                    <li><a href="#">Real Estate Market Trends in Metropolitan Cities</a></li>
+                    <li><a href="#">Green Energy Investments Surpass Fossil Fuels</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
+                <h3>Most Popular</h3>
+                <ul>
+                    <li><a href="#">1. Top 10 Stocks to Watch This Month</a></li>
+                    <li><a href="#">2. Understanding Cryptocurrency Regulation 2026</a></li>
+                    <li><a href="#">3. Macro Economic Outlook for Emerging Markets</a></li>
+                    <li><a href="#">4. How to Build a Resilient Investment Portfolio</a></li>
+                    <li><a href="#">5. The Rise of Decentralized Finance (DeFi)</a></li>
+                    <li><a href="#">6. Global Supply Chain Adjustments Explained</a></li>
+                    <li><a href="#">7. Wealth Management Strategies for High Earners</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
+                <h3>Special Topics</h3>
+                <ul>
+                    <li><a href="#">Global Trade Agreements & Tariffs</a></li>
+                    <li><a href="#">Digital Currency Integration</a></li>
+                    <li><a href="#">Sustainable Business Practices</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
                 <h3>Most Popular Tags</h3>
-                <div class="tag-cloud">
-                    <a href="https://indoinves.github.io/tag-economy">Economy</a>
-                    <a href="https://indoinves.github.io/tag-finance">Finance</a>
-                    <a href="https://indoinves.github.io/tag-markets">Markets</a>
-                    <a href="https://indoinves.github.io/tag-stocks">Stocks</a>
-                    <a href="https://indoinves.github.io/tag-crypto">Crypto</a>
-                    <a href="https://indoinves.github.io/tag-tech">Tech</a>
-                    <a href="https://indoinves.github.io/tag-policy">Policy</a>
-                    <a href="https://indoinves.github.io/tag-realestate">Real Estate</a>
-                    <a href="https://indoinves.github.io/tag-inflation">Inflation</a>
-                    <a href="https://indoinves.github.io/tag-banking">Banking</a>
-                </div>
+                <p style="font-size: 13px; color: #555;">
+                    <span style="background:#eee; padding:3px 8px; border-radius:3px; display:inline-block; margin:3px;">#Economy</span>
+                    <span style="background:#eee; padding:3px 8px; border-radius:3px; display:inline-block; margin:3px;">#Stocks</span>
+                    <span style="background:#eee; padding:3px 8px; border-radius:3px; display:inline-block; margin:3px;">#Crypto</span>
+                    <span style="background:#eee; padding:3px 8px; border-radius:3px; display:inline-block; margin:3px;">#Banking</span>
+                    <span style="background:#eee; padding:3px 8px; border-radius:3px; display:inline-block; margin:3px;">#Tech</span>
+                </p>
             </div>
 
-            <!-- Latest News (5 Artikel) -->
-            <div class="sidebar-widget">
+            <div class="widget">
                 <h3>Latest News</h3>
-                <div class="post-list-item"><a href="https://indoinves.github.io/latest-1">Global Equity Markets Open Higher Amid Optimistic Earnings Reports</a></div>
-                <div class="post-list-item"><a href="https://indoinves.github.io/latest-2">European Central Bank Signals Steady Rates for Upcoming Quarter</a></div>
-                <div class="post-list-item"><a href="https://indoinves.github.io/latest-3">Tech Giants Announce Joint Standards for Cloud Infrastructure Security</a></div>
-                <div class="post-list-item"><a href="https://indoinves.github.io/latest-4">Southeast Asian Trade Pact Expands Digital Economy Provisions</a></div>
-                <div class="post-list-item"><a href="https://indoinves.github.io/latest-5">Commodity Prices Stabilize Following Supply Chain Adjustments</a></div>
-            </div>
-   <div class="container">
-        <header>
-            <img src="https://indoinves.github.io/img/indoinves.png" alt="IndoInves Logo">
-            <h1>Direktori & Peta Aset IndoInves</h1>
-            <p class="subtitle">Daftar lengkap halaman, tools, aset gambar, dan video platform IndoInves</p>
-        </header>
-
-        <!-- 1. Halaman Utama Root -->
-        <h2>1. Halaman Utama Root</h2>
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Judul / Tautan</th>
-                        <th>Deskripsi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><a href="https://indoinves.github.io/" target="_blank">index.html</a></td><td>Halaman utama (homepage) platform IndoInves.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/about.html" target="_blank">about.html</a></td><td>Informasi profil, visi, dan misi platform IndoInves.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/advertise.html" target="_blank">advertise.html</a></td><td>Halaman informasi pemasangan iklan dan kerja sama bisnis.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/contact.html" target="_blank">contact.html</a></td><td>Halaman kontak untuk menghubungi pengelola atau tim support.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/disclaimer.html" target="_blank">disclaimer.html</a></td><td>Penafian hukum terkait layanan finansial dan informasi situs.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/editorial.html" target="_blank">editorial.html</a></td><td>Kebijakan editorial dan standar penulisan artikel platform.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/forum.html" target="_blank">forum.html</a></td><td>Ruang diskusi publik bagi para pengguna dan investor.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/join.html" target="_blank">join.html</a></td><td>Halaman pendaftaran atau bergabung dengan komunitas/tim.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/komunitas.html" target="_blank">komunitas.html</a></td><td>Informasi tautan dan aktivitas komunitas resmi IndoInves.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/license.html" target="_blank">license.html</a></td><td>Halaman rincian lisensi penggunaan kode dan konten situs.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/privacy.html" target="_blank">privacy.html</a></td><td>Kebijakan privasi perlindungan data pengguna.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/sitemap.html" target="_blank">sitemap.html</a></td><td>Peta situs HTML untuk navigasi dan kemudahan akses pengunjung.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/terms.html" target="_blank">terms.html</a></td><td>Syarat dan ketentuan penggunaan layanan website.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/404.html" target="_blank">404.html</a></td><td>Halaman kustom penanganan error ketika tautan tidak ditemukan.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/ads.txt" target="_blank">ads.txt</a></td><td>File otorisasi iklan digital untuk monetisasi situs.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/app-ads.txt" target="_blank">app-ads.txt</a></td><td>File otorisasi iklan untuk aplikasi seluler.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/manifest.json" target="_blank">manifest.json</a></td><td>Berkas konfigurasi PWA (Progressive Web App).</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/README.md" target="_blank">README.md</a></td><td>Dokumentasi utama repositori proyek.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/LICENSE" target="_blank">LICENSE</a></td><td>File lisensi open-source proyek (MIT License).</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/google19155cf09fd293f3.html" target="_blank">google19155cf09fd293f3.html</a></td><td>File verifikasi kepemilikan domain Google Search Console.</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- 2. Direktori Tools -->
-        <h2>2. Direktori Tools</h2>
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Judul / Tautan</th>
-                        <th>Deskripsi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><a href="https://indoinves.github.io/tools/banklocator.html" target="_blank">banklocator.html</a></td><td>Alat pencari lokasi kantor bank terdekat.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/tools/contentblog.html" target="_blank">contentblog.html</a></td><td>Pusat blog edukasi, artikel keuangan, dan investasi.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/tools/investasi.html" target="_blank">investasi.html</a></td><td>Kalkulator penghitung proyeksi pertumbuhan investasi.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/tools/saham.html" target="_blank">saham.html</a></td><td>Halaman khusus analisis, informasi, dan data emiten saham.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/tools/simulatorkripto-pro.html" target="_blank">simulatorkripto-pro.html</a></td><td>Versi lanjutan simulator trading dan analisis aset kripto.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/tools/simulatorkripto.html" target="_blank">simulatorkripto.html</a></td><td>Simulator pasar dan transaksi aset kripto interaktif.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/tools/simulatorsaham.html" target="_blank">simulatorsaham.html</a></td><td>Simulator transaksi dan portofolio saham virtual.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/tools/website.html" target="_blank">website.html</a></td><td>Kumpulan perangkat utilitas pengembangan web.</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- 3. Direktori Gambar / Aset -->
-        <h2>3. Direktori Gambar / Aset</h2>
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Judul / Tautan</th>
-                        <th>Deskripsi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><a href="https://indoinves.github.io/img/indoinves.png" target="_blank">indoinves.png</a></td><td>Logo utama platform dalam format PNG transparan.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/indoinves.jpg" target="_blank">indoinves.jpg</a></td><td>Logo/Banner alternatif format JPG.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/0.png" target="_blank">0.png</a></td><td>Aset grafis ikonik nomor nol / placeholder.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/3d.jpeg" target="_blank">3d.jpeg</a></td><td>Ilustrasi desain grafis objek 3D.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/Angular-18.png" target="_blank">Angular-18.png</a></td><td>Logo atau ilustrasi teknologi Angular 18.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/Ilmu-Pengetahuan.jpg" target="_blank">Ilmu-Pengetahuan.jpg</a></td><td>Gambar ilustrasi bertema pendidikan dan ilmu pengetahuan.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/ai.jpeg" target="_blank">ai.jpeg</a></td><td>Ilustrasi grafis kecerdasan buatan (Artificial Intelligence).</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/calendar.jpeg" target="_blank">calendar.jpeg</a></td><td>Gambar ilustrasi kalender / penjadwalan.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/how-to-choose-the-right-web-programming-language-for-your-custom-website-development-project.jpeg" target="_blank">how-to-choose...jpeg</a></td><td>Banner artikel panduan pemilihan bahasa pemrograman web.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/images (11).jpeg" target="_blank">images (11).jpeg</a></td><td>Aset gambar pendukung konten galeri.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/images (14).jpeg" target="_blank">images (14).jpeg</a></td><td>Aset gambar pendukung konten galeri kedua.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/ip.png" target="_blank">ip.png</a></td><td>Gambar ilustrasi jaringan/IP Address.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/karya akademik.jpeg" target="_blank">karya akademik.jpeg</a></td><td>Ilustrasi visual bertema karya tulis akademik/ilmiah.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/maps.jpeg" target="_blank">maps.jpeg</a></td><td>Gambar ilustrasi peta lokasi / navigasi geografis.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/sang penulis.png" target="_blank">sang penulis.png</a></td><td>Gambar profil ilustrasi penulis/author artikel.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/search.png" target="_blank">search.png</a></td><td>Ikon pencarian (search) situs.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/speederman.png" target="_blank">speederman.png</a></td><td>Aset ilustrasi karakter grafis tambahan.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/tts.png" target="_blank">tts.png</a></td><td>Ikon fitur Text-to-Speech atau teka-teki silang.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/voice.png" target="_blank">voice.png</a></td><td>Ikon kontrol suara / voice assistant.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/img/wa.png" target="_blank">wa.png</a></td><td>Ikon tombol pintasan WhatsApp.</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- 4. Direktori Video -->
-        <h2>4. Direktori Video</h2>
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Judul / Tautan</th>
-                        <th>Deskripsi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><a href="https://indoinves.github.io/vidio/borobudur.mp4" target="_blank">borobudur.mp4</a></td><td>Video latar/pendukung pemandangan Candi Borobudur.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/bunga.mp4" target="_blank">bunga.mp4</a></td><td>Video sinematik keindahan bunga.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/dubai.mp4" target="_blank">dubai.mp4</a></td><td>Video pemandangan kota dan arsitektur Dubai.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/indah.mp4" target="_blank">indah.mp4</a></td><td>Video pemandangan alam estetik dan menenangkan.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/istambul.mp4" target="_blank">istambul.mp4</a></td><td>Video keindahan lanskap kota Istanbul.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/italia.mp4" target="_blank">italia.mp4</a></td><td>Video pemandangan kota/alam khas Italia.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/loncat.mp4" target="_blank">loncat.mp4</a></td><td>Video aksi melompat atau animasi dinamis.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/london.mp4" target="_blank">london.mp4</a></td><td>Video pemandangan kota London.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/madinah.mp4" target="_blank">madinah.mp4</a></td><td>Video lanskap kota suci Madinah.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/masjidqatar.mp4" target="_blank">masjidqatar.mp4</a></td><td>Video kemegahan arsitektur masjid di Qatar.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/perahu.mp4" target="_blank">perahu.mp4</a></td><td>Video perahu di perairan / laut.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/pesawat.mp4" target="_blank">pesawat.mp4</a></td><td>Video penerbangan pesawat terbang.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/qatar.mp4" target="_blank">qatar.mp4</a></td><td>Video dokumentasi suasana negara Qatar.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/qatarcity.mp4" target="_blank">qatarcity.mp4</a></td><td>Video tata kota modern Qatar City.</td></tr>
-                    <tr><td><a href="https://indoinves.github.io/vidio/swiss.mp4" target="_blank">swiss.mp4</a></td><td>Video pemandangan pegunungan Alpen Swiss.</td></tr>
-                </tbody>
-            </table>
-        </div>
-            <!-- Media Sosial Share & Newsletter Subscribe -->
-            <div class="sidebar-widget">
-                <h3>Connect & Subscribe</h3>
-                <p style="font-size: 13px; margin-bottom: 12px;">Share Indoinves or join our daily briefing newsletter.</p>
-                <div style="margin-bottom: 15px; display: flex; gap: 8px;">
-                    <a href="https://facebook.com/indoinves" target="_blank" style="background: #3b5998; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px;">Facebook</a>
-                    <a href="https://twitter.com/indoinves" target="_blank" style="background: #1da1f2; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px;">Twitter</a>
-                    <a href="https://linkedin.com/company/indoinves" target="_blank" style="background: #0077b5; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px;">LinkedIn</a>
-                </div>
-                <form action="https://indoinves.github.io/subscribe" method="POST">
-                    <div class="form-group">
-                        <input type="email" placeholder="Enter your email address" required />
-                    </div>
-                    <button type="submit" class="btn-submit" style="width: 100%;">Subscribe</button>
-                </form>
-            </div>
-
-            <!-- Contact Form Widget -->
-            <div class="sidebar-widget">
-                <h3>Contact Form</h3>
-                <form action="https://indoinves.github.io/contact" method="POST">
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required />
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required />
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="3" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit" style="width: 100%;">Send Message</button>
-                </form>
+                <ul>
+                    <li><a href="#">New Tech Startup Funding Reaches Record High</a></li>
+                    <li><a href="#">European Markets Open Higher on Positive Trade Data</a></li>
+                    <li><a href="#">Asian Economies Show Resilience Amid Global Headwinds</a></li>
+                </ul>
             </div>
         </aside>
     </div>
 
-    <!-- Cookie Consent (English) -->
+    <!-- Cookie Consent -->
     <div id="cookie-banner">
         <span>We use cookies to enhance your user experience, analyze traffic, and serve personalized ads in accordance with our Privacy Policy.</span>
         <button onclick="document.getElementById('cookie-banner').style.display='none'">Accept Cookies</button>
     </div>
-
+    
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -1025,17 +380,33 @@
                 <p>Indoinves is an authoritative digital publication delivering high-impact news, macroeconomic analysis, financial market intelligence, and structural business insights to a worldwide readership.</p>
             </div>
 
-            <h4>Tools Free Indoinves</h4>
-<ul>
-    <li><a href="https://indoinves.github.io/tools/banklocator.html">Tools Peta & Direktori Bank Global</a></li>
-    <li><a href="https://indoinves.github.io/tools/contentblog.html">Tools Konten Blog</a></li>
-    <li><a href="https://indoinves.github.io/tools/investasi.html">Tools Kalkulator Investasi</a></li>
-    <li><a href="https://indoinves.github.io/tools/saham.html">Tools Saham</a></li>
-    <li><a href="https://indoinves.github.io/tools/simulatorkripto-pro.html">Tools Simulator Kripto Pro</a></li>
-    <li><a href="https://indoinves.github.io/tools/simulatorkripto.html">Tools Simulator Kripto</a></li>
-    <li><a href="https://indoinves.github.io/tools/simulatorsaham.html">Tools Simulator Saham</a></li>
-    <li><a href="https://indoinves.github.io/tools/website.html">Tools Website / SEO Checker</a></li>
-</ul>
+            <div class="footer-col">
+                <h4>Tools Free Indoinves</h4>
+                <ul>
+                    <li><a href="https://indoinves.github.io/tools/banklocator.html">Tools Peta & Direktori Bank Global</a></li>
+                    <li><a href="https://indoinves.github.io/tools/contentblog.html">Tools Konten Blog</a></li>
+                    <li><a href="https://indoinves.github.io/tools/investasi.html">Tools Kalkulator Investasi</a></li>
+                    <li><a href="https://indoinves.github.io/tools/saham.html">Tools Saham</a></li>
+                    <li><a href="https://indoinves.github.io/tools/simulatorkripto-pro.html">Tools Simulator Kripto Pro</a></li>
+                    <li><a href="https://indoinves.github.io/tools/simulatorkripto.html">Tools Simulator Kripto</a></li>
+                    <li><a href="https://indoinves.github.io/tools/simulatorsaham.html">Tools Simulator Saham</a></li>
+                    <li><a href="https://indoinves.github.io/tools/website.html">Tools Website / SEO Checker</a></li>
+                </ul>
+                
+                <!-- Unit Iklan Autorelaxed AdSense -->
+                <div style="margin: 25px 0;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-format="autorelaxed"
+                    data-ad-client="ca-pub-8423475960451668"
+                    data-ad-slot="7183276396"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul>
@@ -1046,6 +417,7 @@
                     <li><a href="https://indoinves.github.io/sitemap">Sitemap</a></li>
                 </ul>
             </div>
+
             <div class="footer-col">
                 <h4>Policies & Editorial</h4>
                 <ul>
@@ -1055,6 +427,7 @@
                     <li><a href="https://indoinves.github.io/advertise">Advertise With Us</a></li>
                 </ul>
             </div>
+
             <div class="footer-col">
                 <h4>Community & Careers</h4>
                 <ul>
@@ -1062,6 +435,20 @@
                     <li><a href="https://indoinves.github.io/contact-forum">Contact Forum</a></li>
                     <li><a href="https://indoinves.github.io/community">Komunitas Indoinves</a></li>
                 </ul>
+                
+                <!-- Unit Iklan Banner AdSense -->
+                <div style="margin: 25px 0;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-8423475960451668"
+                    data-ad-slot="6147545291"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
@@ -1069,5 +456,14 @@
         </div>
     </footer>
 
+    <!-- Script untuk Toggle Menu Mobile -->
+    <script>
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const mainNavList = document.getElementById('main-nav-list');
+
+        menuToggleBtn.addEventListener('click', () => {
+            mainNavList.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
