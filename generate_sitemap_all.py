@@ -80,3 +80,14 @@ def generate_sitemap_all():
 
 if __name__ == "__main__":
     generate_sitemap_all()
+
+    # Tambahkan baris ini di dalam fungsi utama generate_sitemap_all.py Anda
+robots_content = """User-agent: *
+Allow: /
+
+Sitemap: https://indoinves.github.io/sitemap.xml
+"""
+
+with open("robots.txt", "w", encoding="utf-8") as f:
+    f.write(robots_content)
+print("Berhasil membuat: robots.txt")
