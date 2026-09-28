@@ -1,0 +1,6 @@
+# Izinkan semua mesin pencari merayapi seluruh isi website
+User-agent: *
+Allow: /
+
+# Arahkan mesin pencari secara langsung ke file Sitemap Anda
+Sitemap: https://indoinves.github.io/sitemap.xml
