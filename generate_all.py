@@ -99,7 +99,20 @@ def get_html_template(title, category_name, index):
     <title>{title} - Indoinves Global Intelligence</title>
     <meta name="description" content="Laporan lengkap dan eksklusif lebih dari 60.000 kata mengenai {category_name}, analisis mendalam pasar global, investasi, dan makroekonomi bersama Indoinves." />
     <meta name="keywords" content="Indoinves, {category_name}, Business News, Macro Economy, Market & Finance, Global Report" />
-    
+    <link rel="apple-touch-icon" sizes="180x180" href="/indoinves.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="/indoinves.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="/indoinves.jpg">
+<link rel="apple-touch-icon" sizes="180x180" href="/indoinves.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/indoinves.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/indoinves.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://indoinves.github.io/indoinves.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://indoinves.github.io/indoinves.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://indoinves.github.io/indoinves.jpg">
+<link rel="apple-touch-icon" sizes="180x180" href="https://indoinves.github.io/indoinves.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://indoinves.github.io/indoinves.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://indoinves.github.io/indoinves.png">
+<link rel="manifest" href="/site.webmanifest">
+
     <!-- Google AdSense & Verification Meta Tags -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-8423475960451668">
