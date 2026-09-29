@@ -46,7 +46,20 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <title>{title} - Indoinves</title>
     <meta name="description" content="{description}" />
     <meta name="keywords" content="Indoinves, {category_name}, Business News, Macro Economy, Market & Finance" />
-    
+    <link rel="apple-touch-icon" sizes="180x180" href="/indoinves.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="/indoinves.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="/indoinves.jpg">
+<link rel="apple-touch-icon" sizes="180x180" href="/indoinves.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/indoinves.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/indoinves.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://indoinves.github.io/indoinves.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://indoinves.github.io/indoinves.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://indoinves.github.io/indoinves.jpg">
+<link rel="apple-touch-icon" sizes="180x180" href="https://indoinves.github.io/indoinves.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://indoinves.github.io/indoinves.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://indoinves.github.io/indoinves.png">
+<link rel="manifest" href="/site.webmanifest">
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="{title} - Indoinves" />
     <meta property="og:description" content="{description}" />
