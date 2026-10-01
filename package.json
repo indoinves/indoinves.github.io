@@ -1,11 +1,13 @@
 {
-  "name": "indoinves-platform",
+  "name": "indoinves",
   "version": "1.0.0",
   "description": "Platform Pintar Investasi, Keuangan, dan Kumpulan Tools Finansial Modern",
   "main": "index.html",
   "scripts": {
     "start": "npx http-server . -p 8000",
-    "dev": "npx live-server ."
+    "dev": "npx live-server .",
+    "adsense": "node add-adsense.mjs",
+    "build": "node add-adsense.mjs"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/indoinves/indoinves.github.io/issues"
   },
-  "homepage": "https://indoinves.github.io/#readme",
+  "homepage": "https://indoinves.github.io/",
   "devDependencies": {
     "http-server": "^14.1.1",
     "live-server": "^1.2.2"
