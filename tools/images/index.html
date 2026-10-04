@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Free Image Creator Tools | Indoinves</title>
+    <meta name="description" content="Create stunning AI-generated images, wallpapers, concept art, and illustrations for free using Indoinves AI Image Creator Tools." />
+    <meta name="keywords" content="AI Image Creator, Free AI Generator, Indoinves Tools, Wallpaper AI, Concept Art, Digital Painting" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Indoinves Global Intelligence" />
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://indoinves.github.io/tools/images/index.html" />
+
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/png" href="https://indoinves.github.io/indoinves.png">
+    <link rel="manifest" href="https://indoinves.github.io/manifest.json" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://indoinves.github.io/indoinves.png">
+
+    <!-- Google AdSense & Verification -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8423475960451668" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-8423475960451668">
+    <meta name="google-site-verification" content="U1VAgdRlZJWlLXGlGnsAGbZA1TVBp2DG0c6XzQJNonY" />
+
+    <!-- Schema JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Indoinves AI Image Creator",
+      "url": "https://indoinves.github.io/tools/images/index.html",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "All",
+      "logo": "https://indoinves.github.io/indoinves.png",
+      "description": "Free online AI image generator and photo editing tools by Indoinves."
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --primary: #0056b3;
+            --primary-hover: #004085;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+
+        /* Header */
+        header { background: #111; color: #fff; padding: 12px 0; position: sticky; top: 0; z-index: 1000; }
+        .header-container { width: 95%; max-width: 1400px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-container img { height: 36px; display: block; }
+        .search-box input { padding: 8px 12px; width: 220px; border-radius: 4px; border: none; font-size: 14px; }
+
+        /* Navigation */
+        nav { background: #222; color: #fff; border-bottom: 1px solid #333; }
+        .nav-wrap { width: 95%; max-width: 1400px; margin: auto; display: flex; align-items: center; }
+        .menu-toggle { background: none; border: none; color: #fff; font-size: 16px; padding: 12px 15px; cursor: pointer; display: none; }
+        .nav-container { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; }
+        .nav-container li a { color: #fff; text-decoration: none; padding: 12px 16px; display: block; font-size: 14px; transition: background 0.2s; }
+        .nav-container li a:hover { background: #444; }
+
+        /* Main Workspace Layout */
+        .workspace-container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 25px auto;
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr var(--sidebar-width);
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .workspace-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Panels (Sidebars & Content) */
+        .panel {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .panel h3 {
+            font-size: 16px;
+            color: #111;
+            margin-top: 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .tool-list, .idea-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tool-item, .idea-chip {
+            padding: 10px 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+
+        .tool-item:hover, .idea-chip:hover {
+            background: #edf2f7;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Center Generator Area */
+        .generator-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .generator-box {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+
+        .generator-box h1 {
+            font-size: 24px;
+            margin-top: 0;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        .generator-box p.subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .prompt-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        textarea.prompt-textarea {
+            width: 100%;
+            height: 110px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+        }
+
+        textarea.prompt-textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.1);
+        }
+
+        .generator-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background: var(--primary-hover); }
+        .btn-secondary { background: #e2e8f0; color: #333; }
+        .btn-secondary:hover { background: #cbd5e1; }
+
+        /* Preview / Result Area */
+        .preview-container {
+            background: #0f172a;
+            border-radius: 8px;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            color: #94a3b8;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .preview-container img {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .action-bar {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        /* Categories Filter Tabs */
+        .categories-filter {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .cat-tab {
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cat-tab.active, .cat-tab:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        footer { background: #1a1a1a; color: #fff; padding: 40px 0 20px 0; margin-top: 50px; }
+        .footer-container { width: 95%; max-width: 1400px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
+        .footer-col { flex: 1; min-width: 200px; }
+        .footer-col h4 { color: #fff; margin-bottom: 15px; font-size: 16px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col li { margin-bottom: 8px; }
+        .footer-col a { color: #ccc; text-decoration: none; font-size: 13px; }
+        .footer-col a:hover { color: #fff; }
+        .footer-bottom { text-align: center; border-top: 1px solid #333; margin-top: 30px; padding-top: 15px; font-size: 13px; color: #aaa; }
+
+        /* Notification Toast for Copy Paste */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            z-index: 2000;
+            display: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-container { display: none; width: 100%; flex-direction: column; }
+            .nav-container.active { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="https://indoinves.github.io/">
+                    <img src="https://indoinves.github.io/indoinves.png" alt="Indoinves Logo">
+                </a>
+            </div>
+            <div class="search-box">
+                <form action="https://indoinves.github.io/" method="GET">
+                    <input type="text" placeholder="Search AI tools, news..." />
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-wrap">
+            <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Navigation">☰ Menu</button>
+            <ul class="nav-container" id="main-nav-list">
+                <li><a href="https://indoinves.github.io/">Home</a></li>
+                <li><a href="https://indoinves.github.io/tools/images/index.html">AI Image Creator</a></li>
+                <li><a href="https://indoinves.github.io/blog/market/">Market</a></li>
+                <li><a href="https://indoinves.github.io/blog/finance/">Finance</a></li>
+                <li><a href="https://indoinves.github.io/blog/tech/">Tech</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Workspace -->
+    <div class="workspace-container">
+        
+        <!-- Left Sidebar: Editing Tools -->
+        <aside class="panel">
+            <h3>Editing Tools</h3>
+            <ul class="tool-list">
+                <li><a href="#" class="tool-item" onclick="selectTool('Restore old photo')"><span>Restore Old Photo</span> ⚙️</a></li>
+                <li><a href="#" class="tool-item" onclick="selectTool('Background Remover')"><span>Background Remover</span> ✂️</a></li>
+                <li><a href="#" class="tool-item" onclick="selectTool('Image Retouch')"><span>Image Retouch</span> 🖌️</a></li>
+                <li><a href="#" class="tool-item" onclick="selectTool('Image Expander')"><span>Image Expander</span> 📐</a></li>
+                <li><a href="#" class="tool-item" onclick="selectTool('Image Enhancer')"><span>Image Enhancer</span> 🌟</a></li>
+                <li><a href="#" class="tool-item" onclick="selectTool('Wide Image Generator')"><span>Wide Image</span> 🖼️</a></li>
+            </ul>
+            <div style="margin-top: 25px;">
+                <h3>Get Started</h3>
+                <a href="#" class="tool-item" onclick="loadTemplateSample()"><span>Load Template Prompts</span> 📋</a>
+            </div>
+        </aside>
+
+        <!-- Center Generator Content -->
+        <main class="generator-main">
+            <div class="generator-box">
+                <h1>AI Free Image Creator</h1>
+                <p class="subtitle">Transform your textual descriptions into stunning visual artwork instantly. Powered by Indoinves AI.</p>
+                
+                <div class="prompt-input-group">
+                    <label for="ai-prompt" style="font-size: 14px; font-weight: bold;">Enter your prompt:</label>
+                    <textarea id="ai-prompt" class="prompt-textarea" placeholder="Describe the image you want to create (e.g., A vibrant mandarin duck resting on calm rippling water...)">A vibrant mandarin duck resting on calm rippling water, painted in delicate watercolor style with fine brush textures, soft sunlight filtering through overhanging willow branches, complementary orange and blue palette, high-resolution scan for artistic wallpaper use.</textarea>
+                    
+                    <div class="generator-controls">
+                        <button class="btn-secondary btn" onclick="copyPromptText()">Copy Prompt</button>
+                        <button class="btn" onclick="generateImage()">Generate Image Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Preview Box -->
+            <div class="generator-box" style="padding-top: 15px;">
+                <h3 style="border-bottom: none; margin-bottom: 10px;">Result & Preview</h3>
+                <div class="preview-container" id="preview-box">
+                    <img id="generated-image" src="https://indoinves.github.io/indoinves.jpg" alt="AI Generated Preview">
+                    <span id="preview-text" style="display:none; margin-top: 10px;">Your generated visual masterpiece will appear here.</span>
+                </div>
+                <div class="action-bar">
+                    <button class="btn-secondary btn" onclick="copyImageLink()">Copy Link</button>
+                    <button class="btn" onclick="downloadImage()">Download Image</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar: Explore Ideas & Categories -->
+        <aside class="panel">
+            <h3>Explore Ideas</h3>
+            <div class="categories-filter">
+                <button class="cat-tab active" onclick="filterCat('all')">All</button>
+                <button class="cat-tab" onclick="filterCat('wallpaper')">Wallpaper</button>
+                <button class="cat-tab" onclick="filterCat('3d')">3D & CGI</button>
+                <button class="cat-tab" onclick="filterCat('anime')">Anime</button>
+                <button class="cat-tab" onclick="filterCat('nature')">Nature</button>
+            </div>
+            <ul class="idea-list" id="idea-list-container">
+                <li><a href="#" class="idea-chip" onclick="setPrompt('A vibrant mandarin duck resting on calm rippling water, painted in delicate watercolor style...')">Mandarin Duck Watercolor</a></li>
+                <li><a href="#" class="idea-chip" onclick="setPrompt('Futuristic cyberpunk Tokyo street at night with neon lights and flying vehicles, cinematic 8k resolution.')">Cyberpunk Tokyo Night</a></li>
+                <li><a href="#" class="idea-chip" onclick="setPrompt('Serene alpine mountain lake reflecting snow-capped peaks during golden hour sunrise, photorealistic.')">Alpine Mountain Lake</a></li>
+                <li><a href="#" class="idea-chip" onclick="setPrompt('Cute 3D Pixar style baby dragon sitting on a glowing crystal, soft studio lighting, pastel colors.')">3D Baby Dragon</a></li>
+                <li><a href="#" class="idea-chip" onclick="setPrompt('Ethereal cosmic nebula with swirling galaxies of deep purple and turquoise starlight.')">Cosmic Nebula Space</a></li>
+            </ul>
+        </aside>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Copied to clipboard successfully!</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Indoinves AI Tools</h4>
+                <ul>
+                    <li><a href="https://indoinves.github.io/tools/images/index.html">AI Image Creator</a></li>
+                    <li><a href="#">Background Remover</a></li>
+                    <li><a href="#">Photo Enhancer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="https://indoinves.github.io/blog/market/">Market & Finance</a></li>
+                    <li><a href="https://indoinves.github.io/blog/tech/">Technology</a></li>
+                    <li><a href="https://indoinves.github.io/blog/macro/">Macro Economy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="https://indoinves.github.io/">About Indoinves</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Indoinves Global Intelligence. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactive Handlers -->
+    <script>
+        // Toggle mobile navigation
+        document.getElementById('menu-toggle-btn').addEventListener('click', function() {
+            const navList = document.getElementById('main-nav-list');
+            navList.classList.toggle('active');
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2500);
+        }
+
+        function copyPromptText() {
+            const promptBox = document.getElementById('ai-prompt');
+            navigator.clipboard.writeText(promptBox.value);
+            showToast('Prompt copied to clipboard!');
+        }
+
+        function setPrompt(text) {
+            document.getElementById('ai-prompt').value = text;
+            showToast('Prompt loaded into generator!');
+        }
+
+        function selectTool(toolName) {
+            showToast('Selected Tool: ' + toolName);
+        }
+
+        function generateImage() {
+            showToast('Generating AI Image... Please wait.');
+            setTimeout(() => {
+                showToast('Image generated successfully!');
+            }, 1200);
+        }
+
+        function copyImageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            showToast('Tool link copied to clipboard!');
+        }
+
+        function downloadImage() {
+            showToast('Downloading generated image...');
+        }
+
+        function loadTemplateSample() {
+            document.getElementById('ai-prompt').value = "Masterpiece cinematic landscape of a floating island kingdom with cascading waterfalls and ancient temples, fantasy concept art.";
+            showToast('Template loaded successfully!');
+        }
+
+        function filterCat(category) {
+            document.querySelectorAll('.cat-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            showToast('Filtered category: ' + category);
+        }
+    </script>
+</body>
+</html>
